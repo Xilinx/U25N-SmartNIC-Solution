@@ -1,0 +1,58 @@
+# SPDX-License-Identifier: GPL-2.0-only
+#
+#
+################################################################################
+#
+# Driver for Solarflare and Xilinx network controllers and boards
+# Copyright 2019 Solarflare Communications Inc.
+# Copyright 2019-2020 Xilinx Inc.
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 2 as published
+# by the Free Software Foundation, incorporated herein by reference.
+#
+################################################################################
+
+Solarstorm Linux NET driver source RPM
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Version:  __version__
+
+
+Overview
+~~~~~~~~
+This package is the Linux NET driver source RPM for Solarflare Ethernet
+Network adapters. 
+
+
+Linux distribution support for Solarstorm Adapters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+For a list of supported Solarflare products, please consult the release
+notes and the user guide available from https://support.solarflare.com/.
+
+
+Building and installation
+~~~~~~~~~~~~~~~~~~~~~~~~~
+To build a binary RPM for the running kernel type :
+ rpmbuild --rebuild <package name>
+
+Look for the "Wrote:" line which identifies the binary RPM that was built.
+Then install as a privileged user e.g.
+ rpm -Uvh kmod-sfc.rpm
+
+
+Driver updates
+~~~~~~~~~~~~~~
+The latest version of this driver can always be downloaded from
+  https://support.solarflare.com/
+
+
+Documentation
+~~~~~~~~~~~~~
+Please refer to the "Solarflare Server Adapter User's Guide" (part number
+SF-103837-CD) which is available as a PDF from https://support.solarflare.com/
+
+
+Support
+~~~~~~~
+Please contact your local Solarflare support representative or submit a query
+at mailto://support@solarflare.com

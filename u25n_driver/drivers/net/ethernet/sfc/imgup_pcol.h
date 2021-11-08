@@ -1,0 +1,96 @@
+/****************************************************************************
+ * Image upgrade IOCTLS for Xilinx U25N Accelerator Card.
+ * Copyright 2021 Xilinx Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 as published
+ * by the Free Software Foundation, incorporated herein by reference.
+ */
+#ifndef IMGUP_PCOL_H
+#define IMGUP_PCOL_H
+
+/* IMAGE UPGRADATION PROTOCOL*/
+/* 'Initiate command' for the image upgrade */
+#define MC_CMD_IMAGE_UPGRADE_INIT (0x250)
+
+#define MC_CMD_IMAGE_UPGRADE_INIT_IN_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_INIT_IN_OFST (0)
+
+#define MC_CMD_IMAGE_UPGRADE_INIT_OUT_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_INIT_STATUS_OUT_OFST (0)
+#define MC_CMD_IMAGE_UPGRADE_INIT_STATUS_OUT_LEN (4)
+
+
+/* 'Send data' command for image upgrade */
+#define MC_CMD_IMAGE_UPGRADE_DATA (0x251)
+
+#define MC_CMD_IMAGE_UPGRADE_DATA_IN_LEN (996)
+#define MC_CMD_IMAGE_UPGRADE_DATA_SIZ_IN_OFST (0)
+#define MC_CMD_IMAGE_UPGRADE_DATA_SIZ_IN_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_DATA_BIN_IN_OFST (4)
+#define MC_CMD_IMAGE_UPGRADE_DATA_BIN_IN_LEN (992)
+
+#define MC_CMD_IMAGE_UPGRADE_DATA_OUT_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_DATA_STATUS_OUT_OFST (0)
+#define MC_CMD_IMAGE_UPGRADE_DATA_STATUS_OUT_LEN (4)
+
+
+/* 'Finish command' for image upgrade */
+#define MC_CMD_IMAGE_UPGRADE_FINI (0x252)
+
+#define MC_CMD_IMAGE_UPGRADE_FINI_IN_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_FINI_CRC_IN_OFST (0)
+
+#define MC_CMD_IMAGE_UPGRADE_FINI_OUT_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_FINI_STATUS_OUT_OFST (0)
+#define MC_CMD_IMAGE_UPGRADE_FINI_STATUS_OUT_LEN (4)
+
+
+/* 'Get upgrade status' command for image upgrade */
+#define MC_CMD_IMAGE_UPGRADE_GET_STATUS (0x253)
+
+#define MC_CMD_IMAGE_UPGRADE_GET_STATUS_OUT_LEN (16)
+#define MC_CMD_IMAGE_UPGRADE_GET_STATUS_OVERALL_STATUS_OUT_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_GET_STATUS_OVERALL_STATUS_OUT_OFST (0)
+
+#define MC_CMD_IMAGE_UPGRADE_GET_STATUS_CURR_STATE_OUT_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_GET_STATUS_CURR_STATE_OUT_OFST (4)
+
+#define MC_CMD_IMAGE_UPGRADE_GET_STATUS_CURR_OPERATION_OUT_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_GET_STATUS_CURR_OPERATION_OUT_OFST (8)
+
+#define MC_CMD_IMAGE_UPGRADE_GET_STATUS_BYTES_PERFORMED_OUT_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_GET_STATUS_BYTES_PERFORMED_OUT_OFST (12)
+
+
+/* Query for image bitfile */
+#define MC_CMD_IMAGE_UPGRADE_GET_VERSION (0x254)
+
+#define MC_CMD_IMAGE_UPGRADE_GET_VERSION_OUT_LEN (16)
+#define MC_CMD_IMAGE_UPGRADE_GET_VERSION_STATUS_OUT_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_GET_VERSION_STATUS_OUT_OFST (0)
+
+#define MC_CMD_IMAGE_UPGRADE_GET_VERSION_VALUE_OUT_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_GET_VERSION_VALUE_OUT_OFST (4)
+
+#define MC_CMD_IMAGE_UPGRADE_GET_VERSION_APP_LIST_OUT_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_GET_VERSION_APP_LIST_OUT_OFST (8)
+
+#define MC_CMD_IMAGE_UPGRADE_GET_VERSION_TIME_STAMP_OUT_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_GET_VERSION_TIME_STAMP_OUT_OFST (12)
+
+
+/* To handle the error code of invalid command */
+#define MC_CMD_IMAGE_UPGRADE_INVALID_CMD_RESPONSE_OUT_LEN (4)
+#define MC_CMD_IMAGE_UPGRADE_INVALID_CMD_RESPONSE_OUT_OFST (0)
+
+typedef enum
+{
+        STATE_IMGUP_NOT_STARTED = 0,
+        STATE_IMGUP_IN_PROGRESS,
+        STATE_IMGUP_SUCCESSFUL,
+        STATE_IMGUP_FAILED
+} STATE_IMGUP;
+
+int image_upgrade_ioctl_call(struct efx_nic *efx, struct ifreq *ifr, unsigned int cmd);
+#endif
