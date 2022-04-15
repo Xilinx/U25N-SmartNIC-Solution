@@ -1,17 +1,13 @@
 # Introduction
 
-The Alveo™ U25N is a 2x10/25G SmartNIC. The
-half-height, half-length (HHHL) Alveo U25N SmartNIC is compliant with
-the PCI Express® Gen3 x8 (x16 connector). It features the Zynq®
-UltraScale+™ XCU25 MPSoC and XtremeScale X2 Ethernet controller. The
-Alveo U25N SmartNIC platform is based on a powerful FPGA, enabling
-hardware acceleration and offload to happen inline with maximum
-efficiency while avoiding unnecessary data movements and CPU
-processing. It is composed of multiple software modules that contain
-Ethernet drivers and control demons such as vswitchd and strongSwan.
-This user guide describes installation, configuration, and operation
-of the Alveo U25N SmartNIC, as well as its features, performance, and
-diagnostic tools. For the U25N SmartNIC feature list, refer to the
+This User Manual describes installation, configuration and operation of Alveo U25N SmartNIC features, performance, diagnostic tools and configuration.
+
+Xilinx Alveo U25N card is developed for cloud and virtualization architects building modern data centers. The Alveo U25N card which is a Smart NIC, is a programmable and a modern Ethernet network card that combines network and security acceleration functions- the two much-needed features for the modern datacenters, into a single platform.
+
+Xilinx Alveo U25N Smart NIC is based on the fusion of three technologies: XtremeScale™ X2 Ethernet Controller, a Xilinx Zynq® UltraScale+™ FPGA, and a multi-core Arm processor combined in a powerful XCU25 MPSoC. Xilinx Alveo U25N comes in Half Height Half Length (HHHL) form factor and leverages PCIe Gen3*8(*16 connector) host interface.
+
+The FPGA enables in-line hardware acceleration by offloading the host CPU's network processing. Arm processor handles traffic processing and FPGA-related management and statistics. The X2 Ethernet Controller chip provides a platform for processing 2*SFP28 ports of 25 Gigabit Ethernet via field-proven software drivers.
+
 [Alveo U25N page](https://www.xilinx.com/member/u25n-ea.html).
 
 *Figure 1:* **Alveo U25N SmartNIC**

@@ -1,12 +1,12 @@
 # DPDK
 
-Describes the DPDK compilation steps:
+DPDK compilation steps
 
 1. Download the dpdk git repositories from [http://www.dpdk.org/browse](http://www.dpdk.org/browse).
 
-2. Uncompress the downloaded dpdk files and download the required packages:
+2. Extract the downloaded dpdk files and download the required packages:
 
-   ```
+   ```bash
    apt-get install libnuma-dev liblua5.3-dev libpcap-dev [for ubuntu]
    ```
 
@@ -14,11 +14,13 @@ Describes the DPDK compilation steps:
 
    Follow the steps mentioned at [Compilation Steps](http://doc.dpdk.org/guides/linux_gsg/build_dpdk.html) to do DPDK compilation.
 
-4. After compilation is successful, allocate hugepage and bind the PCI device to run testpmd:
+4. Post successful compilation, allocate hugepage and bind the PCI device to run testpmd:
 
+```bash
    a. `mkdir /mnt/huge`
 
    b. `mount -t hugetlbfs nodev /mnt/huge`
+```
 
       You can use VFIO or UIO [uio_pci_generic or igb_uio]. Refer to the following link to install the Linux drivers for DPDK: [https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html](https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html).
 
@@ -28,11 +30,15 @@ Describes the DPDK compilation steps:
       cd <dpdk-kmod>/src
       ```
 
-   c. `modprobe uio`
-
-   d. `insmod /<dpdk-kmod>/src/igb_uio.ko`
-
-   e. Make sure the VF interface has been made down and unbinded from sfc before binding it to the Linux driver:
+   c. 
+   ```
+   `modprobe uio`
+   ```
+   d. 
+   ```
+   `insmod /<dpdk-kmod>/src/igb_uio.ko`
+   ```
+   e. Ensure that the VF interface is down and unbound from sfc before binding it to the Linux driver:
 
       ```
       ifconfig <U25eth0_VF> down
