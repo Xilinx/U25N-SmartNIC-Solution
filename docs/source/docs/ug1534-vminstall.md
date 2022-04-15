@@ -1,6 +1,6 @@
-# VM Installation
+# APPENDIX B VM Installation
 
-***Note*:** This section only needs to be done for VM cases. The following configuration is for Ubuntu OS.
+***Note*:** This steps mentioned in this section needs to be performed only for VM cases. The following configuration steps are for Ubuntu OS.
 
 Installation of libraries and dependencies is required for running VMs
 
@@ -114,3 +114,4 @@ Installation of libraries and dependencies is required for running VMs
     ```
     ssh -p 5556 vm@127.0.0.1
     ```
+

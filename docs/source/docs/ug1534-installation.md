@@ -1,10 +1,10 @@
-# U25N Installation
+﻿# 3. U25N Installation
 
-## Basic Requirements and Component Versions Supported
+## 3.1 Basic Requirements and Component Versions Supported
 
 - OS requirement: Ubuntu 18.04 or 20.04.
 
-  ***Note*:** Xilinx recommends using the LTS version of Ubuntu.
+  ***Note*:** We recommend using the LTS version of Ubuntu.
 
 - Kernel requirements:
 
@@ -12,44 +12,42 @@
 
   - Stateless Firewall Functionality ≥ 5.5.
 
-  ***Note*:** Xilinx recommends the default kernel 5.8 that comes with Ubuntu 20.04.02 LTS to support all features of the U25N hardware.
+  ***Note*:** We recommends the default kernel 5.8 that comes with Ubuntu 20.04.02 LTS to support all features of the U25N hardware.
 
 - PCIe® Gen3 x16 slot.
 
 - Requires passive airflow. More details can be found in *Alveo U25N SmartNIC Data Sheet* (DS1005).
 
-- U25N driver version: 5.3.3.1003 (minimum).
+- U25N driver version: 5.3.3.1008.3 (minimum).
 
-  ***Note*:** To install the latest U25N driver, refer to [U25N Driver](linkbrokeninpdf).
-
-- X2 firmware version: v7.8.17.1004 (minimum).
+- X2 firmware version: v7.8.17.1011 (minimum).
 
   ***Note*:** To install the latest firmware, refer to the Updating U25N Firmware section.
 
 - OVS version: 2.12 and above. For more information about OVS and its installation, refer to [https://docs.openvswitch.org/en/latest/intro/install/general](https://docs.openvswitch.org/en/latest/intro/install/general).
 
-## U25N Driver
+## 3.2 U25N Driver
 
-***Note*:** Log in as root user before proceeding with the following steps.
+***Note*:** Root user privileges are required to execute following steps and commands.
 
-After the server is booted with U25N hardware, check whether the U25N SmartNIC is detected using the lspci command:
+Once the server is successfully booted with U25N Smart NIC, validate that the U25N Smart NIC is detected using the lspci command:
 
-```
+```text
 lspci | grep Solarflare
 ```
 
-Two PCI IDs corresponding to the U25N are displayed:
+It will list two PCIe id’s corresponding to U25N, similar to the following sample output:
 
-```
+```bash  
 af:00.0 Ethernet controller: Solarflare Communications XtremeScale SFC9250
 10/25/40/50/100G Ethernet Controller (rev 01)
 af:00.1 Ethernet controller: Solarflare Communications XtremeScale SFC9250
 10/25/40/50/100G Ethernet Controller (rev 01)
 ```
 
-### Utility
+### Solarflare Linux Utilities Installation
 
-The Solarflare Linux Utilities package (SF-107601-LS) is available from [https://support-nic.xilinx.com/wp/drivers?sd=SF-107601-LS-71&pe=1945](https://support-nic.xilinx.com/wp/drivers?sd=SF-107601-LS-71&pe=1945).
+The Solarflare Linux Utilities package can be found from the U25N software package downloaded from the lounge.
 
 1. Download and unzip the package on the target server.
 
@@ -57,465 +55,507 @@ The Solarflare Linux Utilities package (SF-107601-LS) is available from [https:/
 
 2. Create the `.deb` file:
 
-   ```
+   ```bash
    sudo alien sfutils‐<version>.x86_64.rpm
    ```
-
-   [//]: # (^is that file extension supposed to be .rpm?)
 
    This command generates the `sfutils_<version>_amd64.deb` file.
 
 3. Install the `.deb` file:
 
-   ```
+   ```bash
    sudo dpkg -i sfutils_<version>_amd64.deb
    ```
 
-The sfupdate, sfkey, sfctool, and sfboot utilities are available on the server.
+The server should have sfupdate, sfkey, sfctool and sfboot utilities now.
 
-### U25N Driver Installation
+### 3.2.1 U25N Driver Installation
 
 ***Note*:** Install the dkms package with the following command if not available:
 
-```
+```bash
 sudo apt-get install dkms
 ```
 
-1. Check the driver version of the U25N interface using the following command:
+***Note*:** If the driver version is 5.3.3.1008.3, please ignore Step 1.
+Check the driver version of U25N interface using the following command:
 
-   ```
-   ethtool -i U25_eth0 | grep version
-   ```
-
-   This should give the output as version 5.3.3.1003.
-
-   ***Note*:** If the driver version is at least 5.3.3.1003, ignore the following step.
-
-2. If the Debian package already exists, remove the already existing one before installing the latest Debian package.
-
-   ```
-   modprobe mtd [for first time alone]
-   modprobe mdio [for first time alone]
-   rmmod sfc
-   dpkg -r sfc-dkms
-   dpkg -i sfc-dkms_x.x.x.x_all.deb
-   modprobe sfc
-   ```
-
-   For example:
-
-   ```
-   dpkg -i sfc-dkms_5.3.3.1003_all.deb
-   ```
-
-### Updating U25N Firmware
-
-1. Make sure the U25N driver is loaded using the `lsmod` command:
-
-   ```
-   lsmod | grep sfc
-   ```
-
-   For example:
-
-   ```
-   lsmod | grep sfc
-   sfc 626688 0
-   ```
-
-2. Execute the following step to update the firmware:
-
-   ```
-   sfupdate -i <X2_interface> --image <firmware image> --write --force --yes
-   ```
-
-   ***Note*:** Use the PF0 interface. No reboot is required.
-
-3. Confirm the firmware version using the sfupdate command. The version should be 1004.
-
-   ```
-   sfupdate | grep Bundle
-   ```
-
-   Bundle type: U25 (bundle type for production SmartNICs is U25N) Bundle
-   version: v7.8.17.1004 (minimum)
-
-### sfboot Configuration
-
-***Note*:** Ignore this section if the U25N mode is SR-IOV and the required VF counts are already assigned. This can be verified by running the sfboot command as root.
-
-Refer to the Solarflare server adapter user guide at [https://support-nic.xilinx.com/wp/drivers](https://support-nic.xilinx.com/wp/drivers). X2 switch mode should be in SR-IOV. Based on the number of VF required on each U25N PF interface, execute the following command. The maximum vf-count could be 120:
-
+```bash
+ethtool -i U25N_eth0 | grep version #U25N_eth0 is the first port of U25N.
 ```
+
+Step 1 : If the debian package already exists, before installing the latest debian package, remove the already existing package.
+
+```bash
+modprobe mtd  [for first time alone]
+
+modprobe mdio  [for first time alone]
+
+rmmod sfc
+
+dpkg -r sfc-dkms
+
+dpkg -i sfc-dkms_x.x.x.x_all.deb
+
+modprobe sfc
+```
+
+For Eg:
+
+```bash
+dpkg -i sfc-dkms_5.3.3.1008.3_all.deb
+```
+
+### 3.2.2 Updating U25N Firmware
+
+Step 1: Make sure U25N driver is loaded using `lsmod` command
+
+```bash
+lsmod | grep sfc
+```
+
+For Eg :
+
+```bash
+lsmod | grep sfc
+sfc                   626688  0
+```
+
+Step 2: Execute the following step to update firmware
+
+```bash
+sfboot --list # This should output U25N interfaces
+sfupdate #This should work or do the below step
+sfupdate -i <U25N_eth0> --write --force --yes # U25N_eth0 is the PF0 interface of U25N
+```
+
+Note: Please use the PF0 interface. No reboot is required.
+
+Step 3: Confirm the firmware version using the command `sfupdate`. Version should be 1011.
+
+Eg:
+
+```bash
+sfupdate | grep Bundle
+```
+
+Bundle type:        U25N
+Bundle version:     v7.8.17.1011
+
+### 3.2.3 sfboot Configuration
+
+***Note*:** Ignore the following steps if the U25N is operating in SR-IOV mode and the required VF are already assigned. Available VFs and SR-IOV mode can be verified by running the sfboot command as a root user.
+
+For more information on enabling VFs and SR-IOV, refer to the [solarflare user guide](https://support-nic.xilinx.com/wp/drivers)
+
+X2 switch mode must be configured in SR-IOV mode for enabling VFs. Each U25N PF can have up to 120 VFs. The following command demonstrates how to switch to the SR-IOV mode and enable VFs.
+
+```bash
 sudo sfboot switch-mode=sriov vf-count=<No. of VF required>
 ```
 
-For example, here 120 VFs have been assigned for each U25N PF interface:
+***Note*:**  Perform a power cycle to update the configuration. Updated configuration will be retained post cold boot.
+
+## 3.3 U25N Shell
+
+The U25N shell is programmed on the U25N with a known good image which is called "golden image" out of the factory. The Following sections demonstrate how to verify the shell. If the validation fails, refer to [U25N Shell Programming](./ug1534-shellprogramming.md).
+
+### 3.3.1 Shell Version Check
+
+Step 1 : Check the driver version of U25N interface using the following command:
+
+***Note*:** Ignore Step 1, if the U25N driver version is 5.3.3.1008.3.
+
+```bash
+ethtool -i U25N_eth0 | grep version
+```
+
+***Note*:** To install the latest sfc driver, refer to [U25N Driver](./ug1534-installation.html#u25n-driver).
+
+Step 2 : Use the u25n_update utility (found inside RELEASE_DIR/utils directory) to find out the U25N shell version. Execute the following command to read the U25N shell version.
+
+```bash
+./u25n_update get-version <U25N_eth0>
+```
+
+Eg:
+
+```bash
+./u25n_update get-version u25eth0
+
+Sample output:
+[u25n_update] - Image Upgrade/Erase Utility V3.1
+
+Reading version from the hardware
+
+X2 Firmware Version : 7.8.17.1011
+PS Firmware Version : 5.00
+Deployment shell Version : 0x0812210D # Timestamp of Shell
+Bitstream Version : 0xA00E60D3 # Timestamp of offload 
+Features supported:  MAE IPSEC # Represent NIC by default
+Timestamp : 08-12-2021 16:30:45 
+
+
+STATUS: SUCCESSFUL
 
 ```
-sudo sfboot switch-mode=sriov vf-count=120
+
+You should get following prompt post successful U25N version read.
+
+```bash
+STATUS: SUCCESSFUL
 ```
 
-***Note*:** Powercycle is required to update the configuration. The configuration is retained even after cold or warm reboot.
+***Note*:** If the u25n_update command returns status as failed, this implies that the shell is not programmed with the Golden image. Please contact support. Refer to [U25N Shell Programming](./ug1534-shellprogramming.md) to flash the Golden image to the U25N shell.
 
-## U25N Shell
+The following section demonstrates how to validate the Golden Image Functionality. For flashing deployment image to the U25N shell refer to [Deployment Image Flashing](./ug1534-installation.html#deployment-image-flashing.md).
 
-By default, the U25N shell is programmed with the golden image. Follow the steps in the following sections to verify the shell. If this fails, refer to [U25N Shell Programming](./ug1534-shellprogramming.md).
+***Note*:** If the Golden image version is same as the Deployment image version, flashing is not required.
 
-### Shell Version Check
+### 3.3.2 Testing Golden Image Functionality
 
-***Note*:** If the U25N driver version is 5.3.3.1003, ignore step 1.
+1. The U25N shell with Golden image includes Image Upgrade and Basic NIC functions.
 
-1. Check the driver version of the U25N interface using the following command:
+2. U25N hardware in legacy mode where the acceleration logic is simple passthrough from ethernet ports to host driver.
 
-   ```
+#### 3.3.2.1 Checking Basic NIC Functionality
+
+Connect the U25N physical port to a traffic generator or any peer NIC device.
+
+```text
+Run ping after assigning IP addresses on source and remote ports.
+Run iperf server and client on any ports to verify traffic.
+Run DPDK testpmd at the X2 PF interface. Packets sent to the physical port will be received at the testpmd application corresponding to the bound PF.
+```
+
+***Note*:** Refer to [DPDK on U25N](./ug1534-supportedservices.html#dpdk-on-u25n) to run dpdk-testpmd.
+
+### 3.3.3 Deployment Image Flashing
+
+***Note*:** U25N must have the Golden Image before performing any of the following steps. Refer to [Shell Version Check](./ug1534-installation.html#shell-version-check) to check the Shell version. Ignore the flashing if Golden image version is same as deployment version in the release.
+
+***Note*:** Before flashing the image ensure the U25N card is in legacy mode with no OVS software application running. Also, remove all associated OVS databases( if any)
+
+```bash
+To check the mode of operation:(Legacy/Switchdev modes)
+devlink dev eswitch show pci/0000:<pci_id> #pci_id is the BDF of U25N Device
+```
+
+Step 1 : In case U25N driver version is 5.3.3.1008.3, this step can be ignored.  The following command can be used to check the driver version:
+
+```bash
+ethtool -i U25N_eth0 | grep version
+```
+
+***Note*:** To install the latest sfc driver, please refer to [U25N Driver](./ug1534-installation.html#u25n-driver).
+
+Step 2 : Ensure that the U25N card is in legacy mode. Below is the command to validate:
+
+```bash
+devlink dev eswitch show pci/0000:<pci_id>
+```
+
+The command mentioned above should return the following sample output:
+
+```bash
+pci/0000:<pci_id>: mode legacy
+```
+
+Use the following command to switch mode in case the card is not already in the legacy mode:
+
+```bash
+devlink dev eswitch set pci/0000:<PCIe device bus id> mode legacy
+```
+
+Step 3 : The u25n_update utility uses U25N PF0 network interface to flash the image. Execute the following command to commence image flash.
+***Note*:** The interface must be the PF0 interface of the target U25N card. The file must be a `.bin` file. Ensure the image path to be flashed is correct.
+
+```bash
+./u25n_update upgrade <path_to_bin_or_ub_file_with_extension> <PF0_interface> # The bin file should be in the shell directory of the release.
+```
+
+Eg:
+
+```bash
+#From Release_dir/utils:
+./u25n_update upgrade ../shell/BOOT.bin u25eth0 
+#The name of the bin file may change to represent month and day like U25N_Shell_Dec13.bin
+```
+
+Post successful image flash you will the following prompt:
+
+```bash
+STATUS: SUCCESSFUL
+```
+
+Step 4 : Reset the U25N hardware to boot from the updated deployment image.
+
+```bash
+./u25n_update reset <U25N_eth0>
+```
+
+Eg:
+
+```bash
+./u25n_update reset u25eth0
+```
+
+Post a successful reset the following prompt will be shown:
+
+```bash
+STATUS: SUCCESSFUL # The above command takes a few seconds to complete to ensure proper reset sequence is validated. 
+```
+
+Step 5 : To retrieve U25N Deployment image version details, use the following commands:
+
+```bash
+./u25n_update get-version <U25N_eth0>
+```
+
+Eg:
+
+```bash
+./u25n_update get-version u25eth0
+#Sample Output:
+[u25n_update] - Image Upgrade/Erase Utility V3.1
+
+Reading version from the hardware
+
+X2 Firmware Version : 7.8.17.1011
+PS Firmware Version : 5.00
+Deployment shell Version : 0x0812210D
+Bitstream Version : 0xA00E60D3
+Features supported:  No Features supported
+Timestamp : 08-12-2021 16:30:45
+
+
+STATUS: SUCCESSFUL
+
+```
+
+The following prompt will be shown, post a successful retrieval
+
+```text
+STATUS: SUCCESSFUL
+```
+
+### 3.3.3.1 Loading Partial Bitstream into Deployment Shell
+
+***Note*:** The U25N must be flashed with the Deployment image before running the following commands. Refer to the [[Deployment Image Flashing](ug1534-installation.html#deployment-image-flashing)](./ug1534-installation.html#deployment-image-flashing) to flash the deployment image to the U25N shell.
+
+***Note*:** In case partial Bitstream already exists in the U25N card and/or if a warm reboot has already been done, ensure a fpga reset is performed using u25n_update application before following the steps mentioned below. Use the following command to reset the FPGA.
+
+```bash
+./u25n_update reset <U25N_eth0>
+```
+
+Eg:
+
+```bash
+./u25n_update reset u25eth0
+```
+
+Use the PF0 interface of U25N card to initiate the FPGA reset.
+
+Step 1. In case U25N driver version is 5.3.3.1008, this step can be ignored. Driver version of the U25N can be validated using the following command:
+
+   ```bash
    ethtool -i U25_eth0 | grep version
    ```
 
-   This should give an output of version of 5.3.3.1003.
+***Note*:** To install the latest sfc driver, refer to [U25N Driver](./ug1534-installation.html#basic-requirements-and-component-versions-supported).
 
-   ***Note*:** To install the latest sfc driver, refer to the [U25N Driver](link?) section.
+***Note*:** Before flashing the image, make sure the U25N Smart NIC is in legacy mode, with  OVS software application running, and all OVS databases are removed.
 
-2. The u25n_update utility can be used to read the U25N shell version. Version reading is done at the U25N PF0 network interface using the u25n_update utility.
+Step 2. The U25N Smart NIC should be in legacy mode. Use the following command to verify this:
 
-   1. Reading of version is performed using a CLI command:
-
-      ```
-      ./u25n_update get-version <PF0_interface>
-      ```
-
-      For example:
-
-      ```
-      ./u25n_update get-version u25eth0
-      ```
-
-      Golden shell version: 0x21081600.
-
-   2. After the versions are read successfully, the log would be:
-
-      ```
-      STATUS: SUCCESSFUL
-      ```
-
-***Note*:** If u25n_update status shows failed, the shell is not programmed with the golden image. Refer to [U25N Shell Programming](./ug1534-shellprogramming.md) to flash the golden image to the U25N shell.
-
-Follow the sections below if needed to check the golden image functionality. For flashing deployment image to U25N shell, refer to the [Deployment Image Flashing](link) section.
-
-### Golden Image Functionality
-
-- U25N shell with Golden image includes Image Upgrade and Basic NIC functions. Offloaded features are not supported.
-
-- U25N hardware in legacy mode [MAC0 TO MAC2 AND MAC1 TO MAC3].
-
-#### Checking Basic NIC Functionality
-
-1. Run DPDK testpmd at the X2 PF interface.
-
-2. The packet sending to an external MAC is received at the testpmd application corresponding to PF bound.
-
-3. Connect the external MAC to the traffic generator or any peer NIC device.
-
-***Note*:** Refer to [DPDK on U25N](link) to run dpdk-testpmd.
-
-### Deployment Image Flashing
-
-The U25N SmartNICs are shipped with the golden image. Refer to [Shell Version Check](link) to check the shell version. If the shell has a golden image, continue with the following steps.
-
-***Note*:** Before flashing the image, make sure the SmartNIC is in legacy mode, no OVS software application is running, and OVS databases are removed.
-
-1. If the U25N driver version is 5.3.3.1003, ignore this step. Check the driver version of the U25N interface using the following command:
-
-   ```
-   ethtool -i U25_eth0 | grep version
-   ```
-
-   This should give an output of version 5.3.3.1003.
-
-   ***Note*:** To install the latest sfc driver, refer to U25N Driver.
-
-2. The U25N SmartNIC should be in legacy mode. Use the following
-    command to verify this:
-
-   ```
+   ```bash
    devlink dev eswitch show pci/0000:<pci_id>
    ```
 
-   The output of the above command is:
+   Sample output of the above command:
 
-   ```
+   ```bash
    pci/0000:<pci_id>: mode legacy
    ```
 
-   If the U25N hardware is not in legacy mode, then change to legacy mode using the following command:
+   If the U25N hardware is not in legacy mode, change it to legacy mode using the following command:
 
-   ```
+   ```bash
    devlink dev eswitch set pci/0000:<PCIe device bus id> mode legacy
    ```
 
-3. Image flashing is done via the U25N PF0 network interface using the u25n_update utility.
+   ***Note*:** The interface used in the above command should be the PF0 interface of the target U25N SmartNIC. The file must be a `.bit` file. Ensure the path to the image to be flashed is correct.
 
-   1. The image is flashed using a CLI command.
+Step 3. Image flashing happens through the U25N PF0 network interface using the u25n_update utility.
 
-      ***Note*:** The interface should be the PF0 interface of the target U25N SmartNIC. The file must be a .bin file. Make sure the path to the image to be flashed is given correctly, as follows:
+   1. The image is flashed using the following CLI command:
+  
+***Note*:** The interface used in the above command should be the PF0 interface of the target U25N SmartNIC. The file must be a `.bit` file. Ensure the path to the image to be flashed is correct.
 
-      ```
-      ./u25n_update upgrade <path_to_bin_or_ub_file_with_extension>
-      <PF0_interface>
-      ```
+```bash
+./u25n_update upgrade <path_to_bit_file_with_extension> <PF0_interface>
+# the path to bit files is Release_dir/bits 
+```
 
-      For example:
+ E.g:
 
-      ```
-      ./u25n_update upgrade BOOT.bin u25eth0
-      ```
+```bash
+./u25n_update upgrade ../bits/ovs_*.bit u25eth0
+```
 
-   2. Flash operations like ERASE, WRITE, and VERIFY are displayed in the CLI based on the procedures done by the u25n_update utility.
+ 2. After the image is flashed successfully, the following message is displayed:
 
-   3. After the image is flashed successfully, the following log is shown:
-
-      ```
-      STATUS: SUCCESSFUL
-      ```
-
-4. Reset the U25N hardware to boot from the updated deployment image:
-
-   For example:
-
-   After the reset is done successfully, the following log is shown:
-
-5. The u25n_update utility can be used to get the U25N deployment image version:
-
-   ```
-   ./u25n_update get-version <PF0_interface>
-   ```
-
-   For example:
-
-   ```
-   ./u25n_update get-version u25eth0
-   ```
-
-   Deployment shell version: 0x21011800.
-
-   After the versions are read successfully, the following log is shown:
-
-   ```
-   STATUS: SUCCESSFUL
-   ```
-
-### Loading Partial Bitstream into Deployment Shell
-
-***Note*:** The deployment image must be flashed to the U25N shell before following the steps below. Refer to [Deployment Image Flashing](link) to flash the deployment image to the U25N shell.
-
-1. If the U25N driver version is 5.3.3.1003, ignore this step. Check the driver version of the U25N interface using the following command:
-
-   ```
-   ethtool -i U25_eth0 | grep version
-   ```
-
-   This should give an output of version 5.3.3.1003.
-
-   ***Note*:** To install the latest sfc driver, refer to [U25N Driver](link).
-
-   ***Note*:** Before flashing the image, make sure the SmartNIC is in legacy mode, no OVS software application is running, and OVS databases are removed.
-
-2. The U25N SmartNIC should be in legacy mode. Use the following command to verify this:
-
-   ```
-   devlink dev eswitch show pci/0000:<pci_id>
-   ```
-
-   The output of the above command is:
-
-   ```
-   pci/0000:<pci_id>: mode legacy
-   ```
-
-   If the U25N hardware is not in legacy mode, then change to legacy mode using the following command:
-
-   ```
-   devlink dev eswitch set pci/0000:<PCIe device bus id> mode legacy
-   ```
-
-   ***Note*:** The interface should be the PF0 interface of the target U25N SmartNIC. The file must be a `.bit` file. Make sure the path to the image to be flashed is given correctly.
-
-3. Image flashing is done via the U25N PF0 network interface using the u25n_update utility.
-
-   1. The image is flashed using a CLI command:
-
-      ```
-      ./u25n_update upgrade <path_to_bit_file_with_extension>
-      <PF0_interface>
-      ```
-
-      For example:
-
-      ```
-      ./u25n_update upgrade fpga.bit u25eth0
-      ```
-
-   2. After the image is flashed successfully, the following log is shown:
-
-      ```
+      ```bash
       STATUS: Successful
       ```
 
-4. The u25n_update utility can be used to get the bitstream version. Version reading is done at the U25N PF0 network interface using the u25n_update utility:
+ 3. The u25n_update utility can be used to retrieve the bitstream version. Version retrieval happens at the U25N PF0 network interface using the u25n_update utility. Use the following command to retrieve the image version:
 
-   ```
-   ./u25n_update get-version <PF0_interface>
-   ```
+```bash
+./u25n_update get-version <U25N_eth0>
+```
 
-   For example:
+E.g:
 
-   ```
-   ./u25n_update get-version u25eth0
-   ```
+```bash
+./u25n_update get-version u25eth0
+```
 
-   Bitstream version: 0xA00D10D1
+Bitstream version: 0xA00D10D1
 
-   After the versions are read successfully, the following log is shown:
+Post a successful image retrieval, the following message is displayed:
 
-   ```
-   STATUS: SUCCESSFUL
-   ```
+```bash
+STATUS: SUCCESSFUL
+```
 
-## Updating XCU25 Linux Kernel Image
+### 3.4 Steps to change MPSoC Linux kernel image (For advanced users)
 
-This section is required when the file system needs to be updated for the existing deployment image. The deployment image must be flashed to the U25N shell before following the steps below. Refer to [Deployment Image Flashing](link) to flash the deployment image.
+Follow this Section only when the file system needs to be updated for the existing Deployment image.
 
-***Note*:** Before flashing the image, make sure the SmartNIC is in legacy mode, no OVS software application is running, and OVS databases are removed.
+Deployment image must be flashed to the U25N shell before following the below mentioned steps. Refer to [[Deployment Image Flashing](ug1534-installation.html#deployment-image-flashing)](./ug1534-installation.html#deployment-image-flashing) to flash the Deployment image.
 
-1. If the U25N driver version is 5.3.3.1003, ignore this step. Check the driver version of the U25N interface using the following command:
+***Note*:** Before flashing the image to the shell ensure the card is in legacy mode with no OVS software application  running and all OVS databases have been removed.
 
-   ```
-   ethtool -i U25_eth0 | grep version
-   ```
+Step 1 : If the U25N driver version is 5.3.3.1008.3, this step can be ignored. Driver version of the U25N can be validated by using the following command:
 
-   This should give an output of version 5.3.3.1003.
+```bash
+ethtool -i U25_eth0 | grep version
+```
 
-   ***Note*:** To install the latest sfc driver, refer to U25N Driver.
+***Note*:** To install the latest sfc driver, refer  Section 3.2.
 
-2. The U25N SmartNIC should be in legacy mode. Use the following command to verify this:
+Step 2 : U25N Cards should be in legacy mode. Use the following command to validate:
 
-   ```
-   devlink dev eswitch show pci/0000:<pci_id>
-   ```
+```bash
+devlink dev eswitch show pci/0000:<pci_id>
+```
 
-   The output of the above command is:
+Sample output of above command:
 
-   ```
-   pci/0000:<pci_id>: mode legacy
-   ```
+```bash
+pci/0000:<pci_id>: mode legacy
+```
 
-   If the U25N hardware is not in legacy mode, then change to legacy mode using the following command:
+In case U25N hardware is not in legacy mode, change it to legacy mode using the following command:
 
-   ```
-   devlink dev eswitch set pci/0000:<PCIe device bus id> mode legacy
-   ```
+```bash
+devlink dev eswitch set pci/0000:<PCIe device bus id> mode legacy
+```
 
-3. Image flashing is done via the U25N PF0 network interface using the u25n_update utility.
+Step 3 : Image flashing is performed through the U25N PF0 network interface using the u25n_update utility.
 
-   ***Note*:** The interface should be the PF0 interface of the target U25N SmartNIC. The file must be a `.ub` file. Make sure the path to the image to be flashed is given correctly.
+Image is flashed using a CLI command
 
-   1. The image is flashed using a CLI command:
+***Note*:** The interface should be the PF0 interface of the target U25N card. The file must be a `.ub` file. Make sure the path to the image to be flashed is given correctly.
 
-      ```
-      ./u25n_update upgrade    <path_to_ub_file_with_extension><PF0_interface>
-      ```
+```bash
+./u25n_update upgrade <path_to_bin_or_ub_file_with_extension> <PF0_interface>
+```
 
-      For example:
+Eg:
 
-      ```
-      ./u25n_update upgrade image.ub <u25eth0>
-      ```
+```bash
+./u25n_update upgrade image.ub <u25eth0>
+```
 
-   2. Flash operations like ERASE, WRITE, and VERIFY are displayed in the CLI based on the procedures done by the u25n_update utility.
+Post successful image flash, the following message will be displayed:
 
-   3. After the image is flashed successfully, the following log is shown:
+```bash
+STATUS: SUCCESSFUL
+```
 
-      ```
-      STATUS: SUCCESSFUL
-      ```
+Step 4 : Reset the U25N hardware to boot with the new kernel image using the following command:
 
-4. Reset the U25N hardware to boot with the new kernel image:
+```bash
+./u25n_update reset <PF0_interface>
+```
 
-   ```
-   ./u25n_update reset <PF0_interface>
-   ```
+Eg:
 
-   For example:
+```bash
+./u25n_update reset <u25eth0>
+```
 
-   ```
-   ./u25n_update reset <u25eth0>
-   ```
+After successful image flash, the following message will be displayed:
 
-   After the image is flashed successfully, the following log is shown:
+```bash
+STATUS: SUCCESSFUL
+```
 
-   ```
-   STATUS: SUCCESSFUL
-   ```
+## 3.5 Reverting the U25N SmartNIC to Golden Image
 
-## Reverting U25N SmartNIC to Golden Image
-
-Reverting to factory (or golden) image is recommended in the following cases:
+Reverting to the factory (or golden) image is recommended in the following cases:
 
 - Preparing to flash a different shell onto the SmartNIC.
 
 - The SmartNIC no longer appears on lspci after programming a custom image onto the SmartNIC.
 
-- To recover from the state where the deployment image is unresponsive even after performing multiple resets using the u25n_update utility.
+- To recover from the state when the deployment image has become unresponsive even after performing multiple resets using the u25n_update utility.
 
-***Note*:** After the factory reset is performed, the U25N loaded is the golden image. It has the essential provision to upgrade the deployment image but no provision to upgrade bitstream.
+***Note*:** After the factory reset is performed, the U25N loaded with the golden image (A known good image). It has the essential provision to upgrade the deployment image.
 
-1. If the U25N driver version is 5.3.3.1003, ignore this step. Check the driver version of the U25N interface using the following command:
+Step 1. In case the U25N driver version is 5.3.3.1008, this step can be ignored. Driver version of the U25N interface can be validated using the following command:
 
-   ```
+   ```bash
    ethtool -i U25_eth0 | grep version
    ```
 
-   This should give an output of version 5.3.3.1003.
+***Note*:** To install the latest sfc driver, refer to the [U25N Driver](./ug1534-installation.html#u25n-driver).
 
-   ***Note*:** To install the latest sfc driver, refer to U25N Driver.
+***Note*:** Before flashing the image, make sure the SmartNIC is in legacy mode, no OVS software application is running, and OVS databases are removed.
 
-   ***Note*:** Before flashing the image, make sure the SmartNIC is in legacy mode, no OVS software application is running, and OVS databases are removed.
+Step 2. The U25N SmartNIC should be in legacy mode. Use the following command to verify:
 
-2. The U25N SmartNIC should be in legacy mode. Use the following command to verify this:
-
-   ```
+   ```bash
    devlink dev eswitch show pci/0000:<pci_id>
    ```
 
-   The output of the above command is:
+Sample output of the above command:
 
-   ```
+   ```bash
    pci/0000:<pci_id>: mode legacy
    ```
 
-   If the U25N hardware is not in legacy mode, then change to legacy mode
-   using the following command:
+If the U25N hardware is not in the legacy mode, change it to legacy mode using the following command:
 
-   ```
+   ```bash
    devlink dev eswitch set pci/0000:<PCIe device bus id> mode legacy
    ```
 
-3. Factory reset is done via the U25N PF0 network interface.
+Step 3. Perform a factory reset via PF0 network interface of U25N
 
-   1. Factory reset is performed using a CLI command:
+   1. Factory reset is performed using the following CLI command:
 
-   ```
+   ```bash
    ./u25n_update factory-reset <PF0_interface>
    ```
 
-   For example:
+  E.g: `./u25n_update factory-reset <u25eth0>`
 
-   ```
-   ./u25n_update factory-reset <u25eth0>
-   ```
+   2. After a successful factory reset, the following message is displayed:
 
-   2. After the factory reset is done successfully, the following log is shown:
-
-   ```
+   ```bash
    STATUS: SUCCESSFUL
    ```

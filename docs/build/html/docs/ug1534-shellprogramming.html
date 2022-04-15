@@ -74,7 +74,7 @@ function OptanonWrapper() { }
   <link rel="stylesheet" href="../_static/css/pro.min.css" media="all" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="VM Installation" href="ug1534-vminstall.html" />
+    <link rel="next" title="APPENDIX B VM Installation" href="ug1534-vminstall.html" />
     <link rel="prev" title="DPDK" href="ug1534-dpdk.html" /> 
 	</head>
 	<body>
@@ -226,7 +226,7 @@ function OptanonWrapper() { }
             
             
               <div class="version">
-                1.0
+                1.1
               </div>
             
           
@@ -253,16 +253,19 @@ function OptanonWrapper() { }
             
               <p class="caption"><span class="caption-text">U25N</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="ug1534-introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ug1534-supportedservices.html">Supported Services</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ug1534-installation.html">U25N Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ug1534-detailedappsdescriptions.html">Detailed Applications Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ug1534-installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ug1534-detailedappsdescriptions.html">Detailed Applications Descriptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ug1534-dpdk.html">DPDK</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">U25N Shell Programming</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">APPENDIX A U25N Shell Programming</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#entering-into-u-boot-mode">Entering into U-Boot Mode</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ug1534-vminstall.html">VM Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ug1534-vminstall.html">APPENDIX B VM Installation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Download Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_1.pdf">PDF</a></li>
 </ul>
 
             
@@ -315,7 +318,7 @@ function OptanonWrapper() { }
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>U25N Shell Programming</li>
+      <li>APPENDIX A U25N Shell Programming</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -334,8 +337,8 @@ function OptanonWrapper() { }
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="u25n-shell-programming">
-<h1>U25N Shell Programming<a class="headerlink" href="#u25n-shell-programming" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="appendix-a-u25n-shell-programming">
+<h1>APPENDIX A U25N Shell Programming<a class="headerlink" href="#appendix-a-u25n-shell-programming" title="Permalink to this headline">¶</a></h1>
 <p>To program the U25N flash, an Alveo™ programming cable is required. Refer to <em>Alveo Programming Cable User Guide</em> (<a class="reference external" href="https://www.xilinx.com/cgi-bin/docs/bkdoc?k=accelerator-cards%3Bd%3Dug1377-alveo-programming-cable-user-guide.pdf">UG1377</a>) to connect the Alveo programming cable to the U25N maintenance connector. The Vivado® tools must be installed on the server to which the Alveo programming cable’s USB port is connected. For more information, see <a class="reference external" href="https://www.xilinx.com/products/design-tools/vivado.html">Vivado ML Overview</a>.</p>
 <div class="section" id="entering-into-u-boot-mode">
 <h2>Entering into U-Boot Mode<a class="headerlink" href="#entering-into-u-boot-mode" title="Permalink to this headline">¶</a></h2>
@@ -353,15 +356,16 @@ function OptanonWrapper() { }
 <p><img alt="serial port setup configuration" src="../_images/awj1631054447975_LowRes.png" /></p>
 <p>iii. To modify the different configurations, press the key corresponding to the setting. For example, press <strong>A</strong> to modify the path to the serial device. Press <strong>Enter</strong> to save the parameters for the setting.</p>
 <p><img alt="path to serial device" src="../_images/nxx1631054658006_LowRes.png" /></p>
-<p>Make sure the above shown configuration is applied for E,F,G fields.</p>
+<p>Make sure the above mentioned configuration is applied for E,F,G fields.</p>
 <p>iv. After you have saved the configuration, arrow down and select <strong>Exit</strong> to exit from minicom.</p>
 <p>v. Some logs will appear after executing the minicom command. These can be ignored. Run the command as shown in the following figure.</p>
 <p><img alt="sudo minicom" src="../_images/siv1622081634172_LowRes.png" /></p>
 <p>c. When prompted for a login and password, enter the following:</p>
-<ul class="simple">
-<li><p>login: root</p></li>
-<li><p>password: root</p></li>
-</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>   - login: root
+
+   - password: root
+</pre></div>
+</div>
 <p><img alt="image1" src="../_images/qod1622083020020_LowRes.png" /></p>
 <p>d. After logging in, do a reboot.</p>
 <p>The system starts executing the reboot command.</p>
@@ -423,7 +427,7 @@ function OptanonWrapper() { }
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ug1534-vminstall.html" class="btn btn-neutral float-right" title="VM Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ug1534-vminstall.html" class="btn btn-neutral float-right" title="APPENDIX B VM Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="ug1534-dpdk.html" class="btn btn-neutral float-left" title="DPDK" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -436,7 +440,7 @@ function OptanonWrapper() { }
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on March 31, 2022.
+        Last updated on April 7, 2022.
       </span>
 
     </p>

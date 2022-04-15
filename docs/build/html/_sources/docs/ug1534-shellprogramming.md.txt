@@ -1,4 +1,4 @@
-# U25N Shell Programming
+# APPENDIX A U25N Shell Programming
 
 To program the U25N flash, an Alveo™ programming cable is required. Refer to *Alveo Programming Cable User Guide* ([UG1377](https://www.xilinx.com/cgi-bin/docs/bkdoc?k=accelerator-cards%3Bd%3Dug1377-alveo-programming-cable-user-guide.pdf)) to connect the Alveo programming cable to the U25N maintenance connector. The Vivado® tools must be installed on the server to which the Alveo programming cable's USB port is connected. For more information, see [Vivado ML Overview](https://www.xilinx.com/products/design-tools/vivado.html).
 
@@ -28,7 +28,7 @@ To program the U25N flash, an Alveo™ programming cable is required. Refer to *
 
       ![path to serial device](./media/nxx1631054658006_LowRes.png)
 
-      Make sure the above shown configuration is applied for E,F,G fields.
+      Make sure the above mentioned configuration is applied for E,F,G fields.
 
       iv. After you have saved the configuration, arrow down and select **Exit** to exit from minicom.
 
@@ -37,11 +37,11 @@ To program the U25N flash, an Alveo™ programming cable is required. Refer to *
       ![sudo minicom](./media/siv1622081634172_LowRes.png)
 
    c. When prompted for a login and password, enter the following:
-
+   ```bash
       - login: root
 
       - password: root
-
+   ```
       ![image1](./media/qod1622083020020_LowRes.png)
 
    d. After logging in, do a reboot.

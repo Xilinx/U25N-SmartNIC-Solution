@@ -73,9 +73,7 @@ function OptanonWrapper() { }
   <link rel="stylesheet" href="../_static/css/header-footer.min.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/pro.min.css" media="all" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Supported Services" href="ug1534-supportedservices.html" />
-    <link rel="prev" title="U25N" href="../index.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 	</head>
 	<body>
 		<div class="xilinx-bs3"/>
@@ -226,7 +224,7 @@ function OptanonWrapper() { }
             
             
               <div class="version">
-                1.0
+                1.1
               </div>
             
           
@@ -252,14 +250,17 @@ function OptanonWrapper() { }
             
             
               <p class="caption"><span class="caption-text">U25N</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="ug1534-supportedservices.html">Supported Services</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ug1534-installation.html">U25N Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ug1534-detailedappsdescriptions.html">Detailed Applications Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ug1534-installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ug1534-detailedappsdescriptions.html">Detailed Applications Descriptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ug1534-dpdk.html">DPDK</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ug1534-shellprogramming.html">U25N Shell Programming</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ug1534-vminstall.html">VM Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ug1534-shellprogramming.html">APPENDIX A U25N Shell Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ug1534-vminstall.html">APPENDIX B VM Installation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Download Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_1.pdf">PDF</a></li>
 </ul>
 
             
@@ -333,19 +334,11 @@ function OptanonWrapper() { }
             
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>The Alveo™ U25N is a 2x10/25G SmartNIC. The
-half-height, half-length (HHHL) Alveo U25N SmartNIC is compliant with
-the PCI Express® Gen3 x8 (x16 connector). It features the Zynq®
-UltraScale+™ XCU25 MPSoC and XtremeScale X2 Ethernet controller. The
-Alveo U25N SmartNIC platform is based on a powerful FPGA, enabling
-hardware acceleration and offload to happen inline with maximum
-efficiency while avoiding unnecessary data movements and CPU
-processing. It is composed of multiple software modules that contain
-Ethernet drivers and control demons such as vswitchd and strongSwan.
-This user guide describes installation, configuration, and operation
-of the Alveo U25N SmartNIC, as well as its features, performance, and
-diagnostic tools. For the U25N SmartNIC feature list, refer to the
-<a class="reference external" href="https://www.xilinx.com/member/u25n-ea.html">Alveo U25N page</a>.</p>
+<p>This User Manual describes installation, configuration and operation of Alveo U25N SmartNIC features, performance, diagnostic tools and configuration.</p>
+<p>Xilinx Alveo U25N card is developed for cloud and virtualization architects building modern data centers. The Alveo U25N card which is a Smart NIC, is a programmable and a modern Ethernet network card that combines network and security acceleration functions- the two much-needed features for the modern datacenters, into a single platform.</p>
+<p>Xilinx Alveo U25N Smart NIC is based on the fusion of three technologies: XtremeScale™ X2 Ethernet Controller, a Xilinx Zynq® UltraScale+™ FPGA, and a multi-core Arm processor combined in a powerful XCU25 MPSoC. Xilinx Alveo U25N comes in Half Height Half Length (HHHL) form factor and leverages PCIe Gen3*8(*16 connector) host interface.</p>
+<p>The FPGA enables in-line hardware acceleration by offloading the host CPU’s network processing. Arm processor handles traffic processing and FPGA-related management and statistics. The X2 Ethernet Controller chip provides a platform for processing 2*SFP28 ports of 25 Gigabit Ethernet via field-proven software drivers.</p>
+<p><a class="reference external" href="https://www.xilinx.com/member/u25n-ea.html">Alveo U25N page</a>.</p>
 <p><em>Figure 1:</em> <strong>Alveo U25N SmartNIC</strong></p>
 <p><img alt="Alveo U25N SmartNIC card" src="../_images/nzf1587493420199_LowRes.png" /></p>
 <p><em>Figure 2:</em> <strong>U25N Architecture</strong></p>
@@ -366,22 +359,13 @@ diagnostic tools. For the U25N SmartNIC feature list, refer to the
 
 	  <!-- Sphinx Page Footer block -->
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="ug1534-supportedservices.html" class="btn btn-neutral float-right" title="Supported Services" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../index.html" class="btn btn-neutral float-left" title="U25N" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
 
   <hr/>
 
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on March 31, 2022.
+        Last updated on April 7, 2022.
       </span>
 
     </p>

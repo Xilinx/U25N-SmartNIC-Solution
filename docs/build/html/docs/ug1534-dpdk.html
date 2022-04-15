@@ -74,8 +74,8 @@ function OptanonWrapper() { }
   <link rel="stylesheet" href="../_static/css/pro.min.css" media="all" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="U25N Shell Programming" href="ug1534-shellprogramming.html" />
-    <link rel="prev" title="Detailed Applications Description" href="ug1534-detailedappsdescriptions.html" /> 
+    <link rel="next" title="APPENDIX A U25N Shell Programming" href="ug1534-shellprogramming.html" />
+    <link rel="prev" title="4 Detailed Applications Description" href="ug1534-detailedappsdescriptions.html" /> 
 	</head>
 	<body>
 		<div class="xilinx-bs3"/>
@@ -226,7 +226,7 @@ function OptanonWrapper() { }
             
             
               <div class="version">
-                1.0
+                1.1
               </div>
             
           
@@ -253,13 +253,16 @@ function OptanonWrapper() { }
             
               <p class="caption"><span class="caption-text">U25N</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="ug1534-introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ug1534-supportedservices.html">Supported Services</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ug1534-installation.html">U25N Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ug1534-detailedappsdescriptions.html">Detailed Applications Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ug1534-installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ug1534-detailedappsdescriptions.html">Detailed Applications Descriptions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">DPDK</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ug1534-shellprogramming.html">U25N Shell Programming</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ug1534-vminstall.html">VM Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ug1534-shellprogramming.html">APPENDIX A U25N Shell Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ug1534-vminstall.html">APPENDIX B VM Installation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Download Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_1.pdf">PDF</a></li>
 </ul>
 
             
@@ -333,41 +336,61 @@ function OptanonWrapper() { }
             
   <div class="section" id="dpdk">
 <h1>DPDK<a class="headerlink" href="#dpdk" title="Permalink to this headline">¶</a></h1>
-<p>Describes the DPDK compilation steps:</p>
+<p>DPDK compilation steps</p>
 <ol>
 <li><p>Download the dpdk git repositories from <a class="reference external" href="http://www.dpdk.org/browse">http://www.dpdk.org/browse</a>.</p></li>
-<li><p>Uncompress the downloaded dpdk files and download the required packages:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libnuma</span><span class="o">-</span><span class="n">dev</span> <span class="n">liblua5</span><span class="mf">.3</span><span class="o">-</span><span class="n">dev</span> <span class="n">libpcap</span><span class="o">-</span><span class="n">dev</span> <span class="p">[</span><span class="k">for</span> <span class="n">ubuntu</span><span class="p">]</span>
+<li><p>Extract the downloaded dpdk files and download the required packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get install libnuma-dev liblua5.3-dev libpcap-dev <span class="o">[</span><span class="k">for</span> ubuntu<span class="o">]</span>
 </pre></div>
 </div>
 </li>
 <li><p>Create the DPDK build tree:</p>
 <p>Follow the steps mentioned at <a class="reference external" href="http://doc.dpdk.org/guides/linux_gsg/build_dpdk.html">Compilation Steps</a> to do DPDK compilation.</p>
 </li>
-<li><p>After compilation is successful, allocate hugepage and bind the PCI device to run testpmd:</p>
-<p>a. <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">/mnt/huge</span></code></p>
-<p>b. <code class="docutils literal notranslate"><span class="pre">mount</span> <span class="pre">-t</span> <span class="pre">hugetlbfs</span> <span class="pre">nodev</span> <span class="pre">/mnt/huge</span></code></p>
-<p>You can use VFIO or UIO [uio_pci_generic or igb_uio]. Refer to the following link to install the Linux drivers for DPDK: <a class="reference external" href="https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html">https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html</a>.</p>
-<p>Added below the example commands with igb_uio driver. For the igb_uio driver, the path for dpdk-kmod can be found at <a class="reference external" href="http://git.dpdk.org/dpdk-kmods">http://git.dpdk.org/dpdk-kmods</a>. After downloading, go to the following path and compile:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">&lt;</span><span class="n">dpdk</span><span class="o">-</span><span class="n">kmod</span><span class="o">&gt;/</span><span class="n">src</span>
+<li><p>Post successful compilation, allocate hugepage and bind the PCI device to run testpmd:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>   a. <span class="sb">`</span>mkdir /mnt/huge<span class="sb">`</span>
+
+   b. <span class="sb">`</span>mount -t hugetlbfs nodev /mnt/huge<span class="sb">`</span>
 </pre></div>
 </div>
-<p>c. <code class="docutils literal notranslate"><span class="pre">modprobe</span> <span class="pre">uio</span></code></p>
-<p>d. <code class="docutils literal notranslate"><span class="pre">insmod</span> <span class="pre">/&lt;dpdk-kmod&gt;/src/igb_uio.ko</span></code></p>
-<p>e. Make sure the VF interface has been made down and unbinded from sfc before binding it to the Linux driver:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ifconfig</span> <span class="o">&lt;</span><span class="n">U25eth0_VF</span><span class="o">&gt;</span> <span class="n">down</span>
-<span class="o">.</span> <span class="o">/</span><span class="n">usertools</span><span class="o">/</span><span class="n">dpdk</span><span class="o">-</span><span class="n">devbind</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">u</span> <span class="o">&lt;</span><span class="n">pci_id</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">inside</span> <span class="n">dpdk</span> <span class="n">directory</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  You can use VFIO or UIO [uio_pci_generic or igb_uio]. Refer to the following link to install the Linux drivers for DPDK: [https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html](https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html).
+
+  Added below the example commands with igb_uio driver. For the igb_uio driver, the path for dpdk-kmod can be found at [http://git.dpdk.org/dpdk-kmods](http://git.dpdk.org/dpdk-kmods). After downloading, go to the following path and compile:
+
+  ```
+  cd &lt;dpdk-kmod&gt;/src
+  ```
+</pre></div>
+</div>
+<p>c.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`modprobe uio`
+</pre></div>
+</div>
+<p>d.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`insmod /&lt;dpdk-kmod&gt;/src/igb_uio.ko`
+</pre></div>
+</div>
+<p>e. Ensure that the VF interface is down and unbound from sfc before binding it to the Linux driver:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  ```
+  ifconfig &lt;U25eth0_VF&gt; down
+  . /usertools/dpdk-devbind.py -u &lt;pci_id&gt; [inside dpdk directory]
+  ```
 </pre></div>
 </div>
 <p>f. Run the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span> <span class="o">/</span><span class="n">usertools</span><span class="o">/</span><span class="n">dpdk</span><span class="o">-</span><span class="n">devbind</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">b</span> <span class="n">igb_uio</span> <span class="o">&lt;</span><span class="n">pci_id</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">inside</span> <span class="n">dpdk</span> <span class="n">directory</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  ```
+  . /usertools/dpdk-devbind.py -b igb_uio &lt;pci_id&gt; [inside dpdk directory]
+  ```
+
+  For example:
+
+  ```
+  ./usertools/dpdk-devbind.py -b igb_uio af:00.0
+  ```
 </pre></div>
 </div>
-<p>For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">usertools</span><span class="o">/</span><span class="n">dpdk</span><span class="o">-</span><span class="n">devbind</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">b</span> <span class="n">igb_uio</span> <span class="n">af</span><span class="p">:</span><span class="mf">00.0</span>
-</pre></div>
-</div>
-</li>
+<ol>
 <li><p>Command to run testpmd:</p>
 <p>Refer to <a class="reference external" href="https://doc.dpdk.org/guides/testpmd_app_ug/run_app.html">https://doc.dpdk.org/guides/testpmd_app_ug/run_app.html</a> for more information about the testpmd runtime command. The following is an example command to run testpmd:</p>
 <p><strong><em>Note</em>:</strong> Make sure the dpdk-testpmd for specific PCI devices is running on the same NUMA node.</p>
@@ -405,10 +428,10 @@ function OptanonWrapper() { }
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ug1534-shellprogramming.html" class="btn btn-neutral float-right" title="U25N Shell Programming" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ug1534-shellprogramming.html" class="btn btn-neutral float-right" title="APPENDIX A U25N Shell Programming" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ug1534-detailedappsdescriptions.html" class="btn btn-neutral float-left" title="Detailed Applications Description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ug1534-detailedappsdescriptions.html" class="btn btn-neutral float-left" title="4 Detailed Applications Description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -418,7 +441,7 @@ function OptanonWrapper() { }
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on March 31, 2022.
+        Last updated on April 7, 2022.
       </span>
 
     </p>
