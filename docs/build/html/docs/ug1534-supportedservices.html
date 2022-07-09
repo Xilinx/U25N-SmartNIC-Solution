@@ -58,8 +58,10 @@ function OptanonWrapper() { }
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -72,6 +74,8 @@ function OptanonWrapper() { }
   <link rel="stylesheet" href="../_static/css/common-ui-all.min.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/header-footer.min.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/pro.min.css" media="all" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3. U25N Installation" href="ug1534-installation.html" />
@@ -226,7 +230,7 @@ function OptanonWrapper() { }
             
             
               <div class="version">
-                1.1
+                1.2
               </div>
             
           
@@ -251,7 +255,7 @@ function OptanonWrapper() { }
               
             
             
-              <p class="caption"><span class="caption-text">U25N</span></p>
+              <p class="caption" role="heading"><span class="caption-text">U25N</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Supported Services</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#u25n-modes-legacy-and-switchdev-mode">2.1 U25N Modes: Legacy and Switchdev Mode</a></li>
@@ -277,9 +281,9 @@ function OptanonWrapper() { }
 <li class="toctree-l1"><a class="reference internal" href="ug1534-shellprogramming.html">APPENDIX A U25N Shell Programming</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ug1534-vminstall.html">APPENDIX B VM Installation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Download Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Download Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_1.pdf">PDF</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_2.pdf">PDF</a></li>
 </ul>
 
             
@@ -352,9 +356,9 @@ function OptanonWrapper() { }
            <div itemprop="articleBody">
             
   <div class="section" id="supported-services">
-<h1>2 Supported Services<a class="headerlink" href="#supported-services" title="Permalink to this headline">¶</a></h1>
+<h1>2 Supported Services<a class="headerlink" href="#supported-services" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="u25n-modes-legacy-and-switchdev-mode">
-<h2>2.1 U25N Modes: Legacy and Switchdev Mode<a class="headerlink" href="#u25n-modes-legacy-and-switchdev-mode" title="Permalink to this headline">¶</a></h2>
+<h2>2.1 U25N Modes: Legacy and Switchdev Mode<a class="headerlink" href="#u25n-modes-legacy-and-switchdev-mode" title="Permalink to this heading">¶</a></h2>
 <p>The U25N SmartNIC can operate in two modes:</p>
 <p>Switchdev Mode with Open vSwitch (OVS): This mode allows offloading the Linux kernel forwarding data plane to U25N SmartNIC.
 Legacy Mode without OVS: In this mode, packets are forwarded in and out of the U25N SmartNIC without any modifications.</p>
@@ -362,49 +366,49 @@ Legacy Mode without OVS: In this mode, packets are forwarded in and out of the U
 <p><img alt="X25548-091321" src="../_images/nec1631059820936_LowRes.png" /></p>
 </div>
 <div class="section" id="open-vswitch">
-<h2>2.2 Open vSwitch<a class="headerlink" href="#open-vswitch" title="Permalink to this headline">¶</a></h2>
+<h2>2.2 Open vSwitch<a class="headerlink" href="#open-vswitch" title="Permalink to this heading">¶</a></h2>
 <p>Open vSwitch (OVS) is a software-defined virtual switch that a hypervisor uses to manage traffic between virtual instances. It performs not only classic layer-2 switching, but also supports arbitrarily complex rules matching on any packet field, and performing any transformation.
 OVS groups packet flows requiring the same switching behavior into megaflows that can require filtering at layer 2, layer 3, or layer 4 (potentially changing over time) of the Network stack. Deployments can require very large numbers of simultaneous megaflows to be supported. The downside of OVS is that it is resource-intensive. Cloud providers have to dedicate a significant number of cores to run this infrastructure, instead of renting those cores to their customers for running business applications.The U25N SmartNIC can offload the virtual switching off of the host processor and hence improve CPU efficiency .</p>
 <p>OVS supports various dataflows: port to VM, VM to VM, and port to port. The following section contains detailed information about these dataflows.</p>
 <div class="section" id="port-to-port">
-<h3>2.2.1 Port to Port<a class="headerlink" href="#port-to-port" title="Permalink to this headline">¶</a></h3>
+<h3>2.2.1 Port to Port<a class="headerlink" href="#port-to-port" title="Permalink to this heading">¶</a></h3>
 <p>In this configuration, traffic flows from one physical port to the other physical port of the U25N SmartNIC and vice versa . The OVS datapath is offloaded to the SmartNIC, and the control path runs on the host. Initial incoming packets with no flow/entry in the OVS dataplane are forwarded up to the host(where vSwitchd daemon runs) for flow/rule learning. Subsequently, the flow/rules are propagated to the OVS dataplane present in the SmartNIC which handles further packet switching.</p>
 <p><em>Figure 4:</em> <strong>OVS Offload Scenario</strong></p>
 <p><img alt="X25547-090821" src="../_images/tpu1631061219038_LowRes.png" /></p>
 </div>
 <div class="section" id="port-to-vm-or-vm-to-port">
-<h3>2.2.2 Port to VM or VM to Port<a class="headerlink" href="#port-to-vm-or-vm-to-port" title="Permalink to this headline">¶</a></h3>
+<h3>2.2.2 Port to VM or VM to Port<a class="headerlink" href="#port-to-vm-or-vm-to-port" title="Permalink to this heading">¶</a></h3>
 <p>In this configuration, traffic flows from the host or VMs to U25N physical ports, and vice versa. This configuration is achieved by creating virtual functions (VFs) corresponding to a physical function (PFs) using sfboot command (for more information refer to the Solarflare Server Adapter user guide at <a class="reference external" href="https://support-nic.xilinx.com/wp/drivers">https://support-nic.xilinx.com/wp/drivers</a>). In this configuration packet switching is done by OVS.</p>
 </div>
 <div class="section" id="vm-to-vm">
-<h3>2.2.3 VM to VM<a class="headerlink" href="#vm-to-vm" title="Permalink to this headline">¶</a></h3>
+<h3>2.2.3 VM to VM<a class="headerlink" href="#vm-to-vm" title="Permalink to this heading">¶</a></h3>
 <p>In this configuration, traffic flows from a VM to another VM via OvS kernel module present in the SmartNIC. Packet switching is done by OvS in this configuration.</p>
 </div>
 <div class="section" id="supported-overlay-network-protocols">
-<h3>2.2.5 Supported Overlay Network protocols<a class="headerlink" href="#supported-overlay-network-protocols" title="Permalink to this headline">¶</a></h3>
+<h3>2.2.5 Supported Overlay Network protocols<a class="headerlink" href="#supported-overlay-network-protocols" title="Permalink to this heading">¶</a></h3>
 <div class="section" id="l2gre">
-<h4>2.2.5.1 L2GRE<a class="headerlink" href="#l2gre" title="Permalink to this headline">¶</a></h4>
+<h4>2.2.5.1 L2GRE<a class="headerlink" href="#l2gre" title="Permalink to this heading">¶</a></h4>
 <p>OVS supports layer 2 over generic routing encapsulation (L2GRE). L2GRE tunnel bridges two discrete LAN segments over the internet by creating a tunnel. At the origin of the tunnel, packets are encapsulated and at the terminating end, packets are decapsulated. The constant encapsulation and decapsulation puts a tremendous load on the host CPU.
 With the help of hardware offload, packet encapsulation and decapsulation is offloaded to the U25N SmartNIC and does not consume valuable host CPU cycles.</p>
 </div>
 <div class="section" id="vxlan">
-<h4>2.2.5.1 VXLAN<a class="headerlink" href="#vxlan" title="Permalink to this headline">¶</a></h4>
+<h4>2.2.5.1 VXLAN<a class="headerlink" href="#vxlan" title="Permalink to this heading">¶</a></h4>
 <p>OVS supports Virtual eXtensible Local Area Network or VXLAN. VXLAN is an overlay network that transports an L2 network over an existing L3 network. For more information on VXLAN, please see RFC 7348. Like L2GRE the VXLAN tunnel creation and packet encapsulation/decapsulation process can be offloaded to the U25N Smart NIC, thus saving valuable CPU cycles.</p>
 </div>
 </div>
 </div>
 <div class="section" id="ipsec">
-<h2>2.3 IPsec<a class="headerlink" href="#ipsec" title="Permalink to this headline">¶</a></h2>
+<h2>2.3 IPsec<a class="headerlink" href="#ipsec" title="Permalink to this heading">¶</a></h2>
 <p>Internet protocol security (IPsec) is a secure network protocol suite that authenticates and encrypts packets to provide a secure channel between two endpoints over an internet protocol network. Encrypted packets are forwarded to the CPU and handled by an open-source application called strongSwan (see <a class="reference external" href="https://www.strongswan.org/">https://www.strongswan.org</a>). Due to the computing complexity of encryption and decryption of packets, handling IPsec in the host CPU consumes significant compute cycles. Offloading this operation to U25N hardware easily increases system-level throughput and lowers CPU utilization.</p>
 <p>Currently, IPsec transport mode is supported in the gateway mode, i.e., traffic from one port is encrypted and sent to the other port.</p>
 </div>
 <div class="section" id="stateless-firewall">
-<h2>2.4 Stateless Firewall<a class="headerlink" href="#stateless-firewall" title="Permalink to this headline">¶</a></h2>
+<h2>2.4 Stateless Firewall<a class="headerlink" href="#stateless-firewall" title="Permalink to this heading">¶</a></h2>
 <p>Stateless firewalls make use of a  packet’s source, destination, and other parameters to figure out whether it presents a threat. Stateless firewall should be added on the ingress of ports so that filtering based on nftables rules can be applied. nftables is a subsystem of the Linux kernel providing filtering and classification of network packets/datagrams/frames.
 First-level filtering is done based upon nftables rules. The hardware offload is available for nftables through the netdev family and the ingress hook. This also includes base chain hardware offloading.</p>
 </div>
 <div class="section" id="dpdk-on-u25n">
-<h2>2.5 DPDK on U25N<a class="headerlink" href="#dpdk-on-u25n" title="Permalink to this headline">¶</a></h2>
+<h2>2.5 DPDK on U25N<a class="headerlink" href="#dpdk-on-u25n" title="Permalink to this heading">¶</a></h2>
 <p>Data Plane Development Kit or DPDK is a kernel bypass technique to accelerate packet processing. DPDK enables the applications running in user-space to interact directly with NIC, bypassing the Linux kernel space. DPDK uses Poll Mode Driver (PMD) to interact with the underlying NIC. DPDK can be run on the X2 PF or VF. To run the testpmd/pktgen application on the U25N, refer to <a class="reference external" href="https://doc.dpdk.org/guides/nics/sfc_efx.html#pre-installation-configuration">Solarflare libefx-based Poll Mode DriverDPDK</a>. For more information about how to run DPDK on the U25N, refer to <a class="reference internal" href="ug1534-dpdk.html"><span class="doc">DPDK</span></a>.</p>
 </div>
 </div>
@@ -438,7 +442,7 @@ First-level filtering is done based upon nftables rules. The hardware offload is
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on April 7, 2022.
+        Last updated on July 9, 2022.
       </span>
 
     </p>

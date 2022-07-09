@@ -58,8 +58,10 @@ function OptanonWrapper() { }
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -72,6 +74,8 @@ function OptanonWrapper() { }
   <link rel="stylesheet" href="../_static/css/common-ui-all.min.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/header-footer.min.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/pro.min.css" media="all" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="DPDK" href="ug1534-dpdk.html" />
@@ -226,7 +230,7 @@ function OptanonWrapper() { }
             
             
               <div class="version">
-                1.1
+                1.2
               </div>
             
           
@@ -251,7 +255,7 @@ function OptanonWrapper() { }
               
             
             
-              <p class="caption"><span class="caption-text">U25N</span></p>
+              <p class="caption" role="heading"><span class="caption-text">U25N</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ug1534-supportedservices.html">Supported Services</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ug1534-installation.html">Installation</a></li>
@@ -319,9 +323,9 @@ function OptanonWrapper() { }
 <li class="toctree-l1"><a class="reference internal" href="ug1534-shellprogramming.html">APPENDIX A U25N Shell Programming</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ug1534-vminstall.html">APPENDIX B VM Installation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Download Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Download Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_1.pdf">PDF</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_2.pdf">PDF</a></li>
 </ul>
 
             
@@ -394,26 +398,26 @@ function OptanonWrapper() { }
            <div itemprop="articleBody">
             
   <div class="section" id="detailed-applications-description">
-<h1>4 Detailed Applications Description<a class="headerlink" href="#detailed-applications-description" title="Permalink to this headline">¶</a></h1>
+<h1>4 Detailed Applications Description<a class="headerlink" href="#detailed-applications-description" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="legacy-and-switchdev-modes">
-<h2>4.1 Legacy and Switchdev Modes<a class="headerlink" href="#legacy-and-switchdev-modes" title="Permalink to this headline">¶</a></h2>
+<h2>4.1 Legacy and Switchdev Modes<a class="headerlink" href="#legacy-and-switchdev-modes" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="legacy-nic-default">
-<h3>4.1.1 Legacy NIC (Default)<a class="headerlink" href="#legacy-nic-default" title="Permalink to this headline">¶</a></h3>
+<h3>4.1.1 Legacy NIC (Default)<a class="headerlink" href="#legacy-nic-default" title="Permalink to this heading">¶</a></h3>
 <p>In legacy mode packets from the external MAC0 are forwarded to the internal MAC2 without any modifications on flow entry miss, and vice versa. Similarly, packets from the external MAC1 are forwarded to the internal MAC3 without any modifications on flow entry miss, and vice versa. OVS is not supported in this configuration.</p>
 <p><em>Figure 5:</em> <strong>Legacy Mode</strong></p>
 <p><img alt="X25712-091321" src="../_images/cgl1631062304607_LowRes.png" /></p>
 </div>
 <div class="section" id="switchdev-mode">
-<h3>4.1.2 Switchdev Mode<a class="headerlink" href="#switchdev-mode" title="Permalink to this headline">¶</a></h3>
+<h3>4.1.2 Switchdev Mode<a class="headerlink" href="#switchdev-mode" title="Permalink to this heading">¶</a></h3>
 <p>When changed to the switchdev mode, the U25N can support OVS switching. Devlink features are added to the PF0 interface in each adapter to support the switch mode. Switchdev mode can be added for a single adapter or both. A new representor network interface comes up for each VF when a VM is connected to the VF via SR-IOV virtual ports provided by X2 VNICs.</p>
 <p><em>Figure 6:</em> <strong>Switchdev Mode</strong></p>
 <p><img alt="X25549-091321" src="../_images/lpe1631063727073_LowRes.png" /></p>
 </div>
 </div>
 <div class="section" id="ovs">
-<h2>4.2 OVS<a class="headerlink" href="#ovs" title="Permalink to this headline">¶</a></h2>
+<h2>4.2 OVS<a class="headerlink" href="#ovs" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="installing-ovs">
-<h3>4.2.1 Installing OVS<a class="headerlink" href="#installing-ovs" title="Permalink to this headline">¶</a></h3>
+<h3>4.2.1 Installing OVS<a class="headerlink" href="#installing-ovs" title="Permalink to this heading">¶</a></h3>
 <p>OVS is a multilayer software switch licensed under the open source Apache 2 license. It implements a production quality switch platform that supports standard management interfaces and opens the forwarding functions to programmatic extension and control. OVS is well suited to function as a virtual switch in virtualized environments.
 Follow the below-mentioned steps to install OVS.</p>
 <ol>
@@ -446,7 +450,7 @@ make install
 <p>Maximum flows supported and tested: 8k</p>
 </div>
 <div class="section" id="classification-fields-matches">
-<h3>4.2.2 Classification Fields (Matches)<a class="headerlink" href="#classification-fields-matches" title="Permalink to this headline">¶</a></h3>
+<h3>4.2.2 Classification Fields (Matches)<a class="headerlink" href="#classification-fields-matches" title="Permalink to this heading">¶</a></h3>
 <p>Supported Keys and Actions</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Keys
 
@@ -497,7 +501,7 @@ Actions
 </div>
 </div>
 <div class="section" id="port-to-port">
-<h3>4.2.3 Port to Port<a class="headerlink" href="#port-to-port" title="Permalink to this headline">¶</a></h3>
+<h3>4.2.3 Port to Port<a class="headerlink" href="#port-to-port" title="Permalink to this heading">¶</a></h3>
 <p>In this configuration the U25N PF is added to the OVS bridge as an interface. Packets are sent to an external MAC, and OVS performs the switching based on the packets received.</p>
 <p><em>Figure 7:</em> <strong>Port to Port setup</strong></p>
 <p><img alt="X25550-090721 this seems messed up and missing a portion" src="../_images/cfd1631064119641_LowRes.png" /></p>
@@ -550,7 +554,7 @@ ovs-vsctl add-port br0 U25_eth1
 <p>Refer to <a class="reference external" href="./ug1534-detailedappsdescriptions.html#functionality-check">Functionality Check</a> to check the OVS functionality.</p>
 </div>
 <div class="section" id="port-to-vm-or-vm-to-port">
-<h3>4.2.4 Port to VM or VM to Port<a class="headerlink" href="#port-to-vm-or-vm-to-port" title="Permalink to this headline">¶</a></h3>
+<h3>4.2.4 Port to VM or VM to Port<a class="headerlink" href="#port-to-vm-or-vm-to-port" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> To have this configuration SR-IOV must be enabled in BIOS. For the Port to VM or VM to Port configuration, a tunnel L2GRE or VXLAN could be created with two server setups.</p>
 <p><em>Figure 8:</em> <strong>Port to VM or VM to Port setup</strong>
 <img alt="seems messed up a little bit X25551-090721" src="../_images/cgm1631064433686_LowRes.png" /></p>
@@ -659,7 +663,7 @@ ovs-vsctl show
 <p>Step 15. Refer to <a class="reference external" href="./ug1534-detailedappsdescriptions.html#functionality-check">Functionality Check</a> to check OVS functionality.</p>
 </div>
 <div class="section" id="vm-to-vm">
-<h3>VM to VM<a class="headerlink" href="#vm-to-vm" title="Permalink to this headline">¶</a></h3>
+<h3>VM to VM<a class="headerlink" href="#vm-to-vm" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> To have this configuration SR-IOV must be enabled in BIOS. For a VM to VM configuration, a tunnel- VXLAN or L2GRE could be created with two server setups.</p>
 <p><em>Figure 9:</em> <strong>VM to VM setup</strong></p>
 <p><img alt="seems messed up a little bit X25551-090721" src="../_images/cxa1631064658045_LowRes.png" /></p>
@@ -772,7 +776,7 @@ ovs-vsctl show
 <p>Step 14. Refer [Functionality Check(link)] to validate OVS functionality.</p>
 </div>
 <div class="section" id="tunnels-encapsulation-decapsulation">
-<h3>4.2.6 Tunnels (Encapsulation/Decapsulation)<a class="headerlink" href="#tunnels-encapsulation-decapsulation" title="Permalink to this headline">¶</a></h3>
+<h3>4.2.6 Tunnels (Encapsulation/Decapsulation)<a class="headerlink" href="#tunnels-encapsulation-decapsulation" title="Permalink to this heading">¶</a></h3>
 <p>U25N Smart NIC supports offloading of tunnels using encapsulation and decapsulation actions.</p>
 <ul class="simple">
 <li><p><strong>Encapsulation:</strong> Pushing tunnel header is supported on TX</p></li>
@@ -784,7 +788,7 @@ ovs-vsctl show
 <li><p>L2GRE</p></li>
 </ul>
 <div class="section" id="l2gre">
-<h4>L2GRE<a class="headerlink" href="#l2gre" title="Permalink to this headline">¶</a></h4>
+<h4>L2GRE<a class="headerlink" href="#l2gre" title="Permalink to this heading">¶</a></h4>
 <p><strong><em>Note</em>:</strong> For Port to VM or VM to Port or VM to VM case, a tunnel could be created with two server setup. The following section demonstrates creating a L2GRE based tunnel.</p>
 <ul class="simple">
 <li><p>Maximum tunnel support = 1K</p></li>
@@ -796,7 +800,7 @@ ovs-vsctl show
 <p><em>Figure 10:</em> <strong>L2GRE End to End setup with OVS functionality</strong></p>
 <p><img alt="X25553-091321" src="../_images/idz1631575855541_LowRes.png" /></p>
 <div class="section" id="server-1-configuration">
-<h5><strong>Server 1 Configuration</strong><a class="headerlink" href="#server-1-configuration" title="Permalink to this headline">¶</a></h5>
+<h5><strong>Server 1 Configuration</strong><a class="headerlink" href="#server-1-configuration" title="Permalink to this heading">¶</a></h5>
 <p>Step 1. Validate the driver version of the U25N interface by executing the following command:</p>
 <p><strong><em>Note</em>:</strong> Ignore this step if the U25N driver version is 5.3.3.1008.3.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25_eth0 <span class="p">|</span> grep version
@@ -868,7 +872,7 @@ options:local_ip<span class="o">=</span><span class="m">10</span>.16.0.2 options
 </div>
 </div>
 <div class="section" id="server-2-configuration">
-<h5>Server 2 Configuration<a class="headerlink" href="#server-2-configuration" title="Permalink to this headline">¶</a></h5>
+<h5>Server 2 Configuration<a class="headerlink" href="#server-2-configuration" title="Permalink to this heading">¶</a></h5>
 <p>Step 1. Check the driver version of the U25N interface using this command:</p>
 <p><strong><em>Note</em>:</strong> Ignore this step if the U25N X2 driver version is 5.3.3.1008.3</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25_eth0 <span class="p">|</span> grep version
@@ -940,7 +944,7 @@ options:local_ip<span class="o">=</span><span class="m">10</span>.16.0.1 options
 </div>
 </div>
 <div class="section" id="vxlan">
-<h4>4.2.6.2 VXLAN<a class="headerlink" href="#vxlan" title="Permalink to this headline">¶</a></h4>
+<h4>4.2.6.2 VXLAN<a class="headerlink" href="#vxlan" title="Permalink to this heading">¶</a></h4>
 <p><strong><em>Note</em>:</strong> For Port to VM or VM to Port or VM to VM configuration, a tunnel could be created with two server setups. The following section demonstrates creating a  VXLAN based tunnel.</p>
 <ul class="simple">
 <li><p>Maximum tunnel support = 1K</p></li>
@@ -951,7 +955,7 @@ options:local_ip<span class="o">=</span><span class="m">10</span>.16.0.1 options
 <p><em>Figure 11:</em> <strong>VXLAN</strong></p>
 <p><img alt="X25554-091321" src="../_images/rcv1631576075856_LowRes.png" /></p>
 <div class="section" id="id1">
-<h5>Server 1 Configuration<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h5>
+<h5>Server 1 Configuration<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h5>
 <p>Step 1. Validate the driver version of the U25N interface using this command:</p>
 <p><strong><em>Note</em>:</strong> Ignore this step if the U25N X2 driver version is 5.3.3.1008.3</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25_eth0 <span class="p">|</span> grep version
@@ -1018,7 +1022,7 @@ options:local_ip<span class="o">=</span><span class="m">10</span>.16.0.2 options
 </div>
 </div>
 <div class="section" id="id2">
-<h5>Server 2 Configuration<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h5>
+<h5>Server 2 Configuration<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h5>
 <p>Step 1. Check the driver version of the U25N X2 interface using this command:</p>
 <p><strong><em>Note</em>:</strong> Ignore this step if the U25N driver version is 5.3.3.1008.3</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25_eth0 <span class="p">|</span> grep version
@@ -1093,7 +1097,7 @@ options:local_ip<span class="o">=</span><span class="m">10</span>.16.0.1 options
 </div>
 </div>
 <div class="section" id="vm-to-vm-or-vm-to-port-or-port-to-vm-tunnel">
-<h4>4.2.6.3 VM to VM or VM to Port or Port to VM Tunnel<a class="headerlink" href="#vm-to-vm-or-vm-to-port-or-port-to-vm-tunnel" title="Permalink to this headline">¶</a></h4>
+<h4>4.2.6.3 VM to VM or VM to Port or Port to VM Tunnel<a class="headerlink" href="#vm-to-vm-or-vm-to-port-or-port-to-vm-tunnel" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>Maximum tunnel support = 1K</p></li>
 <li><p>Maximum supported flows = 8K</p></li>
@@ -1103,7 +1107,7 @@ options:local_ip<span class="o">=</span><span class="m">10</span>.16.0.1 options
 <p><em>Figure 12:</em> <strong>Tunneling/Detunneling setup</strong></p>
 <p><img alt="X25696-090721" src="../_images/ash1631066523492_LowRes.png" /></p>
 <div class="section" id="id3">
-<h5>Server 1 Configuration<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h5>
+<h5>Server 1 Configuration<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h5>
 <p>Step 1. Check the driver version of the U25N interface using this command:</p>
 <p><strong><em>Note</em>:</strong> Ignore this step if the U25N X2 driver version is 5.3.3.1008.3</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ethtool</span> <span class="o">-</span><span class="n">i</span> <span class="n">U25_eth0</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">version</span>
@@ -1256,7 +1260,7 @@ ovs-vsctl show
 <p>Step 14. Refer <a class="reference internal" href="ug1534-vminstall.html"><span class="doc">VM Installation</span></a> to instantiate the VM.</p>
 </div>
 <div class="section" id="id4">
-<h5>Server 2 Configuration<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h5>
+<h5>Server 2 Configuration<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h5>
 <p>Step 1. Check the driver version of the U25N interface using this command:</p>
 <p><strong><em>Note</em>:</strong> Ignore this step if the U25N X2 driver version is 5.3.3.1008.3</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25_eth0 <span class="p">|</span> grep version
@@ -1399,7 +1403,7 @@ ovs-vsctl show
 </div>
 </div>
 <div class="section" id="ovs-configuration">
-<h3>4.2.7 OVS Configuration<a class="headerlink" href="#ovs-configuration" title="Permalink to this headline">¶</a></h3>
+<h3>4.2.7 OVS Configuration<a class="headerlink" href="#ovs-configuration" title="Permalink to this heading">¶</a></h3>
 <p>Step 1. Export the OVS path:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export PATH=$PATH:/usr/local/share/openvswitch/scripts
 export PATH=$PATH:/usr/local/bin
@@ -1454,10 +1458,10 @@ cut -f2 -d &quot;:&quot; | tr -d &#39; &#39;) other_config:max-idle=30000000g
 <p><strong><em>Note</em>:</strong> For VM to VM or VM to Port or Port to VM Tunnel alone create two OVS bridges. For example, <code class="docutils literal notranslate"><span class="pre">ovs-vsctl</span> <span class="pre">add-br</span> <span class="pre">br0</span></code> and <code class="docutils literal notranslate"><span class="pre">ovs-vsctl</span> <span class="pre">add-br</span> <span class="pre">br1</span></code>.</p>
 </div>
 <div class="section" id="functionality-check">
-<h3>4.2.8 Functionality Check<a class="headerlink" href="#functionality-check" title="Permalink to this headline">¶</a></h3>
+<h3>4.2.8 Functionality Check<a class="headerlink" href="#functionality-check" title="Permalink to this heading">¶</a></h3>
 <p>After adding the U25N network interfaces to the OVS bridge, the functionality can be verified using ping, iperf, and dpdk network performance tools.</p>
 <div class="section" id="ping-test">
-<h4>Ping Test<a class="headerlink" href="#ping-test" title="Permalink to this headline">¶</a></h4>
+<h4>Ping Test<a class="headerlink" href="#ping-test" title="Permalink to this heading">¶</a></h4>
 <p>Step 1. Assign the IP address to the respective interface and do a ping using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ping</span> <span class="o">&lt;</span><span class="n">remote_ip</span><span class="o">&gt;</span>
 </pre></div>
@@ -1475,9 +1479,9 @@ running iperf3 or pktgen on a particular interface.</p>
 </div>
 </div>
 <div class="section" id="ipsec">
-<h2>IPsec<a class="headerlink" href="#ipsec" title="Permalink to this headline">¶</a></h2>
+<h2>IPsec<a class="headerlink" href="#ipsec" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="supported-xfrm-parameters">
-<h3>4.3.1 Supported XFRM Parameters<a class="headerlink" href="#supported-xfrm-parameters" title="Permalink to this headline">¶</a></h3>
+<h3>4.3.1 Supported XFRM Parameters<a class="headerlink" href="#supported-xfrm-parameters" title="Permalink to this heading">¶</a></h3>
 <p>IPsec tunnels are created between two servers. Because IPsec is in <em>transport mode</em>, L2GRE is used to create tunnels. The strongSwan application runs in user space. The charon plugin of strongSwan is used to offload rules on the U25N. Packets reaching the IPsec module should be L2GRE encapsulated.</p>
 <ul class="simple">
 <li><p>Encryption algorithm: AES-GCM 256 encryption/decryption</p></li>
@@ -1486,9 +1490,9 @@ running iperf3 or pktgen on a particular interface.</p>
 </ul>
 </div>
 <div class="section" id="id5">
-<h3>4.3.2 Classification Fields (Matches)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3>4.3.2 Classification Fields (Matches)<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <div class="section" id="encryption">
-<h4>4.3.2.1 Encryption<a class="headerlink" href="#encryption" title="Permalink to this headline">¶</a></h4>
+<h4>4.3.2.1 Encryption<a class="headerlink" href="#encryption" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Key
 
 <span class="m">1</span>. IPv4 <span class="nb">source</span> address
@@ -1510,7 +1514,7 @@ Actions
 </div>
 </div>
 <div class="section" id="decryption">
-<h4>4.3.2.2 Decryption<a class="headerlink" href="#decryption" title="Permalink to this headline">¶</a></h4>
+<h4>4.3.2.2 Decryption<a class="headerlink" href="#decryption" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Keys
 
 <span class="m">1</span>. IPv4 <span class="nb">source</span> address
@@ -1529,7 +1533,7 @@ Actions
 </div>
 </div>
 <div class="section" id="strongswan-installation">
-<h3>4.3.3 strongSwan Installation<a class="headerlink" href="#strongswan-installation" title="Permalink to this headline">¶</a></h3>
+<h3>4.3.3 strongSwan Installation<a class="headerlink" href="#strongswan-installation" title="Permalink to this heading">¶</a></h3>
 <p>Execute the following commands as a root user:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>- apt-get install aptitude
 
@@ -1553,7 +1557,7 @@ dpkg -i strongswan_5.8.4-1_amd64.deb
 </div>
 <p>Step 3. After installing the strongSwan package, create a CA certificate. CA certificate can be created in one server and can be copied to the other server.</p>
 <div class="section" id="id6">
-<h4>4.3.3.1 Server 1 Configuration<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<h4>4.3.3.1 Server 1 Configuration<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h4>
 <p>Step 1. Generating a self-signed CA certificate using the PKI utility of strongSwan:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cd /etc/ipsec.d
 ipsec pki --gen --type rsa --size 4096 --outform pem &gt; private/
@@ -1613,7 +1617,7 @@ strongswanCert.pem
 <p><strong><em>Note</em>:</strong> There is a white space, present between <code class="docutils literal notranslate"><span class="pre">:</span></code> and <code class="docutils literal notranslate"><span class="pre">RSA</span></code>.</p>
 </div>
 <div class="section" id="id7">
-<h4>4.3.3.2 Server 2 Configuration<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<h4>4.3.3.2 Server 2 Configuration<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h4>
 <p>Step 1. Generate the key pair and certificate in server 2 as root:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ipsec</span><span class="o">.</span><span class="n">d</span>
 <span class="n">ipsec</span> <span class="n">pki</span> <span class="o">--</span><span class="n">gen</span> <span class="o">--</span><span class="nb">type</span> <span class="n">rsa</span> <span class="o">--</span><span class="n">size</span> <span class="mi">2048</span> <span class="o">--</span><span class="n">outform</span> <span class="n">pem</span> <span class="o">&gt;</span> <span class="n">private</span><span class="o">/</span>
@@ -1656,7 +1660,7 @@ strongswanCert.pem
 <p><strong><em>Note</em>:</strong>  There is a white space, present between <code class="docutils literal notranslate"><span class="pre">:</span></code> and <code class="docutils literal notranslate"><span class="pre">RSA</span></code>.</p>
 </div>
 <div class="section" id="server-1-steps-to-run-ipsec">
-<h4>4.3.3.3 Server 1: Steps to Run IPsec<a class="headerlink" href="#server-1-steps-to-run-ipsec" title="Permalink to this headline">¶</a></h4>
+<h4>4.3.3.3 Server 1: Steps to Run IPsec<a class="headerlink" href="#server-1-steps-to-run-ipsec" title="Permalink to this heading">¶</a></h4>
 <p>Step 1. Validate the driver version of the U25N interface using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ethtool</span> <span class="o">-</span><span class="n">i</span> <span class="n">U25_eth0</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">version</span>
 </pre></div>
@@ -1719,7 +1723,7 @@ sudo ipsec restart
 </div>
 </div>
 <div class="section" id="server-2-steps-to-run-ipsec">
-<h4>4.3.3.4 Server 2: Steps to Run IPsec<a class="headerlink" href="#server-2-steps-to-run-ipsec" title="Permalink to this headline">¶</a></h4>
+<h4>4.3.3.4 Server 2: Steps to Run IPsec<a class="headerlink" href="#server-2-steps-to-run-ipsec" title="Permalink to this heading">¶</a></h4>
 <p>Step 1. Validate the driver version of the U25N interface using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ethtool</span> <span class="o">-</span><span class="n">i</span> <span class="n">U25_eth0</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">version</span>
 </pre></div>
@@ -1786,7 +1790,7 @@ Refer [Functionality Check](./ug1534-detailedappsdescriptions.html#functionality
 </div>
 </div>
 <div class="section" id="changing-ipsec-tunnel-endpoints">
-<h3>4.3.5 Changing IPsec Tunnel Endpoints<a class="headerlink" href="#changing-ipsec-tunnel-endpoints" title="Permalink to this headline">¶</a></h3>
+<h3>4.3.5 Changing IPsec Tunnel Endpoints<a class="headerlink" href="#changing-ipsec-tunnel-endpoints" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> In the below case, we assumed PF0 interface had previously acted as tunnel endpoint and now we are configuring PF1 to act as tunnel endpoint.</p>
 <p><strong><em>Note</em>:</strong> Login as root user before proceeding below steps.</p>
 <p>Step 1: Stop the incoming and outgoing traffic.</p>
@@ -1811,10 +1815,10 @@ Refer [Functionality Check](./ug1534-detailedappsdescriptions.html#functionality
 </div>
 </div>
 <div class="section" id="stateless-firewall">
-<h2>4.4 Stateless Firewall<a class="headerlink" href="#stateless-firewall" title="Permalink to this headline">¶</a></h2>
+<h2>4.4 Stateless Firewall<a class="headerlink" href="#stateless-firewall" title="Permalink to this heading">¶</a></h2>
 <p>This section is about stateless firewall prerequisites, installation steps, and supported rules.</p>
 <div class="section" id="kernel-upgrade">
-<h3>Kernel Upgrade<a class="headerlink" href="#kernel-upgrade" title="Permalink to this headline">¶</a></h3>
+<h3>Kernel Upgrade<a class="headerlink" href="#kernel-upgrade" title="Permalink to this heading">¶</a></h3>
 <p>Run the command <code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-r</span></code> to get the kernel version. If the kernel version is v5.5 or higher, ignore the following steps:</p>
 <ol>
 <li><p>Download the Debian packages for the kernel upgrade.</p></li>
@@ -1847,7 +1851,7 @@ Refer [Functionality Check](./ug1534-detailedappsdescriptions.html#functionality
 </ol>
 </div>
 <div class="section" id="nftables">
-<h3>nftables<a class="headerlink" href="#nftables" title="Permalink to this headline">¶</a></h3>
+<h3>nftables<a class="headerlink" href="#nftables" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> Refer <a class="reference external" href="./ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a> for flashing images to check firewall functionality.</p>
 <p>Step 1. The nftables only work in legacy mode. Ensure the SmartNIC is in legacy mode using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">devlink</span> <span class="n">dev</span> <span class="n">eswitch</span> <span class="n">show</span> <span class="n">pci</span><span class="o">/</span><span class="mi">0000</span><span class="p">:</span><span class="o">&lt;</span><span class="n">pci_id</span><span class="o">&gt;</span>
@@ -1867,7 +1871,7 @@ Refer [Functionality Check](./ug1534-detailedappsdescriptions.html#functionality
 <p><strong><em>Note</em>:</strong> Tested version 0.9.6 and 0.9.8.</p>
 </div>
 <div class="section" id="id8">
-<h3>4.4.3 Classification Fields (Matches)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3>4.4.3 Classification Fields (Matches)<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <p>Maximum rules supported: 1K for each U25N PF interface.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Keys:
 
@@ -1895,7 +1899,7 @@ Actions
 <p><em>Figure 14:</em> <strong>Firewall</strong></p>
 <p><img alt="X25556-091321 this table might be messed up" src="../_images/uhd1631577266564_LowRes.png" /></p>
 <div class="section" id="driver-installation">
-<h4>Driver Installation<a class="headerlink" href="#driver-installation" title="Permalink to this headline">¶</a></h4>
+<h4>Driver Installation<a class="headerlink" href="#driver-installation" title="Permalink to this heading">¶</a></h4>
 <p><strong><em>Note</em>:</strong> Log in as a root user before proceeding with the following
 steps.</p>
 <p>The prerequisites for the driver installation are as follows:</p>
@@ -1985,10 +1989,10 @@ steps.</p>
 </div>
 </div>
 <div class="section" id="statistics">
-<h2>4.5 Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
+<h2>4.5 Statistics<a class="headerlink" href="#statistics" title="Permalink to this heading">¶</a></h2>
 <p>This section outlines the commands used by different modules to check the statistics and packet counters.</p>
 <div class="section" id="ovs-commands">
-<h3>OVS Commands<a class="headerlink" href="#ovs-commands" title="Permalink to this headline">¶</a></h3>
+<h3>OVS Commands<a class="headerlink" href="#ovs-commands" title="Permalink to this heading">¶</a></h3>
 <ol class="simple">
 <li><p>To print a brief overview of the database contents:</p></li>
 </ol>
@@ -2022,7 +2026,7 @@ steps.</p>
 </div>
 </div>
 <div class="section" id="mae-rules">
-<h3>4.5.2 MAE Rules<a class="headerlink" href="#mae-rules" title="Permalink to this headline">¶</a></h3>
+<h3>4.5.2 MAE Rules<a class="headerlink" href="#mae-rules" title="Permalink to this heading">¶</a></h3>
 <ol class="simple">
 <li><p>Use the following command to display the rules present in the match-action engine (MAE):</p></li>
 </ol>
@@ -2039,7 +2043,7 @@ steps.</p>
 </div>
 </div>
 <div class="section" id="ipsec-statistics">
-<h3>4.5.3 IPsec Statistics<a class="headerlink" href="#ipsec-statistics" title="Permalink to this headline">¶</a></h3>
+<h3>4.5.3 IPsec Statistics<a class="headerlink" href="#ipsec-statistics" title="Permalink to this heading">¶</a></h3>
 <ol class="simple">
 <li><p>IPsec stats can be obtained by executing the following command:</p></li>
 </ol>
@@ -2052,7 +2056,7 @@ steps.</p>
 </div>
 </div>
 <div class="section" id="debug-commands">
-<h2>4.6 Debug Commands<a class="headerlink" href="#debug-commands" title="Permalink to this headline">¶</a></h2>
+<h2>4.6 Debug Commands<a class="headerlink" href="#debug-commands" title="Permalink to this heading">¶</a></h2>
 <p><strong><em>Note</em>:</strong> The output of the following commands should be saved for debug purposes.</p>
 <ol class="simple">
 <li><p>lsmod - It displays which kernel modules are currently loaded. Whether the sfc driver is inserted or not can be verified by the below command.</p></li>
@@ -2260,7 +2264,7 @@ Client : iperf -c &lt;ip_addr_interface&gt; <options></p></li>
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on April 7, 2022.
+        Last updated on July 9, 2022.
       </span>
 
     </p>
