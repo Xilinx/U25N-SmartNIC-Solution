@@ -58,8 +58,10 @@ function OptanonWrapper() { }
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -72,6 +74,8 @@ function OptanonWrapper() { }
   <link rel="stylesheet" href="../_static/css/common-ui-all.min.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/header-footer.min.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/pro.min.css" media="all" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4 Detailed Applications Description" href="ug1534-detailedappsdescriptions.html" />
@@ -226,7 +230,7 @@ function OptanonWrapper() { }
             
             
               <div class="version">
-                1.1
+                1.2
               </div>
             
           
@@ -251,7 +255,7 @@ function OptanonWrapper() { }
               
             
             
-              <p class="caption"><span class="caption-text">U25N</span></p>
+              <p class="caption" role="heading"><span class="caption-text">U25N</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ug1534-supportedservices.html">Supported Services</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
@@ -282,9 +286,9 @@ function OptanonWrapper() { }
 <li class="toctree-l1"><a class="reference internal" href="ug1534-shellprogramming.html">APPENDIX A U25N Shell Programming</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ug1534-vminstall.html">APPENDIX B VM Installation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Download Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Download Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_1.pdf">PDF</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_2.pdf">PDF</a></li>
 </ul>
 
             
@@ -357,12 +361,18 @@ function OptanonWrapper() { }
            <div itemprop="articleBody">
             
   <div class="section" id="u25n-installation">
-<h1>3. U25N Installation<a class="headerlink" href="#u25n-installation" title="Permalink to this headline">¶</a></h1>
+<h1>3. U25N Installation<a class="headerlink" href="#u25n-installation" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="basic-requirements-and-component-versions-supported">
-<h2>3.1 Basic Requirements and Component Versions Supported<a class="headerlink" href="#basic-requirements-and-component-versions-supported" title="Permalink to this headline">¶</a></h2>
+<h2>3.1 Basic Requirements and Component Versions Supported<a class="headerlink" href="#basic-requirements-and-component-versions-supported" title="Permalink to this heading">¶</a></h2>
 <ul>
-<li><p>OS requirement: Ubuntu 18.04 or 20.04.</p>
+<li><p>OS requirement:</p>
+<ul class="simple">
+<li><p>Ubuntu 18.04 or 20.04</p></li>
+</ul>
 <p><strong><em>Note</em>:</strong> We recommend using the LTS version of Ubuntu.</p>
+<ul class="simple">
+<li><p>Red Hat Enterprise Linux 8.3 or 8.4</p></li>
+</ul>
 </li>
 <li><p>Kernel requirements:</p>
 <ul class="simple">
@@ -381,7 +391,7 @@ function OptanonWrapper() { }
 </ul>
 </div>
 <div class="section" id="u25n-driver">
-<h2>3.2 U25N Driver<a class="headerlink" href="#u25n-driver" title="Permalink to this headline">¶</a></h2>
+<h2>3.2 U25N Driver<a class="headerlink" href="#u25n-driver" title="Permalink to this heading">¶</a></h2>
 <p><strong><em>Note</em>:</strong> Root user privileges are required to execute following steps and commands.</p>
 <p>Once the server is successfully booted with U25N Smart NIC, validate that the U25N Smart NIC is detected using the lspci command:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>lspci | grep Solarflare
@@ -395,8 +405,9 @@ af:00.1 Ethernet controller: Solarflare Communications XtremeScale SFC9250
 </pre></div>
 </div>
 <div class="section" id="solarflare-linux-utilities-installation">
-<h3>Solarflare Linux Utilities Installation<a class="headerlink" href="#solarflare-linux-utilities-installation" title="Permalink to this headline">¶</a></h3>
+<h3>Solarflare Linux Utilities Installation<a class="headerlink" href="#solarflare-linux-utilities-installation" title="Permalink to this heading">¶</a></h3>
 <p>The Solarflare Linux Utilities package can be found from the U25N software package downloaded from the lounge.</p>
+<p>If you are using an Ubuntu server:</p>
 <ol>
 <li><p>Download and unzip the package on the target server.</p>
 <p><strong><em>Note</em>:</strong> Alien package must be downloaded using the command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">alien</span></code>.</p>
@@ -413,40 +424,73 @@ af:00.1 Ethernet controller: Solarflare Communications XtremeScale SFC9250
 </div>
 </li>
 </ol>
+<p>If you are using Red Hat Enterprise Linux server:</p>
+<ol>
+<li><p>Install the binary RPM:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo rpm -Uvh sfutils-&lt;version&gt;.x86_64.rpm
+</pre></div>
+</div>
+</li>
+</ol>
 <p>The server should have sfupdate, sfkey, sfctool and sfboot utilities now.</p>
 </div>
 <div class="section" id="u25n-driver-installation">
-<h3>3.2.1 U25N Driver Installation<a class="headerlink" href="#u25n-driver-installation" title="Permalink to this headline">¶</a></h3>
-<p><strong><em>Note</em>:</strong> Install the dkms package with the following command if not available:</p>
+<h3>3.2.1 U25N Driver Installation<a class="headerlink" href="#u25n-driver-installation" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p>If you are using an Ubuntu server</p>
+<ul>
+<li><p>Install the dkms package with the following command if not available:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install dkms
 </pre></div>
 </div>
-<p><strong><em>Note</em>:</strong> If the driver version is 5.3.3.1008.3, please ignore Step 1.
-Check the driver version of U25N interface using the following command:</p>
+<p><strong><em>Note</em>:</strong> If the driver version is 5.3.3.1008.3, please ignore this U25N driver installation step.</p>
+</li>
+<li><p>Check the driver version of U25N interface using the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25N_eth0 <span class="p">|</span> grep version <span class="c1">#U25N_eth0 is the first port of U25N.</span>
 </pre></div>
 </div>
-<p>Step 1 : If the debian package already exists, before installing the latest debian package, remove the already existing package.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modprobe mtd  <span class="o">[</span><span class="k">for</span> first <span class="nb">time</span> alone<span class="o">]</span>
-
-modprobe mdio  <span class="o">[</span><span class="k">for</span> first <span class="nb">time</span> alone<span class="o">]</span>
-
+</li>
+<li><p>If legacy version debian package already exists, before installing the latest debian package, remove the already existing package.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modprobe mtd
+modprobe mdio
 rmmod sfc
-
 dpkg -r sfc-dkms
-
 dpkg -i sfc-dkms_x.x.x.x_all.deb
-
 modprobe sfc
 </pre></div>
 </div>
-<p>For Eg:</p>
+</li>
+<li><p>Then install debian driver package</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dpkg -i sfc-dkms_5.3.3.1008.3_all.deb
 </pre></div>
 </div>
+</li>
+</ul>
+</li>
+<li><p>If you are using Red Hat Enterprise Linux server</p>
+<ul>
+<li><p>Install dependency “unifdef-2.12” package if it is not installed</p></li>
+<li><p>rmmod sfc (if driver is already loaded)</p></li>
+<li><p>Remove sfc rpm package (if it’s installed already)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rpm -qa <span class="p">|</span> grep <span class="m">5</span>.3.3.1008.4 <span class="o">[</span>to get sfc rpm package name<span class="o">]</span>
+rpm -e &lt;kernel-module-sfc-RHEL8-4-5.3.3.1008.4-1.x86_64.rpm&gt;
+</pre></div>
+</div>
+</li>
+<li><p>Install the rpm package</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rpm -i RHEL8.3-5.3.3.1008.4-1.x86_64.rpm <span class="o">(</span><span class="k">for</span> <span class="m">8</span>.3 Kernel<span class="o">)</span>
+rpm -i RHEL8.4-5.3.3.1008.4-1.x86_64.rpm <span class="o">(</span><span class="k">for</span> <span class="m">8</span>.4 Kernel<span class="o">)</span>
+modprobe sfc
+</pre></div>
+</div>
+<p><strong><em>Note</em>:</strong> Once the package is installed, after each power cycling or reboot, rmmod sfc and modprobe sfc is needed.</p>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section" id="updating-u25n-firmware">
-<h3>3.2.2 Updating U25N Firmware<a class="headerlink" href="#updating-u25n-firmware" title="Permalink to this headline">¶</a></h3>
+<h3>3.2.2 Updating U25N Firmware<a class="headerlink" href="#updating-u25n-firmware" title="Permalink to this heading">¶</a></h3>
 <p>Step 1: Make sure U25N driver is loaded using <code class="docutils literal notranslate"><span class="pre">lsmod</span></code> command</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsmod <span class="p">|</span> grep sfc
 </pre></div>
@@ -472,7 +516,7 @@ sfupdate -i &lt;U25N_eth0&gt; --write --force --yes <span class="c1"># U25N_eth0
 Bundle version:     v7.8.17.1011</p>
 </div>
 <div class="section" id="sfboot-configuration">
-<h3>3.2.3 sfboot Configuration<a class="headerlink" href="#sfboot-configuration" title="Permalink to this headline">¶</a></h3>
+<h3>3.2.3 sfboot Configuration<a class="headerlink" href="#sfboot-configuration" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> Ignore the following steps if the U25N is operating in SR-IOV mode and the required VF are already assigned. Available VFs and SR-IOV mode can be verified by running the sfboot command as a root user.</p>
 <p>For more information on enabling VFs and SR-IOV, refer to the <a class="reference external" href="https://support-nic.xilinx.com/wp/drivers">solarflare user guide</a></p>
 <p>X2 switch mode must be configured in SR-IOV mode for enabling VFs. Each U25N PF can have up to 120 VFs. The following command demonstrates how to switch to the SR-IOV mode and enable VFs.</p>
@@ -483,10 +527,10 @@ Bundle version:     v7.8.17.1011</p>
 </div>
 </div>
 <div class="section" id="u25n-shell">
-<h2>3.3 U25N Shell<a class="headerlink" href="#u25n-shell" title="Permalink to this headline">¶</a></h2>
+<h2>3.3 U25N Shell<a class="headerlink" href="#u25n-shell" title="Permalink to this heading">¶</a></h2>
 <p>The U25N shell is programmed on the U25N with a known good image which is called “golden image” out of the factory. The Following sections demonstrate how to verify the shell. If the validation fails, refer to <a class="reference internal" href="ug1534-shellprogramming.html"><span class="doc">U25N Shell Programming</span></a>.</p>
 <div class="section" id="shell-version-check">
-<h3>3.3.1 Shell Version Check<a class="headerlink" href="#shell-version-check" title="Permalink to this headline">¶</a></h3>
+<h3>3.3.1 Shell Version Check<a class="headerlink" href="#shell-version-check" title="Permalink to this heading">¶</a></h3>
 <p>Step 1 : Check the driver version of U25N interface using the following command:</p>
 <p><strong><em>Note</em>:</strong> Ignore Step 1, if the U25N driver version is 5.3.3.1008.3.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25N_eth0 <span class="p">|</span> grep version
@@ -521,17 +565,17 @@ STATUS: SUCCESSFUL
 </pre></div>
 </div>
 <p><strong><em>Note</em>:</strong> If the u25n_update command returns status as failed, this implies that the shell is not programmed with the Golden image. Please contact support. Refer to <a class="reference internal" href="ug1534-shellprogramming.html"><span class="doc">U25N Shell Programming</span></a> to flash the Golden image to the U25N shell.</p>
-<p>The following section demonstrates how to validate the Golden Image Functionality. For flashing deployment image to the U25N shell refer to <a class="reference external" href="./ug1534-installation#deployment-image-flashing">Deployment Image Flashing</a>.</p>
+<p>The following section demonstrates how to validate the Golden Image Functionality. For flashing deployment image to the U25N shell refer to <a class="reference external" href="./ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a>.</p>
 <p><strong><em>Note</em>:</strong> If the Golden image version is same as the Deployment image version, flashing is not required.</p>
 </div>
 <div class="section" id="testing-golden-image-functionality">
-<h3>3.3.2 Testing Golden Image Functionality<a class="headerlink" href="#testing-golden-image-functionality" title="Permalink to this headline">¶</a></h3>
+<h3>3.3.2 Testing Golden Image Functionality<a class="headerlink" href="#testing-golden-image-functionality" title="Permalink to this heading">¶</a></h3>
 <ol class="simple">
 <li><p>The U25N shell with Golden image includes Image Upgrade and Basic NIC functions.</p></li>
 <li><p>U25N hardware in legacy mode where the acceleration logic is simple passthrough from ethernet ports to host driver.</p></li>
 </ol>
 <div class="section" id="checking-basic-nic-functionality">
-<h4>3.3.2.1 Checking Basic NIC Functionality<a class="headerlink" href="#checking-basic-nic-functionality" title="Permalink to this headline">¶</a></h4>
+<h4>3.3.2.1 Checking Basic NIC Functionality<a class="headerlink" href="#checking-basic-nic-functionality" title="Permalink to this heading">¶</a></h4>
 <p>Connect the U25N physical port to a traffic generator or any peer NIC device.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Run ping after assigning IP addresses on source and remote ports.
 Run iperf server and client on any ports to verify traffic.
@@ -542,7 +586,7 @@ Run DPDK testpmd at the X2 PF interface. Packets sent to the physical port will 
 </div>
 </div>
 <div class="section" id="deployment-image-flashing">
-<h3>3.3.3 Deployment Image Flashing<a class="headerlink" href="#deployment-image-flashing" title="Permalink to this headline">¶</a></h3>
+<h3>3.3.3 Deployment Image Flashing<a class="headerlink" href="#deployment-image-flashing" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> U25N must have the Golden Image before performing any of the following steps. Refer to <a class="reference external" href="./ug1534-installation.html#shell-version-check">Shell Version Check</a> to check the Shell version. Ignore the flashing if Golden image version is same as deployment version in the release.</p>
 <p><strong><em>Note</em>:</strong> Before flashing the image ensure the U25N card is in legacy mode with no OVS software application running. Also, remove all associated OVS databases( if any)</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>To check the mode of operation:<span class="o">(</span>Legacy/Switchdev modes<span class="o">)</span>
@@ -621,7 +665,7 @@ STATUS: SUCCESSFUL
 </div>
 </div>
 <div class="section" id="loading-partial-bitstream-into-deployment-shell">
-<h3>3.3.3.1 Loading Partial Bitstream into Deployment Shell<a class="headerlink" href="#loading-partial-bitstream-into-deployment-shell" title="Permalink to this headline">¶</a></h3>
+<h3>3.3.3.1 Loading Partial Bitstream into Deployment Shell<a class="headerlink" href="#loading-partial-bitstream-into-deployment-shell" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> The U25N must be flashed with the Deployment image before running the following commands. Refer to the [<a class="reference external" href="ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a>](./ug1534-installation.html#deployment-image-flashing) to flash the deployment image to the U25N shell.</p>
 <p><strong><em>Note</em>:</strong> In case partial Bitstream already exists in the U25N card and/or if a warm reboot has already been done, ensure a fpga reset is performed using u25n_update application before following the steps mentioned below. Use the following command to reset the FPGA.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update reset &lt;U25N_eth0&gt;
@@ -686,7 +730,7 @@ STATUS: SUCCESSFUL
 </div>
 </div>
 <div class="section" id="steps-to-change-mpsoc-linux-kernel-image-for-advanced-users">
-<h3>3.4 Steps to change MPSoC Linux kernel image (For advanced users)<a class="headerlink" href="#steps-to-change-mpsoc-linux-kernel-image-for-advanced-users" title="Permalink to this headline">¶</a></h3>
+<h3>3.4 Steps to change MPSoC Linux kernel image (For advanced users)<a class="headerlink" href="#steps-to-change-mpsoc-linux-kernel-image-for-advanced-users" title="Permalink to this heading">¶</a></h3>
 <p>Follow this Section only when the file system needs to be updated for the existing Deployment image.</p>
 <p>Deployment image must be flashed to the U25N shell before following the below mentioned steps. Refer to [<a class="reference external" href="ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a>](./ug1534-installation.html#deployment-image-flashing) to flash the Deployment image.</p>
 <p><strong><em>Note</em>:</strong> Before flashing the image to the shell ensure the card is in legacy mode with no OVS software application  running and all OVS databases have been removed.</p>
@@ -736,7 +780,7 @@ STATUS: SUCCESSFUL
 </div>
 </div>
 <div class="section" id="reverting-the-u25n-smartnic-to-golden-image">
-<h2>3.5 Reverting the U25N SmartNIC to Golden Image<a class="headerlink" href="#reverting-the-u25n-smartnic-to-golden-image" title="Permalink to this headline">¶</a></h2>
+<h2>3.5 Reverting the U25N SmartNIC to Golden Image<a class="headerlink" href="#reverting-the-u25n-smartnic-to-golden-image" title="Permalink to this heading">¶</a></h2>
 <p>Reverting to the factory (or golden) image is recommended in the following cases:</p>
 <ul class="simple">
 <li><p>Preparing to flash a different shell onto the SmartNIC.</p></li>
@@ -808,7 +852,7 @@ STATUS: SUCCESSFUL
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on April 7, 2022.
+        Last updated on July 9, 2022.
       </span>
 
     </p>

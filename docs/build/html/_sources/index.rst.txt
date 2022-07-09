@@ -44,5 +44,5 @@ This user guide describes installation, configuration, and operation of the Alve
    :caption: Download Guide
    :hidden:
 
-   PDF <https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_1.pdf>
+   PDF <https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_2.pdf>
 

@@ -2,9 +2,12 @@
 
 ## 3.1 Basic Requirements and Component Versions Supported
 
-- OS requirement: Ubuntu 18.04 or 20.04.
+- OS requirement: 
+  - Ubuntu 18.04 or 20.04
 
   ***Note*:** We recommend using the LTS version of Ubuntu.
+  
+  - Red Hat Enterprise Linux 8.3 or 8.4
 
 - Kernel requirements:
 
@@ -49,6 +52,8 @@ af:00.1 Ethernet controller: Solarflare Communications XtremeScale SFC9250
 
 The Solarflare Linux Utilities package can be found from the U25N software package downloaded from the lounge.
 
+If you are using an Ubuntu server:
+
 1. Download and unzip the package on the target server.
 
    ***Note*:** Alien package must be downloaded using the command `sudo apt install alien`.
@@ -67,44 +72,61 @@ The Solarflare Linux Utilities package can be found from the U25N software packa
    sudo dpkg -i sfutils_<version>_amd64.deb
    ```
 
+If you are using Red Hat Enterprise Linux server:
+1. Install the binary RPM:
+   ```bash
+   sudo rpm -Uvh sfutils-<version>.x86_64.rpm
+   ```
+
 The server should have sfupdate, sfkey, sfctool and sfboot utilities now.
 
 ### 3.2.1 U25N Driver Installation
+- If you are using an Ubuntu server
+  - Install the dkms package with the following command if not available:
+    ```bash
+    sudo apt-get install dkms
+    ```
+    ***Note*:** If the driver version is 5.3.3.1008.3, please ignore this U25N driver installation step.
+    
+  - Check the driver version of U25N interface using the following command:
+    ```bash
+    ethtool -i U25N_eth0 | grep version #U25N_eth0 is the first port of U25N.
+    ```
 
-***Note*:** Install the dkms package with the following command if not available:
+  - If legacy version debian package already exists, before installing the latest debian package, remove the already existing package.
+    ```bash
+    modprobe mtd
+    modprobe mdio
+    rmmod sfc
+    dpkg -r sfc-dkms
+    dpkg -i sfc-dkms_x.x.x.x_all.deb
+    modprobe sfc
+    ```
+ 
+  - Then install debian driver package
 
-```bash
-sudo apt-get install dkms
-```
+    ```bash
+    dpkg -i sfc-dkms_5.3.3.1008.3_all.deb
+    ```
+ 
+- If you are using Red Hat Enterprise Linux server
+    - Install dependency “unifdef-2.12” package if it is not installed
+    - rmmod sfc (if driver is already loaded)
+    - Remove sfc rpm package (if it's installed already)
+   
+      ```bash
+      rpm -qa | grep 5.3.3.1008.4 [to get sfc rpm package name]
+      rpm -e <kernel-module-sfc-RHEL8-4-5.3.3.1008.4-1.x86_64.rpm>
+      ```
+       
+    - Install the rpm package
+      ```bash
+      rpm -i RHEL8.3-5.3.3.1008.4-1.x86_64.rpm (for 8.3 Kernel)
+      rpm -i RHEL8.4-5.3.3.1008.4-1.x86_64.rpm (for 8.4 Kernel)
+      modprobe sfc
+      ```
+      ***Note*:** Once the package is installed, after each power cycling or reboot, rmmod sfc and modprobe sfc is needed.
 
-***Note*:** If the driver version is 5.3.3.1008.3, please ignore Step 1.
-Check the driver version of U25N interface using the following command:
-
-```bash
-ethtool -i U25N_eth0 | grep version #U25N_eth0 is the first port of U25N.
-```
-
-Step 1 : If the debian package already exists, before installing the latest debian package, remove the already existing package.
-
-```bash
-modprobe mtd  [for first time alone]
-
-modprobe mdio  [for first time alone]
-
-rmmod sfc
-
-dpkg -r sfc-dkms
-
-dpkg -i sfc-dkms_x.x.x.x_all.deb
-
-modprobe sfc
-```
-
-For Eg:
-
-```bash
-dpkg -i sfc-dkms_5.3.3.1008.3_all.deb
-```
 
 ### 3.2.2 Updating U25N Firmware
 
