@@ -5,6 +5,7 @@
 The U25N SmartNIC can operate in two modes:
 
 Switchdev Mode with Open vSwitch (OVS): This mode allows offloading the Linux kernel forwarding data plane to U25N SmartNIC.
+
 Legacy Mode without OVS: In this mode, packets are forwarded in and out of the U25N SmartNIC without any modifications.
 
 *Figure 3:* **U25N Modes of Operation**
@@ -14,6 +15,7 @@ Legacy Mode without OVS: In this mode, packets are forwarded in and out of the U
 ## 2.2 Open vSwitch
 
 Open vSwitch (OVS) is a software-defined virtual switch that a hypervisor uses to manage traffic between virtual instances. It performs not only classic layer-2 switching, but also supports arbitrarily complex rules matching on any packet field, and performing any transformation.
+
 OVS groups packet flows requiring the same switching behavior into megaflows that can require filtering at layer 2, layer 3, or layer 4 (potentially changing over time) of the Network stack. Deployments can require very large numbers of simultaneous megaflows to be supported. The downside of OVS is that it is resource-intensive. Cloud providers have to dedicate a significant number of cores to run this infrastructure, instead of renting those cores to their customers for running business applications.The U25N SmartNIC can offload the virtual switching off of the host processor and hence improve CPU efficiency .
 
 OVS supports various dataflows: port to VM, VM to VM, and port to port. The following section contains detailed information about these dataflows.
@@ -28,7 +30,7 @@ In this configuration, traffic flows from one physical port to the other physica
 
 ### 2.2.2 Port to VM or VM to Port
 
-In this configuration, traffic flows from the host or VMs to U25N physical ports, and vice versa. This configuration is achieved by creating virtual functions (VFs) corresponding to a physical function (PFs) using sfboot command (for more information refer to the Solarflare Server Adapter user guide at [https://support-nic.xilinx.com/wp/drivers](https://support-nic.xilinx.com/wp/drivers)). In this configuration packet switching is done by OVS.
+In this configuration, traffic flows from the host or VMs to U25N physical ports, and vice versa. This configuration is achieved by creating virtual functions (VFs) corresponding to a physical function (PFs) using sfboot command (for more information refer to the Solarflare Server Adapter user guide at [Solarflare Server Adapter User Guide](https://www.xilinx.com/support/download/nic-software-and-drivers.html#drivers-software)). In this configuration packet switching is done by OVS.
 
 ### 2.2.3 VM to VM
 
@@ -39,11 +41,27 @@ In this configuration, traffic flows from a VM to another VM via OvS kernel modu
 #### 2.2.5.1 L2GRE
 
 OVS supports layer 2 over generic routing encapsulation (L2GRE). L2GRE tunnel bridges two discrete LAN segments over the internet by creating a tunnel. At the origin of the tunnel, packets are encapsulated and at the terminating end, packets are decapsulated. The constant encapsulation and decapsulation puts a tremendous load on the host CPU.
+
 With the help of hardware offload, packet encapsulation and decapsulation is offloaded to the U25N SmartNIC and does not consume valuable host CPU cycles.
 
 #### 2.2.5.1 VXLAN
 
 OVS supports Virtual eXtensible Local Area Network or VXLAN. VXLAN is an overlay network that transports an L2 network over an existing L3 network. For more information on VXLAN, please see RFC 7348. Like L2GRE the VXLAN tunnel creation and packet encapsulation/decapsulation process can be offloaded to the U25N Smart NIC, thus saving valuable CPU cycles.
+
+### 2.2.6 LACP
+
+Link aggregation is the combining of two 25Gbps links in parallel, in order to increase throughput beyond a single 25Gbps connection, to provide redundancy in case one of the links should fail, or both. PF bond and VF_Rep bond is added to the OvS bridge. 
+
+### 2.2.7 VLAN Push/Pop
+
+OVS supports offload of vlan header push/pop actions. 
+
+- strip_vlan: Strips the VLAN tag from a packet. 
+- push_vlan: Push a new VLAN tag onto the packet.
+
+### 2.2.8 Conntrack
+
+Conntrack is a connection tracking module for stateful packet inspection. OVS can use the connection tracking system to match on the TCP segments from connection setup to connection tear down where OpenFlow flow can be used to match on the state of the packet.
 
 ## 2.3 IPsec
 
@@ -58,4 +76,14 @@ First-level filtering is done based upon nftables rules. The hardware offload is
 
 ## 2.5 DPDK on U25N
 
-Data Plane Development Kit or DPDK is a kernel bypass technique to accelerate packet processing. DPDK enables the applications running in user-space to interact directly with NIC, bypassing the Linux kernel space. DPDK uses Poll Mode Driver (PMD) to interact with the underlying NIC. DPDK can be run on the X2 PF or VF. To run the testpmd/pktgen application on the U25N, refer to [Solarflare libefx-based Poll Mode DriverDPDK](https://doc.dpdk.org/guides/nics/sfc_efx.html#pre-installation-configuration). For more information about how to run DPDK on the U25N, refer to [DPDK](./ug1534-dpdk.md).
+Data Plane Development Kit or DPDK is a kernel bypass technique to accelerate packet processing. DPDK enables the applications running in user-space to interact directly with NIC, bypassing the Linux kernel space. DPDK uses Poll Mode Driver (PMD) to interact with the underlying NIC. DPDK can be run on the X2 PF or VF. To run the testpmd/pktgen application on the U25N, refer to [Solarflare libefx-based Poll Mode Driver DPDK](https://doc.dpdk.org/guides/nics/sfc_efx.html#pre-installation-configuration). For more information about how to run DPDK on the U25N, refer to [DPDK](./ug1534-dpdk.html).
+
+## 2.6 Statictics counter
+
+Statistics data will be updated periodically from U25N hardware. Counts would be available for each service separately. Commands are provided to display the counter values.
+
+## 2.7 Debug
+
+A set of debug command is provided which collects
+- debug logs from PS and send them to host CPU. 
+- dump the default rules and offloaded rules of OVS.

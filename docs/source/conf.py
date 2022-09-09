@@ -28,10 +28,10 @@ copyright = '2022, Xilinx, Inc.'
 author = 'Xilinx, Inc.'
 
 # The short X.Y version
-version = '1.2'
+version = '1.3'
 # The full version, including alpha/beta/rc tags
-release = '1.2'
-html_last_updated_fmt = 'July 9, 2022'
+release = '1.3'
+html_last_updated_fmt = 'Sept 1, 2022'
 
 # -- General configuration ---------------------------------------------------
 
@@ -66,7 +66,7 @@ autosectionlabel_prefix_document = True
 
 
 # Configuration for rst2pdf
-pdf_documents = [('index', u'SOM', u'KV260 GitHub Docs', u'Xilinx, Inc.'),]
+pdf_documents = [('index', u'ug1534-u25n-smartnic-user-guide', u'UG1534 U25N SmartNIC User Guide', u'Xilinx, Inc.'),]
   # index - master document
   # rst2pdf - name of the file that will be created
   # Sample rst2pdf doc - title of the pdf
