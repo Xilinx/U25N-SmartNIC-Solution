@@ -238,7 +238,7 @@ Refer to [Functionality Check](./ug1534-detailedappsdescriptions.html#functional
       ifconfig -a
       ```
 
-   2. Search for U25N interfaces using the `ethtool -i <PF_interface>` command:
+   2. Search for U25N interfaces using the `sfboot` command:
 
       ```bash
       sfboot --list # shows the U25N interfaces
@@ -414,7 +414,7 @@ Refer to [Functionality Check](./ug1534-detailedappsdescriptions.html#functional
       ifconfig -a
       ```
 
-   2. Search for U25N interfaces using the `ethtool -i <PF_interface>` command:
+   2. Search for U25N interfaces using the `sfboot` command:
 
       ```bash
       sfboot --list # shows the U25N interfaces
@@ -912,7 +912,7 @@ Refer to [Basic Requirements and Component Versions Supported](./ug1534-installa
       ifconfig -a
       ```
 
-   2. Search for U25N interfaces using the `ethtool -i <PF_interface>` command:
+   2. Search for U25N interfaces using the `sfboot` command:
 
       ```bash
       sfboot --list # shows the U25N interfaces
