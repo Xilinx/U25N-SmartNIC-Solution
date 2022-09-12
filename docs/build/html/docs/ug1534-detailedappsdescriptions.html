@@ -533,7 +533,7 @@ Actions
 </pre></div>
 </div>
 </li>
-<li><p>Search for U25N interfaces using the <code class="docutils literal notranslate"><span class="pre">ethtool</span> <span class="pre">-i</span> <span class="pre">&lt;interface_name&gt;</span></code> command:</p>
+<li><p>Search for U25N interfaces using the <code class="docutils literal notranslate"><span class="pre">sfboot</span></code> command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot --list <span class="c1"># shows the U25N interfaces</span>
 </pre></div>
 </div>
@@ -590,8 +590,8 @@ ovs-vsctl add-port br0 u25eth1
 <section id="port-to-vm-or-vm-to-port">
 <h3>4.2.4 Port to VM or VM to Port<a class="headerlink" href="#port-to-vm-or-vm-to-port" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> To have this configuration SR-IOV must be enabled in BIOS. For the Port to VM or VM to Port configuration, a tunnel L2GRE or VXLAN could be created with two server setups.</p>
-<p><em>Figure 8:</em> <strong>Port to VM or VM to Port setup</strong>
-<img alt="seems messed up a little bit X25551-090721" src="../_images/cgm1631064433686_LowRes.png" /></p>
+<p><em>Figure 8:</em> <strong>Port to VM or VM to Port setup</strong></p>
+<p><img alt="seems messed up a little bit X25551-090721" src="../_images/cgm1631064433686_LowRes.png" /></p>
 <ul>
 <li><p>Step 1. Refer to <a class="reference external" href="./ug1534-installation.html#basic-requirements-and-component-versions-supported">Basic Requirements and Component Versions Supported</a> for the required OS/software version.</p>
 <p>For VM use cases, VFs need to be created for the corresponding PF for binding to the VM. The number of VF counts should be configured by the sfboot command with sriov_numvfs.</p>
@@ -908,7 +908,7 @@ ovs-vsctl add-port &lt;bridge_name&gt; &lt;VF_rep_interface <span class="m">2</s
 </pre></div>
 </div>
 </li>
-<li><p>Search for U25N interfaces using the <code class="docutils literal notranslate"><span class="pre">ethtool</span> <span class="pre">-i</span> <span class="pre">&lt;interface_name&gt;</span></code> command:</p>
+<li><p>Search for U25N interfaces using the <code class="docutils literal notranslate"><span class="pre">sfboot</span></code> command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot --list <span class="c1"># shows the U25N interfaces</span>
 </pre></div>
 </div>
@@ -1031,7 +1031,7 @@ options:local_ip<span class="o">=</span><span class="m">10</span>.16.0.1 options
 </pre></div>
 </div>
 </li>
-<li><p>Search for U25N interfaces using the <code class="docutils literal notranslate"><span class="pre">ethtool</span> <span class="pre">-i</span> <span class="pre">&lt;interface_name&gt;</span></code> command:</p>
+<li><p>Search for U25N interfaces using the <code class="docutils literal notranslate"><span class="pre">sfboot</span></code> command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot --list <span class="c1"># shows the U25N interfaces</span>
 </pre></div>
 </div>
@@ -1326,7 +1326,7 @@ ifconfig br1 up
 </pre></div>
 </div>
 </li>
-<li><p>Search for U25N interfaces using the <code class="docutils literal notranslate"><span class="pre">ethtool</span> <span class="pre">-i</span> <span class="pre">&lt;interface_name&gt;</span></code> command:</p>
+<li><p>Search for U25N interfaces using the <code class="docutils literal notranslate"><span class="pre">sfboot</span></code> command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot --list <span class="c1"># shows the U25N interfaces</span>
 </pre></div>
 </div>

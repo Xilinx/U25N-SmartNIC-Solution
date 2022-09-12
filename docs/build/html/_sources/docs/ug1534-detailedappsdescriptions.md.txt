@@ -143,7 +143,7 @@ In this configuration the U25N PF is added to the OVS bridge as an interface. Pa
       ifconfig -a
       ```
 
-   2. Search for U25N interfaces using the `ethtool -i <interface_name>` command:
+   2. Search for U25N interfaces using the `sfboot` command:
 
       ```bash
       sfboot --list # shows the U25N interfaces
@@ -213,6 +213,7 @@ Refer to [Functionality Check](./ug1534-detailedappsdescriptions.html#functional
 ***Note*:** To have this configuration SR-IOV must be enabled in BIOS. For the Port to VM or VM to Port configuration, a tunnel L2GRE or VXLAN could be created with two server setups.
 
 *Figure 8:* **Port to VM or VM to Port setup**
+
 ![seems messed up a little bit X25551-090721](media/cgm1631064433686_LowRes.png)
 
 - Step 1. Refer to [Basic Requirements and Component Versions Supported](./ug1534-installation.html#basic-requirements-and-component-versions-supported) for the required OS/software version.
@@ -610,7 +611,7 @@ Refer [Basic Requirements and Component Versions Supported](./ug1534-installatio
       ifconfig -a
       ```
 
-   2. Search for U25N interfaces using the `ethtool -i <interface_name>` command:
+   2. Search for U25N interfaces using the `sfboot` command:
 
       ```bash
       sfboot --list # shows the U25N interfaces
@@ -760,7 +761,7 @@ Refer  [Basic Requirements and Component Versions Supported](./ug1534-installati
       ifconfig -a
       ```
 
-   2. Search for U25N interfaces using the `ethtool -i <interface_name>` command:
+   2. Search for U25N interfaces using the `sfboot` command:
 
       ```bash
       sfboot --list # shows the U25N interfaces
@@ -1117,7 +1118,7 @@ In step 10, the tunnel local IP and remote IP should be swapped in above server 
       ifconfig -a
       ```
 
-   2. Search for U25N interfaces using the `ethtool -i <interface_name>` command:
+   2. Search for U25N interfaces using the `sfboot` command:
 
       ```bash
       sfboot --list # shows the U25N interfaces
