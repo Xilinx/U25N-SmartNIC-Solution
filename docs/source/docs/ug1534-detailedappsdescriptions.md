@@ -1181,7 +1181,7 @@ In step 10, the tunnel local IP and remote IP should be swapped in above server 
 
    Enable desired number of VFs.
    ```bash
-   echo 2 > /sys/class/net/<PF_interface>/device/sriov_numvfs
+   echo 1 > /sys/class/net/<PF_interface>/device/sriov_numvfs
    ```
 
    For example:
