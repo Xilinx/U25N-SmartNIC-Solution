@@ -2,6 +2,11 @@
 
 This branch [gh-pages](https://github.com/Xilinx/U25N-SmartNIC-Solution/tree/gh-pages) is for UG1534 U25N SmartNIC User Guide.
 
+Before updating the document, please install below python modules. 
+```bash
+pip3 install recommonmark sphinx sphinx_markdown_tables rst2pdf
+```
+
 To update the document, please follow below steps.
 - Update document `version` and `release` in docs/conf.py
     ```text
