@@ -54,32 +54,32 @@ The Solarflare Linux Utilities package can be found from the U25N software packa
 
 If you are using an Ubuntu server:
 
-1. Download and unzip the package on the target server.
+   - Download and unzip the package on the target server.
 
-   ***Note*:** Alien package must be downloaded using the command 
-   ```bash
-   sudo apt install alien
-   ```
+      ***Note*:** Alien package must be downloaded using the command 
+      ```bash
+      sudo apt install alien
+      ```
 
-2. Create the `.deb` file:
+   - Create the `.deb` file:
 
-   ```bash
-   sudo alien sfutils‐<version>.x86_64.rpm
-   ```
-   
-   This command generates the `sfutils_<version>_amd64.deb` file.
+      ```bash
+      sudo alien sfutils‐<version>.x86_64.rpm
+      ```
+      
+      This command generates the `sfutils_<version>_amd64.deb` file.
 
-3. Install the `.deb` file:
+   - Install the `.deb` file:
 
-   ```bash
-   sudo dpkg -i sfutils_<version>_amd64.deb
-   ```
+      ```bash
+      sudo dpkg -i sfutils_<version>_amd64.deb
+      ```
 
 If you are using Red Hat Enterprise Linux server:
-1. Install the binary RPM:
-   ```bash
-   sudo rpm -Uvh sfutils-<version>.x86_64.rpm
-   ```
+   - Install the binary RPM:
+      ```bash
+      sudo rpm -Uvh sfutils-<version>.x86_64.rpm
+      ```
 
 The server should have sfupdate, sfkey, sfctool and sfboot utilities installed now.
 
@@ -233,9 +233,9 @@ The U25N shell is programmed on the U25N with a known good image which is called
 
 ### 3.3.2 Testing Golden Image Functionality
 
-1. The U25N shell with Golden image includes Image Upgrade and Basic NIC functions.
+- The U25N shell with Golden image includes Image Upgrade and Basic NIC functions.
 
-2. U25N hardware in legacy mode where the acceleration logic is simple passthrough from ethernet ports to host driver.
+- U25N hardware in legacy mode where the acceleration logic is simple passthrough from ethernet ports to host driver.
 
 #### 3.3.2.1 Checking Basic NIC Functionality
 
@@ -367,7 +367,7 @@ For example:
 
 Use the PF0 interface of U25N card to initiate the FPGA reset.
 
-- Step 1. In case U25N driver version is 5.3.3.1008, this step can be ignored. Driver version of the U25N can be validated using the following command:
+- Step 1. In case U25N driver version is [latest](./ug1534-installation.html#basic-requirements-and-component-versions-supported), this step can be ignored. Driver version of the U25N can be validated using the following command:
 
    ```bash
    ethtool -i <PF0_interface> | grep version
@@ -381,8 +381,8 @@ Use the PF0 interface of U25N card to initiate the FPGA reset.
 
 -  Step 3. Image flashing happens through the U25N PF0 network interface using the u25n_update utility.
 
-   -  The image is flashed using the following CLI command:
-  
+   * The image is flashed using the following CLI command:
+
       ***Note*:** The interface used in the above command should be the PF0 interface of the target U25N SmartNIC. The file must be a `.bit` file. Ensure the path to the image to be flashed is correct.
 
       ```bash
@@ -396,13 +396,13 @@ Use the PF0 interface of U25N card to initiate the FPGA reset.
       ./u25n_update upgrade ../bits/ovs_<version>.bit u25eth0
       ```
 
-   - After the image is flashed successfully, the following message is displayed:
+   * After the image is flashed successfully, the following message is displayed:
 
       ```bash
       STATUS: Successful
       ```
 
-   - The u25n_update utility can be used to retrieve the bitstream version. Version retrieval happens at the U25N PF0 network interface using the u25n_update utility. Use the following command to retrieve the image version:
+   * The u25n_update utility can be used to retrieve the bitstream version. Version retrieval happens at the U25N PF0 network interface using the u25n_update utility. Use the following command to retrieve the image version:
 
       ```bash
       ./u25n_update get-version <PF0_interface>
@@ -505,7 +505,7 @@ Reverting to the factory (or golden) image is recommended in the following cases
 
 - Step 3. Perform a factory reset via PF0 network interface of U25N
 
-   1. Factory reset is performed using the following CLI command:
+   * Factory reset is performed using the following CLI command:
 
       ```bash
       ./u25n_update factory-reset <PF0_interface>
@@ -516,7 +516,7 @@ Reverting to the factory (or golden) image is recommended in the following cases
       ./u25n_update factory-reset u25eth0
       ```
 
-   2. After a successful factory reset, the following message is displayed:
+   * After a successful factory reset, the following message is displayed:
 
       ```bash
       STATUS: SUCCESSFUL

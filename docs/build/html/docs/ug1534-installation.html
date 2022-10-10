@@ -64,6 +64,7 @@ function OptanonWrapper() { }
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -408,7 +409,7 @@ af:00.1 Ethernet controller: Solarflare Communications XtremeScale SFC9250
 <h3>3.2.1 Solarflare Linux Utilities Installation<a class="headerlink" href="#solarflare-linux-utilities-installation" title="Permalink to this heading">¶</a></h3>
 <p>The Solarflare Linux Utilities package can be found from the U25N software package downloaded from the lounge.</p>
 <p>If you are using an Ubuntu server:</p>
-<ol>
+<ul>
 <li><p>Download and unzip the package on the target server.</p>
 <p><strong><em>Note</em>:</strong> Alien package must be downloaded using the command</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt install alien
@@ -426,15 +427,15 @@ af:00.1 Ethernet controller: Solarflare Communications XtremeScale SFC9250
 </pre></div>
 </div>
 </li>
-</ol>
+</ul>
 <p>If you are using Red Hat Enterprise Linux server:</p>
-<ol>
+<ul>
 <li><p>Install the binary RPM:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo rpm -Uvh sfutils-&lt;version&gt;.x86_64.rpm
 </pre></div>
 </div>
 </li>
-</ol>
+</ul>
 <p>The server should have sfupdate, sfkey, sfctool and sfboot utilities installed now.</p>
 </section>
 <section id="u25n-driver-installation">
@@ -582,10 +583,10 @@ STATUS: SUCCESSFUL                    <span class="c1"># Successful U25N version
 </section>
 <section id="testing-golden-image-functionality">
 <h3>3.3.2 Testing Golden Image Functionality<a class="headerlink" href="#testing-golden-image-functionality" title="Permalink to this heading">¶</a></h3>
-<ol class="simple">
+<ul class="simple">
 <li><p>The U25N shell with Golden image includes Image Upgrade and Basic NIC functions.</p></li>
 <li><p>U25N hardware in legacy mode where the acceleration logic is simple passthrough from ethernet ports to host driver.</p></li>
-</ol>
+</ul>
 <section id="checking-basic-nic-functionality">
 <h4>3.3.2.1 Checking Basic NIC Functionality<a class="headerlink" href="#checking-basic-nic-functionality" title="Permalink to this heading">¶</a></h4>
 <p>Connect the U25N physical port to a traffic generator or any peer NIC device.</p>
@@ -691,7 +692,7 @@ STATUS: SUCCESSFUL
 </div>
 <p>Use the PF0 interface of U25N card to initiate the FPGA reset.</p>
 <ul>
-<li><p>Step 1. In case U25N driver version is 5.3.3.1008, this step can be ignored. Driver version of the U25N can be validated using the following command:</p>
+<li><p>Step 1. In case U25N driver version is <a class="reference external" href="./ug1534-installation.html#basic-requirements-and-component-versions-supported">latest</a>, this step can be ignored. Driver version of the U25N can be validated using the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i &lt;PF0_interface&gt; <span class="p">|</span> grep version
 </pre></div>
 </div>
@@ -798,7 +799,7 @@ STATUS: SUCCESSFUL
 </li>
 <li><p>Step 2. The U25N SmartNIC should be in legacy mode. Please refer to step 2 of <a class="reference external" href="./ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a> for how to verify and change the NIC mode.</p></li>
 <li><p>Step 3. Perform a factory reset via PF0 network interface of U25N</p>
-<ol>
+<ul>
 <li><p>Factory reset is performed using the following CLI command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update factory-reset &lt;PF0_interface&gt;
 </pre></div>
@@ -813,7 +814,7 @@ STATUS: SUCCESSFUL
 </pre></div>
 </div>
 </li>
-</ol>
+</ul>
 </li>
 </ul>
 </section>
@@ -848,7 +849,7 @@ STATUS: SUCCESSFUL
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on Sept 1, 2022.
+        Last updated on Oct 10, 2022.
       </span>
 
     </p>

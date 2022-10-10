@@ -1257,102 +1257,102 @@ In step 10, the tunnel local IP and remote IP should be swapped in above server 
    ```
 
 - Step 10: Creating PF bond.
-   
+
    1. Install the bonding driver
-   ```bash
-   modprobe bonding
-   ```
+      ```bash
+      modprobe bonding
+      ```
 
    2. Create a PF bond interface. Then set bond mode as 802.3ad and xmit hash policy as layer 3+4
-   ```bash
-   ip link add bond0 type mode 802.3ad xmit_hash_policy layer3+4
-   ```
+      ```bash
+      ip link add bond0 type mode 802.3ad xmit_hash_policy layer3+4
+      ```
 
    3. Make both PF interfaces down
-   ```bash
-   ifconfig <PF_interface> down
-   ```
+      ```bash
+      ifconfig <PF_interface> down
+      ```
 
-   Example Output:
+      Example Output:
 
-   ```bash
-   ifconfig u25eth0 down
-   ifconfig u25eth1 down
-   ```
+      ```bash
+      ifconfig u25eth0 down
+      ifconfig u25eth1 down
+      ```
 
    4. Adding PF slave interfaces to master bond interface
-   ```bash
-   echo "+u25eth0" > /sys/class/net/bond0/bonding/slaves
-	echo "+u25eth1" > /sys/class/net/bond0/bonding/slaves
-   ```
+      ```bash
+      echo "+u25eth0" > /sys/class/net/bond0/bonding/slaves
+      echo "+u25eth1" > /sys/class/net/bond0/bonding/slaves
+      ```
 
    5. Make the bond interface up
-   ```bash
-   ifconfig bond0 up
-   ```
+      ```bash
+      ifconfig bond0 up
+      ```
 
    6. Now the bond interface should show the supported rate as 50Gbps
-   ```bash
-   ethtool bond0
-   ```
+      ```bash
+      ethtool bond0
+      ```
 
    7. Master bond and its corresponding slave interfaces would have the same MAC address
 
 - Step 11: Creating a VF bond
    1. Create a VF bond interface. Then set bond mode as balance-xor mode and xmit hash policy as layer 3+4
-   ```bash
-   ip link add vfbond0 type mode balance-xor xmit_hash_policy layer3+4
-   ```
+      ```bash
+      ip link add vfbond0 type mode balance-xor xmit_hash_policy layer3+4
+      ```
 
    2. Make both VF interfaces down
-   ```bash
-   ifconfig <vf_interface> down
-   ```
+      ```bash
+      ifconfig <vf_interface> down
+      ```
 
    3. Adding VF slave interfaces to master VF bond interface
-   ```bash
-   echo "+u25eth0n0" > /sys/class/net/vfbond0/bonding/slaves
-	echo "+u25eth1n0" > /sys/class/net/vfbond0/bonding/slaves
-   ```
+      ```bash
+      echo "+u25eth0n0" > /sys/class/net/vfbond0/bonding/slaves
+      echo "+u25eth1n0" > /sys/class/net/vfbond0/bonding/slaves
+      ```
 
    4. Make the VF bond interface up
-   ```bash
-   ifconfig vfbond0 up
-   ```
+      ```bash
+      ifconfig vfbond0 up
+      ```
 
    5. Now the bond interface should show the supported rate as 50Gbps
-   ```bash
-   ethtool vfbond0
-   ```
+      ```bash
+      ethtool vfbond0
+      ```
 
    6. Master vfbond and its corresponding slave interfaces would have the same MAC address
 
 - Step 12: Creating VF_Rep bond
    1. Create a VF_Rep bond interface. Then set bond mode as balance-rr mode
-   ```bash
-   ip link add repbond0 type mode balance-rr
-   ```
+      ```bash
+      ip link add repbond0 type mode balance-rr
+      ```
 
    2. Make both VF_rep interfaces down
-   ```bash
-   ifconfig <VF_rep_interface> down
-   ```
+      ```bash
+      ifconfig <VF_rep_interface> down
+      ```
 
    3. Adding VF_Rep slave interfaces to master VF_Rep bond interface
-   ```bash
-   echo "+u25eth0_0" > /sys/class/net/repbond0/bonding/slaves
-	echo "+u25eth1_0" > /sys/class/net/repbond0/bonding/slaves
-   ```
+      ```bash
+      echo "+u25eth0_0" > /sys/class/net/repbond0/bonding/slaves
+      echo "+u25eth1_0" > /sys/class/net/repbond0/bonding/slaves
+      ```
 
    4. Make the VF_Rep bond interface up
-   ```bash
-   ifconfig repbond0 up
-   ```
+      ```bash
+      ifconfig repbond0 up
+      ```
 
    5. Now the VF_Rep bond interface should show the supported rate as 50Gbps
-   ```bash
-   ethtool repbond0
-   ```
+      ```bash
+      ethtool repbond0
+      ```
 
    6. Master VF_Rep bond and its corresponding slave interfaces would have the same MAC address
 
@@ -1360,28 +1360,28 @@ In step 10, the tunnel local IP and remote IP should be swapped in above server 
 
 - Step 14: Adding VF bond and VR_rep bond to OVS bridges.
 
-    ```bash
-	ovs-vsctl add-port br0 bond0
-	ovs-vsctl add-port br0 repbond0
-    ```
+   ```bash
+   ovs-vsctl add-port br0 bond0
+   ovs-vsctl add-port br0 repbond0
+   ```
 
 - Step 15: Ensure that the bridge is up:
 
-    ```bash
-    ifconfig <bridge_name> up
-    ```
+   ```bash
+   ifconfig <bridge_name> up
+   ```
 
-    For example:
+   For example:
 
-    ```
-    ifconfig br0 up
-    ```
+   ```
+   ifconfig br0 up
+   ```
 
 - Step 16: Print a brief overview of the database contents:
 
-    ```bash
-    ovs-vsctl show
-    ```
+   ```bash
+   ovs-vsctl show
+   ```
 
 - Step 17: Refer [VM Installation](./ug1534-vminstall.html#vm-installation) to instantiate the VM with macvtap. 
 
@@ -1389,26 +1389,36 @@ In step 10, the tunnel local IP and remote IP should be swapped in above server 
 
 #### 4.2.7.2 LAG Deletion
 - Step 1: Delete ovs-bridge
+
    ```bash
    ovs-vsctl del-br <bridge_name>
    ```
+
 - Step 2: Delete VF_Rep bond interface
+
    ```bash
    echo "-repbond_interface" > /sys/class/net/bonding_masters
    ```
+
 - Step 3: Delete VF bond interface
+
    ```bash
    echo "-vfbond_interface" > /sys/class/net/bonding_masters
    ```
+
 - Step 4: Delete PF bond interface
+
    ```bash
    echo "-bond_interface" > /sys/class/net/bonding_masters
    ```
+
    Example output:
    ```bash
    echo "-bond0" > /sys/class/net/bonding_masters
    ```
+
 - Step 5: After deleting bond interfaces, remove driver module
+
    ```bash
    rmmod sfc
    ```
@@ -1433,12 +1443,14 @@ Before below steps, please follow the step 1 to 14 in [Port to VM or VM to Port]
 Then following below steps to configure connection tracking rules to the OVS bridges.
 
 - Step 1. Clean all existing Openflow rules of the bridges if they have.
+
    ```bash
    ovs-ofctl del-flows <br0>
    ovs-ofctl del-flows <br1>
    ```
 
 - Step 2. Add Openflow rules for testing PF0 and PF1:
+
    ```bash
    # Table 0
    ovs-ofctl add-flow br0 "table=0, priority=1, arp, actions=normal"
@@ -1711,6 +1723,7 @@ apt-get install aptitude opensc libgmp10 libgmp-dev libssl-dev
 - Step 2. Configure the conf file and secret file in server 2:
 
    In /etc/ipsec.conf, add below text in the beginning of the file
+
    ```text
    conn hw_offload #
          left=10.16.0.1
@@ -1734,10 +1747,13 @@ apt-get install aptitude opensc libgmp10 libgmp-dev libssl-dev
          leftprotoport=gre
          rightprotoport=gre
    ```
+
    In /etc/ipsec.secrets, add below line in the end of the file
+
    ```text
    : RSA client1Key.pem
    ```
+
    ***Note*:** There is a white space, present between `:` and `RSA`.
 
 #### 4.3.3.3 Server 1: Steps to Run IPsec
@@ -1748,20 +1764,20 @@ Then enable IPSec as below.
 
 - Step 1. Enable IPSec offload in the driver:
 
-    ```
-    echo 1 >> /sys/class/net/<PF0_interface>/device/ipsec_enable
-    ```
+   ```
+   echo 1 >> /sys/class/net/<PF0_interface>/device/ipsec_enable
+   ```
 
-    For example: 
-    ```bash
-    echo 1 >> /sys/class/net/u25eth0/device/ipsec_enable
-    ```
+   For example: 
+   ```bash
+   echo 1 >> /sys/class/net/u25eth0/device/ipsec_enable
+   ```
 
 - Step 2. Start IPsec:
 
-    ```
-    sudo ipsec restart
-    ```
+   ```
+   sudo ipsec restart
+   ```
 
 #### 4.3.3.4 Server 2: Steps to Run IPsec
 
@@ -1771,20 +1787,20 @@ Then enable IPSec as below.
 
 - Step 1. Enable IPSec offload in the driver:
 
-    ```
-    echo 1 >> /sys/class/net/<PF0_interface>/device/ipsec_enable
-    ```
+   ```
+   echo 1 >> /sys/class/net/<PF0_interface>/device/ipsec_enable
+   ```
 
-    For example: 
-    ```bash
-    echo 1 >> /sys/class/net/u25eth0/device/ipsec_enable
-    ```
+   For example: 
+   ```bash
+   echo 1 >> /sys/class/net/u25eth0/device/ipsec_enable
+   ```
 
 - Step 2. Start IPsec:
 
-    ```
-    sudo ipsec restart
-    ```
+   ```
+   sudo ipsec restart
+   ```
 
 *Figure 13:* **IPsec + OVS End to End setup Diagram**
 
@@ -2001,63 +2017,63 @@ This section outlines the commands used by different modules to check the statis
 
 1. To print a brief overview of the database contents:
 
-  ```bash
-  ovs-vsctl show
-  ```
+   ```bash
+   ovs-vsctl show
+   ```
 
 2. To show the datapath flow entries:
 
-  ```bash
-  ovs-ofctl dump-flows <bridge_name>
-  ```
+   ```bash
+   ovs-ofctl dump-flows <bridge_name>
+   ```
 
 3. To show the full OpenFlow flow table, including hidden flows, on the bridge:
 
-  ```bash
-  ovs-appctl dpctl/dump-flows type=offloaded
-  ```
+   ```bash
+   ovs-appctl dpctl/dump-flows type=offloaded
+   ```
 
 4. To show the OVS datapath flows:
 
-  ```bash
-  ovs-dpctl dump-flows
-  ovs-appctl dpctl/dump-flows
-  ```
+   ```bash
+   ovs-dpctl dump-flows
+   ovs-appctl dpctl/dump-flows
+   ```
 
 5. To show which flows are offloaded or not:
 
-  ```bash
-  tc filter show dev <iface_name> ingress
-  ```
+   ```bash
+   tc filter show dev <iface_name> ingress
+   ```
 
 ### 4.5.2 MAE Rules
 
 1. Use the following command to display the rules present in the match-action engine (MAE):
 
-  ```bash
-  cat /sys/kernel/debug/sfc/<if_iface>/mae_rules
-  ```
+   ```bash
+   cat /sys/kernel/debug/sfc/<if_iface>/mae_rules
+   ```
 
-  ***Note*:** Here `if_iface` should be the corresponding PF interface.
+   ***Note*:** Here `if_iface` should be the corresponding PF interface.
 
-  For example: 
-  ```bash
-  cat /sys/kernel/debug/sfc/if_u25eth0/mae_rules
-  ```
+   For example: 
+   ```bash
+   cat /sys/kernel/debug/sfc/if_u25eth0/mae_rules
+   ```
 
 2. Use the following command to display the default rules present in the MAE:
 
-  ```bash
-  cat /sys/kernel/debug/sfc/<iface/mae_default_rules
-  ```
+   ```bash
+   cat /sys/kernel/debug/sfc/<iface/mae_default_rules
+   ```
 
 ### 4.5.3 IPsec Statistics
 
 1. Get IPsec stats:
 
-```bash
-sudo swanctl --stats
-```
+   ```bash
+   sudo swanctl --stats
+   ```
 
 2.  Use the `ip xfrm show` command to display IPsec offload security association.
 
@@ -2065,7 +2081,7 @@ sudo swanctl --stats
 
 ***Note*:** The output of the following commands should be saved for debug purposes.
 
-1. `lsmod` - It displays which kernel modules are currently loaded. Whether the sfc driver is inserted or not can be verified by the below command. 
+- `lsmod` - It displays which kernel modules are currently loaded. Whether the sfc driver is inserted or not can be verified by the below command. 
 
    ```bash
    lsmod | grep sfc
@@ -2080,10 +2096,10 @@ sudo swanctl --stats
    mdio                   	16384  		1 	sfc
    ```
 
-2. `dmesg` - To get kernel logs, enter the following command.
+- `dmesg` - To get kernel logs, enter the following command.
    This command will help to understand all the actions performed by the driver and if there are any crashes happening due to the driver.
  
-3. `lspci` - To display information about all PCI buses and devices in the system. It will also show the network cards inserted in the system with details like driver in use, pci id etc.
+- `lspci` - To display information about all PCI buses and devices in the system. It will also show the network cards inserted in the system with details like driver in use, pci id etc.
    For Example:
    ```bash
    lspci | grep Solarflare #Lists the info regarding solarflare devices in the system
@@ -2104,27 +2120,30 @@ sudo swanctl --stats
    Subsystem: Solarflare Communications XtremeScale SFC9250 10/25/40/50/100G Ethernet Controller
    ```
 
-4. Logs generated by U25N hardware are saved to a file.The logs are collected from the internal processing subsystem and exported to the host at frequent intervals. Currently these logs are populated when switchdev mode is enabled.
+- Logs generated by U25N hardware are saved to a file.The logs are collected from the internal processing subsystem and exported to the host at frequent intervals. Currently these logs are populated when switchdev mode is enabled.
 
    Path to read the logs in host : `/var/log/ps_dmesg.txt`
 
-5. `sfreport` - A command line utility that generates a diagnostic log file providing diagnostic data about the server and Solarflare adapters. 
+- `sfreport` - A command line utility that generates a diagnostic log file providing diagnostic data about the server and Solarflare adapters. 
    Please refer to SF-103837-CD Solarflare Server Adapter User Guide chapter 5.20 for more details.
 
-6. `top` - This command can be used to show the linux processes or threads. It provides a real time view of the running system. It can be used to detect memory leaks. The file in the linux path /proc/meminfo can also be used for detecting memory leaks. 
+- `top` - This command can be used to show the linux processes or threads. It provides a real time view of the running system. It can be used to detect memory leaks. The file in the linux path /proc/meminfo can also be used for detecting memory leaks. 
 
    Watch out for the total memory already in use. Memory leak can be identified by running the command multiple times and checking whether the memory usage keeps on increasing. 
 
-7. `ps` - This command displays relevant information about active processes.  
+- `ps` - This command displays relevant information about active processes.
+
    Example: 
    ```bash
    ps -aux | grep sfc
    ```
 
-8. `ethtool` - This command can be used to understand the driver related information such as version, firmware info and the enabled features.
+- `ethtool` - This command can be used to understand the driver related information such as version, firmware info and the enabled features.
+
    ```bash 
    ethtool -i <interface_name>
    ```
+
    Example Usage:	ethtool -i u25eth0
 
    ```bash
@@ -2172,14 +2191,17 @@ sudo swanctl --stats
    ```
 
    To change the offload parameters and other features of the network device
+
    ```bash
    sudo ethtool -K <interface_name> <feature> <on/off>
    ```
 
    To get information about NIC Statistics
+
    ```bash
    sudo ethtool -S <interface_name>
    ```
+
    Example usage: sudo ethtool -S enp59s0f1np1
 
       ```bash
@@ -2209,78 +2231,82 @@ sudo swanctl --stats
       ```
 
    ***NOTE*:** ethtool functionalities for sfc driver can also be realised using the sfctool utility also. For example:
+
    ```bash
    sudo sfctool -S <interface_name>
    ```
+
    Example Usage: 
+
    ```bash
    sudo sfctool -S u25eth0
    ```
 
-9. `u25n_update` Application: u25n_update utility can be used to read the U25N shell version.
-For example:
+- `u25n_update` Application: u25n_update utility can be used to read the U25N shell version.
+   For example:
 
-      ```bash
-      ./utils/u25n_update get-version <PF0_interface> 
-      ```
+   ```bash
+   ./utils/u25n_update get-version <PF0_interface> 
+   ```
 
-10. MCDI Logging - Mcdi request and response data will be visible in dmesg if we activate mcdi logs. To activate the logs in dmesg:  
-      ```bash
-      echo 1 >> /sys/class/net/<interface_name>/device/mcdi_logging 
-      ```
+- MCDI Logging - Mcdi request and response data will be visible in dmesg if we activate mcdi logs. To activate the logs in dmesg.
 
-11. OVS log levels - It can be turned on/off using the ovs-appctl commands.
- The ovs-vswitchd accepts the option --log-file[=file] to enable logging to a specific file. The file argument is actually optional, so if it is specified, it is used as the exact name for the log file. The default is used if the file is not specified. Usually the default is /usr/local/var/log/openvswitch/ovs-vswitchd.log 
+   ```bash
+   echo 1 >> /sys/class/net/<interface_name>/device/mcdi_logging
+   ```
 
-      Setting OVS Log levels:
-      ```bash
-      ovs-appctl vlog/set ANY:ANY:dbg
-      ovs-appctl vlog/set poll_loop:ANY:OFF
-      ovs-appctl vlog/set netlink_socket:ANY:OFF
-      ```
+- OVS log levels - It can be turned on/off using the ovs-appctl commands.
 
-12. MAE Rules - To see the offloaded rules available in the MAE, check the below file:
+   The ovs-vswitchd accepts the option --log-file[=file] to enable logging to a specific file. The file argument is actually optional, so if it is specified, it is used as the exact name for the log file. The default is used if the file is not specified. Usually the default is /usr/local/var/log/openvswitch/ovs-vswitchd.log 
 
-      ```bash
-      cat /sys/kernel/debug/sfc/if_<interface_name>/mae_rules
-      ```
-      To check the default rules in MAE, check the below file:
-      ```bash
-      cat /sys/kernel/debug/sfc/if_<interface_name>/mae_default_rules
-      ```
+   Setting OVS Log levels:
+   ```bash
+   ovs-appctl vlog/set ANY:ANY:dbg
+   ovs-appctl vlog/set poll_loop:ANY:OFF
+   ovs-appctl vlog/set netlink_socket:ANY:OFF
+   ```
 
-13. `iperf3` - Iperf is a tool for network performance measurement and tuning. It is a cross-platform tool that can produce standardized performance measurements for any network. It has client and server functionality, and can create data streams to measure the throughput between the interfaces. After setting proper ip addresses: 
+- MAE Rules - To see the offloaded rules available in the MAE, check the below file:
 
-      Server: 
-      ```bash
-      iperf3 -s <options>
-      ```
+   ```bash
+   cat /sys/kernel/debug/sfc/if_<interface_name>/mae_rules
+   ```
+   To check the default rules in MAE, check the below file:
+   ```bash
+   cat /sys/kernel/debug/sfc/if_<interface_name>/mae_default_rules
+   ```
 
-      Client : 
-      ```bash
-      iperf -c <ip_addr_interface> <options>
-      ```
+- `iperf3` - Iperf is a tool for network performance measurement and tuning. It is a cross-platform tool that can produce standardized performance measurements for any network. It has client and server functionality, and can create data streams to measure the throughput between the interfaces. After setting proper ip addresses: 
 
+   Server: 
+   ```bash
+   iperf3 -s <options>
+   ```
 
-14. `tcpdump` -  Tcpdump is a packet sniffing and packet analyzing tool meant for System Administrators to troubleshoot connectivity issues in Linux. For example it can capture the packets coming to the network interface using the below command. 
+   Client : 
+   ```bash
+   iperf -c <ip_addr_interface> <options>
+   ```
 
-      ```bash 
-      tcpdump -i <interface_name>
-      ```
+- `tcpdump` -  Tcpdump is a packet sniffing and packet analyzing tool meant for System Administrators to troubleshoot connectivity issues in Linux. For example it can capture the packets coming to the network interface using the below command. 
 
-15. `conntrack` - get connection status and track connection process
+   ```bash 
+   tcpdump -i <interface_name>
+   ```
 
-      Get connection status
-      ```bash
-      conntrack -L
-      ```
+- `conntrack` - get connection status and track connection process
 
-      Track connection process
-      ```bash
-      conntrack -E
-      ```
+   Get connection status
+   ```bash
+   conntrack -L
+   ```
 
-      Check U25N offloaded connection
-      ```bash
-      watch -n 0 "cat /sys/kernel/debug/sfc/if_<PF_interface>/tracked_conns | grep 0xfff | wc -l"
-      ```
+   Track connection process
+   ```bash
+   conntrack -E
+   ```
+
+   Check U25N offloaded connection
+   ```bash
+   watch -n 0 "cat /sys/kernel/debug/sfc/if_<PF_interface>/tracked_conns | grep 0xfff | wc -l"
+   ```

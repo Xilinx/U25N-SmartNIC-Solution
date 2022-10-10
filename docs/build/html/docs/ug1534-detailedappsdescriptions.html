@@ -64,6 +64,7 @@ function OptanonWrapper() { }
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -1435,21 +1436,18 @@ master ovs-system state UP mode DEFAULT group default qlen <span class="m">1000<
 </div>
 </li>
 <li><p>Step 10: Creating PF bond.</p>
-<ol class="simple">
-<li><p>Install the bonding driver</p></li>
-</ol>
+<ol>
+<li><p>Install the bonding driver</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modprobe bonding
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Create a PF bond interface. Then set bond mode as 802.3ad and xmit hash policy as layer 3+4</p></li>
-</ol>
+</li>
+<li><p>Create a PF bond interface. Then set bond mode as 802.3ad and xmit hash policy as layer 3+4</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip link add bond0 <span class="nb">type</span> mode <span class="m">802</span>.3ad xmit_hash_policy layer3+4
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Make both PF interfaces down</p></li>
-</ol>
+</li>
+<li><p>Make both PF interfaces down</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig &lt;PF_interface&gt; down
 </pre></div>
 </div>
@@ -1458,98 +1456,85 @@ master ovs-system state UP mode DEFAULT group default qlen <span class="m">1000<
 ifconfig u25eth1 down
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Adding PF slave interfaces to master bond interface</p></li>
-</ol>
+</li>
+<li><p>Adding PF slave interfaces to master bond interface</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;+u25eth0&quot;</span> &gt; /sys/class/net/bond0/bonding/slaves
- <span class="nb">echo</span> <span class="s2">&quot;+u25eth1&quot;</span> &gt; /sys/class/net/bond0/bonding/slaves
+<span class="nb">echo</span> <span class="s2">&quot;+u25eth1&quot;</span> &gt; /sys/class/net/bond0/bonding/slaves
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Make the bond interface up</p></li>
-</ol>
+</li>
+<li><p>Make the bond interface up</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig bond0 up
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Now the bond interface should show the supported rate as 50Gbps</p></li>
-</ol>
+</li>
+<li><p>Now the bond interface should show the supported rate as 50Gbps</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool bond0
 </pre></div>
 </div>
-<ol class="simple">
+</li>
 <li><p>Master bond and its corresponding slave interfaces would have the same MAC address</p></li>
 </ol>
 </li>
 <li><p>Step 11: Creating a VF bond</p>
-<ol class="simple">
-<li><p>Create a VF bond interface. Then set bond mode as balance-xor mode and xmit hash policy as layer 3+4</p></li>
-</ol>
+<ol>
+<li><p>Create a VF bond interface. Then set bond mode as balance-xor mode and xmit hash policy as layer 3+4</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip link add vfbond0 <span class="nb">type</span> mode balance-xor xmit_hash_policy layer3+4
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Make both VF interfaces down</p></li>
-</ol>
+</li>
+<li><p>Make both VF interfaces down</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig &lt;vf_interface&gt; down
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Adding VF slave interfaces to master VF bond interface</p></li>
-</ol>
+</li>
+<li><p>Adding VF slave interfaces to master VF bond interface</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;+u25eth0n0&quot;</span> &gt; /sys/class/net/vfbond0/bonding/slaves
- <span class="nb">echo</span> <span class="s2">&quot;+u25eth1n0&quot;</span> &gt; /sys/class/net/vfbond0/bonding/slaves
+<span class="nb">echo</span> <span class="s2">&quot;+u25eth1n0&quot;</span> &gt; /sys/class/net/vfbond0/bonding/slaves
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Make the VF bond interface up</p></li>
-</ol>
+</li>
+<li><p>Make the VF bond interface up</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig vfbond0 up
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Now the bond interface should show the supported rate as 50Gbps</p></li>
-</ol>
+</li>
+<li><p>Now the bond interface should show the supported rate as 50Gbps</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool vfbond0
 </pre></div>
 </div>
-<ol class="simple">
+</li>
 <li><p>Master vfbond and its corresponding slave interfaces would have the same MAC address</p></li>
 </ol>
 </li>
 <li><p>Step 12: Creating VF_Rep bond</p>
-<ol class="simple">
-<li><p>Create a VF_Rep bond interface. Then set bond mode as balance-rr mode</p></li>
-</ol>
+<ol>
+<li><p>Create a VF_Rep bond interface. Then set bond mode as balance-rr mode</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip link add repbond0 <span class="nb">type</span> mode balance-rr
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Make both VF_rep interfaces down</p></li>
-</ol>
+</li>
+<li><p>Make both VF_rep interfaces down</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig &lt;VF_rep_interface&gt; down
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Adding VF_Rep slave interfaces to master VF_Rep bond interface</p></li>
-</ol>
+</li>
+<li><p>Adding VF_Rep slave interfaces to master VF_Rep bond interface</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;+u25eth0_0&quot;</span> &gt; /sys/class/net/repbond0/bonding/slaves
- <span class="nb">echo</span> <span class="s2">&quot;+u25eth1_0&quot;</span> &gt; /sys/class/net/repbond0/bonding/slaves
+<span class="nb">echo</span> <span class="s2">&quot;+u25eth1_0&quot;</span> &gt; /sys/class/net/repbond0/bonding/slaves
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Make the VF_Rep bond interface up</p></li>
-</ol>
+</li>
+<li><p>Make the VF_Rep bond interface up</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig repbond0 up
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Now the VF_Rep bond interface should show the supported rate as 50Gbps</p></li>
-</ol>
+</li>
+<li><p>Now the VF_Rep bond interface should show the supported rate as 50Gbps</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool repbond0
 </pre></div>
 </div>
-<ol class="simple">
+</li>
 <li><p>Master VF_Rep bond and its corresponding slave interfaces would have the same MAC address</p></li>
 </ol>
 </li>
@@ -2152,43 +2137,39 @@ Actions
 <p>This section outlines the commands used by different modules to check the statistics and packet counters.</p>
 <section id="ovs-commands">
 <h3>OVS Commands<a class="headerlink" href="#ovs-commands" title="Permalink to this heading">¶</a></h3>
-<ol class="simple">
-<li><p>To print a brief overview of the database contents:</p></li>
-</ol>
+<ol>
+<li><p>To print a brief overview of the database contents:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ovs-vsctl show
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>To show the datapath flow entries:</p></li>
-</ol>
+</li>
+<li><p>To show the datapath flow entries:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ovs-ofctl dump-flows &lt;bridge_name&gt;
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>To show the full OpenFlow flow table, including hidden flows, on the bridge:</p></li>
-</ol>
+</li>
+<li><p>To show the full OpenFlow flow table, including hidden flows, on the bridge:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ovs-appctl dpctl/dump-flows <span class="nv">type</span><span class="o">=</span>offloaded
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>To show the OVS datapath flows:</p></li>
-</ol>
+</li>
+<li><p>To show the OVS datapath flows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ovs-dpctl dump-flows
 ovs-appctl dpctl/dump-flows
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>To show which flows are offloaded or not:</p></li>
-</ol>
+</li>
+<li><p>To show which flows are offloaded or not:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter show dev &lt;iface_name&gt; ingress
 </pre></div>
 </div>
+</li>
+</ol>
 </section>
 <section id="mae-rules">
 <h3>4.5.2 MAE Rules<a class="headerlink" href="#mae-rules" title="Permalink to this heading">¶</a></h3>
-<ol class="simple">
-<li><p>Use the following command to display the rules present in the match-action engine (MAE):</p></li>
-</ol>
+<ol>
+<li><p>Use the following command to display the rules present in the match-action engine (MAE):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat /sys/kernel/debug/sfc/&lt;if_iface&gt;/mae_rules
 </pre></div>
 </div>
@@ -2197,22 +2178,22 @@ ovs-appctl dpctl/dump-flows
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat /sys/kernel/debug/sfc/if_u25eth0/mae_rules
 </pre></div>
 </div>
-<ol class="simple">
-<li><p>Use the following command to display the default rules present in the MAE:</p></li>
-</ol>
+</li>
+<li><p>Use the following command to display the default rules present in the MAE:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat /sys/kernel/debug/sfc/&lt;iface/mae_default_rules
 </pre></div>
 </div>
+</li>
+</ol>
 </section>
 <section id="ipsec-statistics">
 <h3>4.5.3 IPsec Statistics<a class="headerlink" href="#ipsec-statistics" title="Permalink to this heading">¶</a></h3>
-<ol class="simple">
-<li><p>Get IPsec stats:</p></li>
-</ol>
+<ol>
+<li><p>Get IPsec stats:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo swanctl --stats
 </pre></div>
 </div>
-<ol class="simple">
+</li>
 <li><p>Use the <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">xfrm</span> <span class="pre">show</span></code> command to display IPsec offload security association.</p></li>
 </ol>
 </section>
@@ -2220,7 +2201,7 @@ ovs-appctl dpctl/dump-flows
 <section id="debug-commands">
 <h2>4.6 Debug Commands<a class="headerlink" href="#debug-commands" title="Permalink to this heading">¶</a></h2>
 <p><strong><em>Note</em>:</strong> The output of the following commands should be saved for debug purposes.</p>
-<ol>
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">lsmod</span></code> - It displays which kernel modules are currently loaded. Whether the sfc driver is inserted or not can be verified by the below command.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsmod <span class="p">|</span> grep sfc
 </pre></div>
@@ -2264,7 +2245,8 @@ Please refer to SF-103837-CD Solarflare Server Adapter User Guide chapter 5.20 f
 <li><p><code class="docutils literal notranslate"><span class="pre">top</span></code> - This command can be used to show the linux processes or threads. It provides a real time view of the running system. It can be used to detect memory leaks. The file in the linux path /proc/meminfo can also be used for detecting memory leaks.</p>
 <p>Watch out for the total memory already in use. Memory leak can be identified by running the command multiple times and checking whether the memory usage keeps on increasing.</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ps</span></code> - This command displays relevant information about active processes.<br />Example:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">ps</span></code> - This command displays relevant information about active processes.</p>
+<p>Example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ps -aux <span class="p">|</span> grep sfc
 </pre></div>
 </div>
@@ -2323,29 +2305,31 @@ large-receive-offload: off
 </pre></div>
 </div>
 <p>Example usage: sudo ethtool -S enp59s0f1np1</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Expected result:
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```bash
+Expected result:
 NIC statistics:
-   rx_noskb_drops: <span class="m">0</span>
-   rx_nodesc_trunc: <span class="m">0</span>
-   port_tx_bytes: <span class="m">59052</span>
-   port_tx_packets: <span class="m">353</span>
-   port_tx_pause: <span class="m">0</span>
-   port_tx_control: <span class="m">0</span>
-   port_tx_unicast: <span class="m">0</span>
-   port_tx_multicast: <span class="m">273</span>
-   port_tx_broadcast: <span class="m">80</span>
-   port_tx_lt64: <span class="m">0</span>
-   port_tx_64: <span class="m">0</span>
-   port_tx_65_to_127: <span class="m">229</span>
-   port_tx_128_to_255: <span class="m">44</span>
-   port_tx_256_to_511: <span class="m">80</span>
-   port_tx_512_to_1023: <span class="m">0</span>
-   port_tx_1024_to_15xx: <span class="m">0</span>
-   port_tx_15xx_to_jumbo: <span class="m">0</span>
-   port_rx_bytes: <span class="m">0</span>
-   port_rx_good_bytes: <span class="m">0</span>
-   port_rx_bad_bytes: <span class="m">0</span>
-   port_rx_packets: <span class="m">0</span>
+   rx_noskb_drops: 0
+   rx_nodesc_trunc: 0
+   port_tx_bytes: 59052
+   port_tx_packets: 353
+   port_tx_pause: 0
+   port_tx_control: 0
+   port_tx_unicast: 0
+   port_tx_multicast: 273
+   port_tx_broadcast: 80
+   port_tx_lt64: 0
+   port_tx_64: 0
+   port_tx_65_to_127: 229
+   port_tx_128_to_255: 44
+   port_tx_256_to_511: 80
+   port_tx_512_to_1023: 0
+   port_tx_1024_to_15xx: 0
+   port_tx_15xx_to_jumbo: 0
+   port_rx_bytes: 0
+   port_rx_good_bytes: 0
+   port_rx_bad_bytes: 0
+   port_rx_packets: 0
+```
 </pre></div>
 </div>
 <p><strong><em>NOTE</em>:</strong> ethtool functionalities for sfc driver can also be realised using the sfctool utility also. For example:</p>
@@ -2363,13 +2347,13 @@ For example:</p>
 </pre></div>
 </div>
 </li>
-<li><p>MCDI Logging - Mcdi request and response data will be visible in dmesg if we activate mcdi logs. To activate the logs in dmesg:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="m">1</span> &gt;&gt; /sys/class/net/&lt;interface_name&gt;/device/mcdi_logging 
+<li><p>MCDI Logging - Mcdi request and response data will be visible in dmesg if we activate mcdi logs. To activate the logs in dmesg.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="m">1</span> &gt;&gt; /sys/class/net/&lt;interface_name&gt;/device/mcdi_logging
 </pre></div>
 </div>
 </li>
-<li><p>OVS log levels - It can be turned on/off using the ovs-appctl commands.
-The ovs-vswitchd accepts the option –log-file[=file] to enable logging to a specific file. The file argument is actually optional, so if it is specified, it is used as the exact name for the log file. The default is used if the file is not specified. Usually the default is /usr/local/var/log/openvswitch/ovs-vswitchd.log</p>
+<li><p>OVS log levels - It can be turned on/off using the ovs-appctl commands.</p>
+<p>The ovs-vswitchd accepts the option –log-file[=file] to enable logging to a specific file. The file argument is actually optional, so if it is specified, it is used as the exact name for the log file. The default is used if the file is not specified. Usually the default is /usr/local/var/log/openvswitch/ovs-vswitchd.log</p>
 <p>Setting OVS Log levels:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ovs-appctl vlog/set ANY:ANY:dbg
 ovs-appctl vlog/set poll_loop:ANY:OFF
@@ -2415,7 +2399,7 @@ ovs-appctl vlog/set netlink_socket:ANY:OFF
 </pre></div>
 </div>
 </li>
-</ol>
+</ul>
 </section>
 </section>
 
@@ -2448,7 +2432,7 @@ ovs-appctl vlog/set netlink_socket:ANY:OFF
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on Sept 1, 2022.
+        Last updated on Oct 10, 2022.
       </span>
 
     </p>
