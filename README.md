@@ -8,14 +8,14 @@ pip3 install recommonmark sphinx sphinx_markdown_tables rst2pdf
 ```
 
 To update the document, please follow below steps.
-- Update document `version` and `release` in docs/conf.py
+- Update document `version` and `release` in docs/source/conf.py
     ```text
     # The short X.Y version
     version = '1.3'
     # The full version, including alpha/beta/rc tags
     release = '1.3'
     ```
-- Update date in docs/conf.py
+- Update date in docs/source/conf.py
     ```text
     html_last_updated_fmt = 'Sept 1, 2022'
     ```
