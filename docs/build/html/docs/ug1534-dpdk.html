@@ -6,7 +6,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
-		
+		<meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 		<link rel="stylesheet" href="https://static.cloud.coveo.com/searchui/v2.4382/css/CoveoFullSearch.css"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -63,6 +64,7 @@ function OptanonWrapper() { }
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -230,7 +232,7 @@ function OptanonWrapper() { }
             
             
               <div class="version">
-                1.2
+                1.4
               </div>
             
           
@@ -266,7 +268,7 @@ function OptanonWrapper() { }
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Download Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_2.pdf">PDF</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/pdf/ug1534-u25n-smartnic-user-guide.pdf">PDF</a></li>
 </ul>
 
             
@@ -338,7 +340,7 @@ function OptanonWrapper() { }
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dpdk">
+  <section id="dpdk">
 <h1>DPDK<a class="headerlink" href="#dpdk" title="Permalink to this heading">¶</a></h1>
 <p>DPDK compilation steps</p>
 <ol>
@@ -351,70 +353,56 @@ function OptanonWrapper() { }
 <li><p>Create the DPDK build tree:</p>
 <p>Follow the steps mentioned at <a class="reference external" href="http://doc.dpdk.org/guides/linux_gsg/build_dpdk.html">Compilation Steps</a> to do DPDK compilation.</p>
 </li>
-<li><p>Post successful compilation, allocate hugepage and bind the PCI device to run testpmd:</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>   a. <span class="sb">`</span>mkdir /mnt/huge<span class="sb">`</span>
-
-   b. <span class="sb">`</span>mount -t hugetlbfs nodev /mnt/huge<span class="sb">`</span>
+<li><p>Post successful compilation, allocate hugepage and bind the PCI device to run testpmd:</p>
+<p>a. Mount hugepages</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir /mnt/huge
+mount -t hugetlbfs nodev /mnt/huge
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  You can use VFIO or UIO [uio_pci_generic or igb_uio]. Refer to the following link to install the Linux drivers for DPDK: [https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html](https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html).
-
-  Added below the example commands with igb_uio driver. For the igb_uio driver, the path for dpdk-kmod can be found at [http://git.dpdk.org/dpdk-kmods](http://git.dpdk.org/dpdk-kmods). After downloading, go to the following path and compile:
-
-  ```
-  cd &lt;dpdk-kmod&gt;/src
-  ```
+<p>b. Load VFIO or UIO
+Refer to the following link to install the Linux drivers for DPDK: <a class="reference external" href="https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html">https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Added</span> <span class="n">below</span> <span class="n">the</span> <span class="n">example</span> <span class="n">commands</span> <span class="k">with</span> <span class="n">igb_uio</span> <span class="n">driver</span><span class="o">.</span> <span class="n">For</span> <span class="n">the</span> <span class="n">igb_uio</span> <span class="n">driver</span><span class="p">,</span> <span class="n">the</span> <span class="n">path</span> <span class="k">for</span> <span class="n">dpdk</span><span class="o">-</span><span class="n">kmod</span> <span class="n">can</span> <span class="n">be</span> <span class="n">found</span> <span class="n">at</span> <span class="p">[</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">git</span><span class="o">.</span><span class="n">dpdk</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">dpdk</span><span class="o">-</span><span class="n">kmods</span><span class="p">](</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">git</span><span class="o">.</span><span class="n">dpdk</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">dpdk</span><span class="o">-</span><span class="n">kmods</span><span class="p">)</span><span class="o">.</span> <span class="n">After</span> <span class="n">downloading</span><span class="p">,</span> <span class="n">go</span> <span class="n">to</span> <span class="n">the</span> <span class="n">following</span> <span class="n">path</span> <span class="ow">and</span> <span class="nb">compile</span><span class="p">:</span>
 </pre></div>
 </div>
-<p>c.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`modprobe uio`
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>insmod /&lt;dpdk-kmod&gt;/src/igb_uio.ko
 </pre></div>
 </div>
-<p>d.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`insmod /&lt;dpdk-kmod&gt;/src/igb_uio.ko`
-</pre></div>
-</div>
-<p>e. Ensure that the VF interface is down and unbound from sfc before binding it to the Linux driver:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  ```
-  ifconfig &lt;U25eth0_VF&gt; down
-  . /usertools/dpdk-devbind.py -u &lt;pci_id&gt; [inside dpdk directory]
-  ```
+<p>c. Ensure that the VF interface is down and unbound from sfc before binding it to the Linux driver:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig &lt;U25eth0_VF&gt; down
+. /usertools/dpdk-devbind.py -u &lt;pci_id&gt; <span class="o">[</span>inside dpdk directory<span class="o">]</span>
 </pre></div>
 </div>
 <p>f. Run the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  ```
-  . /usertools/dpdk-devbind.py -b igb_uio &lt;pci_id&gt; [inside dpdk directory]
-  ```
-
-  For example:
-
-  ```
-  ./usertools/dpdk-devbind.py -b igb_uio af:00.0
-  ```
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>. /usertools/dpdk-devbind.py -b igb_uio &lt;pci_id&gt; <span class="o">[</span>inside dpdk directory<span class="o">]</span>
 </pre></div>
 </div>
-<ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">For</span> <span class="n">example</span><span class="p">:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usertools/dpdk-devbind.py -b igb_uio af:00.0
+</pre></div>
+</div>
+</li>
 <li><p>Command to run testpmd:</p>
 <p>Refer to <a class="reference external" href="https://doc.dpdk.org/guides/testpmd_app_ug/run_app.html">https://doc.dpdk.org/guides/testpmd_app_ug/run_app.html</a> for more information about the testpmd runtime command. The following is an example command to run testpmd:</p>
 <p><strong><em>Note</em>:</strong> Make sure the dpdk-testpmd for specific PCI devices is running on the same NUMA node.</p>
 <p>Use the following command to get the numa node for a specific PCI device.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">bus</span><span class="o">/</span><span class="n">pci</span><span class="o">/</span><span class="n">devices</span><span class="o">/</span><span class="mi">0000</span>\<span class="p">:</span><span class="o">&lt;</span><span class="n">pci</span> <span class="n">device</span> <span class="nb">id</span><span class="o">&gt;/</span><span class="n">numa_node</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat /sys/bus/pci/devices/0000<span class="se">\:</span>&lt;pci device id&gt;/numa_node
 </pre></div>
 </div>
 <p>The cores for the specific numa node could be found using the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lscpu</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">NUMA</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lscpu <span class="p">|</span> grep NUMA
 </pre></div>
 </div>
 <p>For example, <code class="docutils literal notranslate"><span class="pre">lscpu</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">NUMA</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NUMA</span> <span class="n">node</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="mi">2</span>
-<span class="n">NUMA</span> <span class="n">node0</span> <span class="n">CPU</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">30</span>
-<span class="n">NUMA</span> <span class="n">node1</span> <span class="n">CPU</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">31</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>NUMA node<span class="o">(</span>s<span class="o">)</span>: <span class="m">2</span>
+NUMA node0 CPU<span class="o">(</span>s<span class="o">)</span>: <span class="m">0</span>,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30
+NUMA node1 CPU<span class="o">(</span>s<span class="o">)</span>: <span class="m">1</span>,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31
 </pre></div>
 </div>
 </li>
 </ol>
-</div>
+</section>
 
 
            </div>
@@ -445,7 +433,7 @@ function OptanonWrapper() { }
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on July 9, 2022.
+        Last updated on Oct 17, 2022.
       </span>
 
     </p>

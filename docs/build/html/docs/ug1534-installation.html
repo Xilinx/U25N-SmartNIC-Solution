@@ -6,7 +6,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
-		
+		<meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 		<link rel="stylesheet" href="https://static.cloud.coveo.com/searchui/v2.4382/css/CoveoFullSearch.css"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -63,6 +64,7 @@ function OptanonWrapper() { }
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -230,7 +232,7 @@ function OptanonWrapper() { }
             
             
               <div class="version">
-                1.2
+                1.4
               </div>
             
           
@@ -261,10 +263,10 @@ function OptanonWrapper() { }
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#basic-requirements-and-component-versions-supported">3.1 Basic Requirements and Component Versions Supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#u25n-driver">3.2 U25N Driver</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#solarflare-linux-utilities-installation">Solarflare Linux Utilities Installation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#u25n-driver-installation">3.2.1 U25N Driver Installation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#updating-u25n-firmware">3.2.2 Updating U25N Firmware</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sfboot-configuration">3.2.3 sfboot Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solarflare-linux-utilities-installation">3.2.1 Solarflare Linux Utilities Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#u25n-driver-installation">3.2.2 U25N Driver Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updating-u25n-firmware">3.2.3 Updating U25N Firmware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sfboot-configuration">3.2.4 sfboot Configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#u25n-shell">3.3 U25N Shell</a><ul>
@@ -288,7 +290,7 @@ function OptanonWrapper() { }
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Download Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/PDF/xd133-u25n-smartnic-solution_1_2.pdf">PDF</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/pdf/ug1534-u25n-smartnic-user-guide.pdf">PDF</a></li>
 </ul>
 
             
@@ -360,17 +362,16 @@ function OptanonWrapper() { }
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="u25n-installation">
+  <section id="u25n-installation">
 <h1>3. U25N Installation<a class="headerlink" href="#u25n-installation" title="Permalink to this heading">¶</a></h1>
-<div class="section" id="basic-requirements-and-component-versions-supported">
+<section id="basic-requirements-and-component-versions-supported">
 <h2>3.1 Basic Requirements and Component Versions Supported<a class="headerlink" href="#basic-requirements-and-component-versions-supported" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>OS requirement:</p>
-<ul class="simple">
-<li><p>Ubuntu 18.04 or 20.04</p></li>
-</ul>
+<ul>
+<li><p>Ubuntu 18.04 or 20.04</p>
 <p><strong><em>Note</em>:</strong> We recommend using the LTS version of Ubuntu.</p>
-<ul class="simple">
+</li>
 <li><p>Red Hat Enterprise Linux 8.3 or 8.4</p></li>
 </ul>
 </li>
@@ -378,8 +379,8 @@ function OptanonWrapper() { }
 <ul class="simple">
 <li><p>OVS Functionality ≥ 4.15.</p></li>
 <li><p>Stateless Firewall Functionality ≥ 5.5.</p></li>
+<li><p>Conntrack Functionality is tested on Ubuntu 20.04.4 LTS with kernel 5.15.0-46-generic.</p></li>
 </ul>
-<p><strong><em>Note</em>:</strong> We recommends the default kernel 5.8 that comes with Ubuntu 20.04.02 LTS to support all features of the U25N hardware.</p>
 </li>
 <li><p>PCIe® Gen3 x16 slot.</p></li>
 <li><p>Requires passive airflow. More details can be found in <em>Alveo U25N SmartNIC Data Sheet</em> (DS1005).</p></li>
@@ -389,28 +390,31 @@ function OptanonWrapper() { }
 </li>
 <li><p>OVS version: 2.12 and above. For more information about OVS and its installation, refer to <a class="reference external" href="https://docs.openvswitch.org/en/latest/intro/install/general">https://docs.openvswitch.org/en/latest/intro/install/general</a>.</p></li>
 </ul>
-</div>
-<div class="section" id="u25n-driver">
+</section>
+<section id="u25n-driver">
 <h2>3.2 U25N Driver<a class="headerlink" href="#u25n-driver" title="Permalink to this heading">¶</a></h2>
 <p><strong><em>Note</em>:</strong> Root user privileges are required to execute following steps and commands.</p>
 <p>Once the server is successfully booted with U25N Smart NIC, validate that the U25N Smart NIC is detected using the lspci command:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>lspci | grep Solarflare
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lspci <span class="p">|</span> grep Solarflare
 </pre></div>
 </div>
-<p>It will list two PCIe id’s corresponding to U25N, similar to the following sample output:</p>
+<p>It will list two PCIe ID’s corresponding to U25N, similar to the following sample output:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>af:00.0 Ethernet controller: Solarflare Communications XtremeScale SFC9250
 <span class="m">10</span>/25/40/50/100G Ethernet Controller <span class="o">(</span>rev <span class="m">01</span><span class="o">)</span>
 af:00.1 Ethernet controller: Solarflare Communications XtremeScale SFC9250
 <span class="m">10</span>/25/40/50/100G Ethernet Controller <span class="o">(</span>rev <span class="m">01</span><span class="o">)</span>
 </pre></div>
 </div>
-<div class="section" id="solarflare-linux-utilities-installation">
-<h3>Solarflare Linux Utilities Installation<a class="headerlink" href="#solarflare-linux-utilities-installation" title="Permalink to this heading">¶</a></h3>
+<section id="solarflare-linux-utilities-installation">
+<h3>3.2.1 Solarflare Linux Utilities Installation<a class="headerlink" href="#solarflare-linux-utilities-installation" title="Permalink to this heading">¶</a></h3>
 <p>The Solarflare Linux Utilities package can be found from the U25N software package downloaded from the lounge.</p>
 <p>If you are using an Ubuntu server:</p>
-<ol>
+<ul>
 <li><p>Download and unzip the package on the target server.</p>
-<p><strong><em>Note</em>:</strong> Alien package must be downloaded using the command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">alien</span></code>.</p>
+<p><strong><em>Note</em>:</strong> Alien package must be downloaded using the command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt install alien
+</pre></div>
+</div>
 </li>
 <li><p>Create the <code class="docutils literal notranslate"><span class="pre">.deb</span></code> file:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo alien sfutils‐&lt;version&gt;.x86_64.rpm
@@ -423,19 +427,20 @@ af:00.1 Ethernet controller: Solarflare Communications XtremeScale SFC9250
 </pre></div>
 </div>
 </li>
-</ol>
+</ul>
 <p>If you are using Red Hat Enterprise Linux server:</p>
-<ol>
+<ul>
 <li><p>Install the binary RPM:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo rpm -Uvh sfutils-&lt;version&gt;.x86_64.rpm
 </pre></div>
 </div>
 </li>
-</ol>
-<p>The server should have sfupdate, sfkey, sfctool and sfboot utilities now.</p>
-</div>
-<div class="section" id="u25n-driver-installation">
-<h3>3.2.1 U25N Driver Installation<a class="headerlink" href="#u25n-driver-installation" title="Permalink to this heading">¶</a></h3>
+</ul>
+<p>The server should have sfupdate, sfkey, sfctool and sfboot utilities installed now.</p>
+</section>
+<section id="u25n-driver-installation">
+<h3>3.2.2 U25N Driver Installation<a class="headerlink" href="#u25n-driver-installation" title="Permalink to this heading">¶</a></h3>
+<p><strong><em>Note</em>:</strong> Please stop Open vSwitch if it is running before U25N driver installation</p>
 <ul>
 <li><p>If you are using an Ubuntu server</p>
 <ul>
@@ -443,10 +448,10 @@ af:00.1 Ethernet controller: Solarflare Communications XtremeScale SFC9250
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install dkms
 </pre></div>
 </div>
-<p><strong><em>Note</em>:</strong> If the driver version is 5.3.3.1008.3, please ignore this U25N driver installation step.</p>
+<p><strong><em>Note</em>:</strong> If the driver version is <a class="reference external" href="./ug1534-installation.html#basic-requirements-and-component-versions-supported">latest</a>, please ignore this U25N driver installation step.</p>
 </li>
 <li><p>Check the driver version of U25N interface using the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25N_eth0 <span class="p">|</span> grep version <span class="c1">#U25N_eth0 is the first port of U25N.</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i u25eth0 <span class="p">|</span> grep version <span class="c1">#u25eth0 is the first port of U25N.</span>
 </pre></div>
 </div>
 </li>
@@ -455,13 +460,12 @@ af:00.1 Ethernet controller: Solarflare Communications XtremeScale SFC9250
 modprobe mdio
 rmmod sfc
 dpkg -r sfc-dkms
-dpkg -i sfc-dkms_x.x.x.x_all.deb
-modprobe sfc
 </pre></div>
 </div>
 </li>
 <li><p>Then install debian driver package</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dpkg -i sfc-dkms_5.3.3.1008.3_all.deb
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dpkg -i sfc-dkms_&lt;version&gt;_all.deb
+modprobe sfc
 </pre></div>
 </div>
 </li>
@@ -469,17 +473,22 @@ modprobe sfc
 </li>
 <li><p>If you are using Red Hat Enterprise Linux server</p>
 <ul>
-<li><p>Install dependency “unifdef-2.12” package if it is not installed</p></li>
-<li><p>rmmod sfc (if driver is already loaded)</p></li>
+<li><p>Install dependency “unifdef-2.12” package if it is not installed.
+Please refer to <a class="reference external" href="https://dotat.at/prog/unifdef/">https://dotat.at/prog/unifdef/</a>.</p></li>
+<li><p>Unload existing sfc driver if legacy driver is already loaded</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rmmod sfc
+</pre></div>
+</div>
+</li>
 <li><p>Remove sfc rpm package (if it’s installed already)</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rpm -qa <span class="p">|</span> grep <span class="m">5</span>.3.3.1008.4 <span class="o">[</span>to get sfc rpm package name<span class="o">]</span>
-rpm -e &lt;kernel-module-sfc-RHEL8-4-5.3.3.1008.4-1.x86_64.rpm&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rpm -qa <span class="p">|</span> grep sfc <span class="c1">#to get sfc rpm package name</span>
+rpm -e &lt;kernel-module-sfc-RHEL8-4-&lt;version&gt;.x86_64.rpm&gt;
 </pre></div>
 </div>
 </li>
 <li><p>Install the rpm package</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rpm -i RHEL8.3-5.3.3.1008.4-1.x86_64.rpm <span class="o">(</span><span class="k">for</span> <span class="m">8</span>.3 Kernel<span class="o">)</span>
-rpm -i RHEL8.4-5.3.3.1008.4-1.x86_64.rpm <span class="o">(</span><span class="k">for</span> <span class="m">8</span>.4 Kernel<span class="o">)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rpm -i RHEL8.3-&lt;version&gt;.x86_64.rpm <span class="o">(</span><span class="k">for</span> <span class="m">8</span>.3 Kernel<span class="o">)</span>
+rpm -i RHEL8.4-&lt;version&gt;.x86_64.rpm <span class="o">(</span><span class="k">for</span> <span class="m">8</span>.4 Kernel<span class="o">)</span>
 modprobe sfc
 </pre></div>
 </div>
@@ -488,60 +497,67 @@ modprobe sfc
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="updating-u25n-firmware">
-<h3>3.2.2 Updating U25N Firmware<a class="headerlink" href="#updating-u25n-firmware" title="Permalink to this heading">¶</a></h3>
-<p>Step 1: Make sure U25N driver is loaded using <code class="docutils literal notranslate"><span class="pre">lsmod</span></code> command</p>
+</section>
+<section id="updating-u25n-firmware">
+<h3>3.2.3 Updating U25N Firmware<a class="headerlink" href="#updating-u25n-firmware" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p>Step 1: Make sure U25N driver is loaded using <code class="docutils literal notranslate"><span class="pre">lsmod</span></code> command</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsmod <span class="p">|</span> grep sfc
 </pre></div>
 </div>
-<p>For Eg :</p>
+<p>Eg :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsmod <span class="p">|</span> grep sfc
 sfc                   <span class="m">626688</span>  <span class="m">0</span>
 </pre></div>
 </div>
-<p>Step 2: Execute the following step to update firmware</p>
+</li>
+<li><p>Step 2: Execute the following step to update firmware</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot --list <span class="c1"># This should output U25N interfaces</span>
 sfupdate <span class="c1">#This should work or do the below step</span>
-sfupdate -i &lt;U25N_eth0&gt; --write --force --yes <span class="c1"># U25N_eth0 is the PF0 interface of U25N</span>
+sfupdate -i &lt;PF_interface&gt; --write --force --yes <span class="c1"># u25eth0 is the PF0 interface of U25N</span>
 </pre></div>
 </div>
-<p>Note: Please use the PF0 interface. No reboot is required.</p>
-<p>Step 3: Confirm the firmware version using the command <code class="docutils literal notranslate"><span class="pre">sfupdate</span></code>. Version should be 1011.</p>
-<p>Eg:</p>
+<p><strong><em>Note</em>:</strong> Please use the PF0 interface. No reboot is required.</p>
+</li>
+<li><p>Step 3: Confirm the firmware version using the command <code class="docutils literal notranslate"><span class="pre">sfupdate</span></code>. Version should be 1011.</p>
+<p>For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfupdate <span class="p">|</span> grep Bundle
+Bundle type:        U25N
+Bundle version:     &lt;bundle version&gt;
 </pre></div>
 </div>
-<p>Bundle type:        U25N
-Bundle version:     v7.8.17.1011</p>
-</div>
-<div class="section" id="sfboot-configuration">
-<h3>3.2.3 sfboot Configuration<a class="headerlink" href="#sfboot-configuration" title="Permalink to this heading">¶</a></h3>
+</li>
+</ul>
+</section>
+<section id="sfboot-configuration">
+<h3>3.2.4 sfboot Configuration<a class="headerlink" href="#sfboot-configuration" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> Ignore the following steps if the U25N is operating in SR-IOV mode and the required VF are already assigned. Available VFs and SR-IOV mode can be verified by running the sfboot command as a root user.</p>
-<p>For more information on enabling VFs and SR-IOV, refer to the <a class="reference external" href="https://support-nic.xilinx.com/wp/drivers">solarflare user guide</a></p>
+<p>For more information on enabling VFs and SR-IOV, refer to the <a class="reference external" href="https://www.xilinx.com/support/download/nic-software-and-drivers.html#drivers-software">Solarflare Server Adapter User Guide</a></p>
 <p>X2 switch mode must be configured in SR-IOV mode for enabling VFs. Each U25N PF can have up to 120 VFs. The following command demonstrates how to switch to the SR-IOV mode and enable VFs.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo sfboot switch-mode<span class="o">=</span>sriov vf-count<span class="o">=</span>&lt;No. of VF required&gt;
 </pre></div>
 </div>
 <p><strong><em>Note</em>:</strong>  Perform a power cycle to update the configuration. Updated configuration will be retained post cold boot.</p>
-</div>
-</div>
-<div class="section" id="u25n-shell">
+</section>
+</section>
+<section id="u25n-shell">
 <h2>3.3 U25N Shell<a class="headerlink" href="#u25n-shell" title="Permalink to this heading">¶</a></h2>
-<p>The U25N shell is programmed on the U25N with a known good image which is called “golden image” out of the factory. The Following sections demonstrate how to verify the shell. If the validation fails, refer to <a class="reference internal" href="ug1534-shellprogramming.html"><span class="doc">U25N Shell Programming</span></a>.</p>
-<div class="section" id="shell-version-check">
+<p>The U25N shell is programmed on the U25N with a known good image which is called “golden image” out of the factory. The Following sections demonstrate how to verify the shell. If the validation fails, refer to <a class="reference external" href="./ug1534-shellprogramming.html">U25N Shell Programming</a>.</p>
+<section id="shell-version-check">
 <h3>3.3.1 Shell Version Check<a class="headerlink" href="#shell-version-check" title="Permalink to this heading">¶</a></h3>
-<p>Step 1 : Check the driver version of U25N interface using the following command:</p>
-<p><strong><em>Note</em>:</strong> Ignore Step 1, if the U25N driver version is 5.3.3.1008.3.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25N_eth0 <span class="p">|</span> grep version
+<ul>
+<li><p>Step 1 : Check the driver version of U25N interface using the following command:</p>
+<p><strong><em>Note</em>:</strong> Ignore this step, if the U25N driver version is <a class="reference external" href="./ug1534-installation.html#basic-requirements-and-component-versions-supported">latest</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i u25eth0 <span class="p">|</span> grep version
 </pre></div>
 </div>
 <p><strong><em>Note</em>:</strong> To install the latest sfc driver, refer to <a class="reference external" href="./ug1534-installation.html#u25n-driver">U25N Driver</a>.</p>
-<p>Step 2 : Use the u25n_update utility (found inside RELEASE_DIR/utils directory) to find out the U25N shell version. Execute the following command to read the U25N shell version.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update get-version &lt;U25N_eth0&gt;
+</li>
+<li><p>Step 2 : Use the u25n_update utility (found inside RELEASE_DIR/utils directory) to find out the U25N shell version. Execute the following command to read the U25N shell version.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update get-version &lt;PF interface&gt;
 </pre></div>
 </div>
-<p>Eg:</p>
+<p>For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update get-version u25eth0
 
 Sample output:
@@ -552,54 +568,54 @@ Reading version from the hardware
 X2 Firmware Version : <span class="m">7</span>.8.17.1011
 PS Firmware Version : <span class="m">5</span>.00
 Deployment shell Version : 0x0812210D <span class="c1"># Timestamp of Shell</span>
-Bitstream Version : 0xA00E60D3 <span class="c1"># Timestamp of offload </span>
-Features supported:  MAE IPSEC <span class="c1"># Represent NIC by default</span>
+Bitstream Version : 0xA00E60D3        <span class="c1"># Timestamp of offload </span>
+Features supported:  MAE IPSEC        <span class="c1"># Represent NIC by default</span>
 Timestamp : <span class="m">08</span>-12-2021 <span class="m">16</span>:30:45 
 
 
-STATUS: SUCCESSFUL
+STATUS: SUCCESSFUL                    <span class="c1"># Successful U25N version read</span>
 </pre></div>
 </div>
-<p>You should get following prompt post successful U25N version read.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>STATUS: SUCCESSFUL
-</pre></div>
-</div>
-<p><strong><em>Note</em>:</strong> If the u25n_update command returns status as failed, this implies that the shell is not programmed with the Golden image. Please contact support. Refer to <a class="reference internal" href="ug1534-shellprogramming.html"><span class="doc">U25N Shell Programming</span></a> to flash the Golden image to the U25N shell.</p>
+<p><strong><em>Note</em>:</strong> If the u25n_update command returns status as failed, this implies that the shell is not programmed with the Golden image. Please contact support. Refer to <a class="reference external" href="./ug1534-shellprogramming.html">U25N Shell Programming</a> to flash the Golden image to the U25N shell.</p>
 <p>The following section demonstrates how to validate the Golden Image Functionality. For flashing deployment image to the U25N shell refer to <a class="reference external" href="./ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a>.</p>
 <p><strong><em>Note</em>:</strong> If the Golden image version is same as the Deployment image version, flashing is not required.</p>
-</div>
-<div class="section" id="testing-golden-image-functionality">
+</li>
+</ul>
+</section>
+<section id="testing-golden-image-functionality">
 <h3>3.3.2 Testing Golden Image Functionality<a class="headerlink" href="#testing-golden-image-functionality" title="Permalink to this heading">¶</a></h3>
-<ol class="simple">
+<ul class="simple">
 <li><p>The U25N shell with Golden image includes Image Upgrade and Basic NIC functions.</p></li>
 <li><p>U25N hardware in legacy mode where the acceleration logic is simple passthrough from ethernet ports to host driver.</p></li>
-</ol>
-<div class="section" id="checking-basic-nic-functionality">
+</ul>
+<section id="checking-basic-nic-functionality">
 <h4>3.3.2.1 Checking Basic NIC Functionality<a class="headerlink" href="#checking-basic-nic-functionality" title="Permalink to this heading">¶</a></h4>
 <p>Connect the U25N physical port to a traffic generator or any peer NIC device.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Run ping after assigning IP addresses on source and remote ports.
-Run iperf server and client on any ports to verify traffic.
-Run DPDK testpmd at the X2 PF interface. Packets sent to the physical port will be received at the testpmd application corresponding to the bound PF.
-</pre></div>
-</div>
+<ul class="simple">
+<li><p>Run ping after assigning IP addresses on source and remote ports.</p></li>
+<li><p>Run iperf server and client on any ports to verify traffic.</p></li>
+<li><p>Run DPDK testpmd at the X2 PF interface. Packets sent to the physical port will be received at the testpmd application corresponding to the bound PF.</p></li>
+</ul>
 <p><strong><em>Note</em>:</strong> Refer to <a class="reference external" href="./ug1534-supportedservices.html#dpdk-on-u25n">DPDK on U25N</a> to run dpdk-testpmd.</p>
-</div>
-</div>
-<div class="section" id="deployment-image-flashing">
+</section>
+</section>
+<section id="deployment-image-flashing">
 <h3>3.3.3 Deployment Image Flashing<a class="headerlink" href="#deployment-image-flashing" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> U25N must have the Golden Image before performing any of the following steps. Refer to <a class="reference external" href="./ug1534-installation.html#shell-version-check">Shell Version Check</a> to check the Shell version. Ignore the flashing if Golden image version is same as deployment version in the release.</p>
 <p><strong><em>Note</em>:</strong> Before flashing the image ensure the U25N card is in legacy mode with no OVS software application running. Also, remove all associated OVS databases( if any)</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>To check the mode of operation:<span class="o">(</span>Legacy/Switchdev modes<span class="o">)</span>
-devlink dev eswitch show pci/0000:&lt;pci_id&gt; <span class="c1">#pci_id is the BDF of U25N Device</span>
+<p>To check the mode of operation:(Legacy/Switchdev modes)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>devlink dev eswitch show pci/0000:&lt;pci_id&gt; <span class="c1"># pci_id is the BDF of U25N Device</span>
 </pre></div>
 </div>
-<p>Step 1 : In case U25N driver version is 5.3.3.1008.3, this step can be ignored.  The following command can be used to check the driver version:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25N_eth0 <span class="p">|</span> grep version
+<ul>
+<li><p>Step 1 : In case U25N driver version is <a class="reference external" href="./ug1534-installation.html#basic-requirements-and-component-versions-supported">latest</a>, this step can be ignored. The following command can be used to check the driver version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i u25eth0 <span class="p">|</span> grep version
 </pre></div>
 </div>
 <p><strong><em>Note</em>:</strong> To install the latest sfc driver, please refer to <a class="reference external" href="./ug1534-installation.html#u25n-driver">U25N Driver</a>.</p>
-<p>Step 2 : Ensure that the U25N card is in legacy mode. Below is the command to validate:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>devlink dev eswitch show pci/0000:&lt;pci_id&gt;
+</li>
+<li><p>Step 2 : Ensure that the U25N card is in legacy mode. Below is the command to validate:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>devlink dev eswitch show pci/0000:&lt;pci_id&gt; <span class="c1"># pci_id is the BDF of U25N Device</span>
 </pre></div>
 </div>
 <p>The command mentioned above should return the following sample output:</p>
@@ -607,29 +623,31 @@ devlink dev eswitch show pci/0000:&lt;pci_id&gt; <span class="c1">#pci_id is the
 </pre></div>
 </div>
 <p>Use the following command to switch mode in case the card is not already in the legacy mode:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>devlink dev eswitch <span class="nb">set</span> pci/0000:&lt;PCIe device bus id&gt; mode legacy
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>devlink dev eswitch <span class="nb">set</span> pci/0000:&lt;pci_id&gt; mode legacy
 </pre></div>
 </div>
-<p>Step 3 : The u25n_update utility uses U25N PF0 network interface to flash the image. Execute the following command to commence image flash.
-<strong><em>Note</em>:</strong> The interface must be the PF0 interface of the target U25N card. The file must be a <code class="docutils literal notranslate"><span class="pre">.bin</span></code> file. Ensure the image path to be flashed is correct.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update upgrade &lt;path_to_bin_or_ub_file_with_extension&gt; &lt;PF0_interface&gt; <span class="c1"># The bin file should be in the shell directory of the release.</span>
+</li>
+<li><p>Step 3 : The u25n_update utility uses U25N PF0 network interface to flash the image. Execute the following command to commence image flash.</p>
+<p><strong><em>Note</em>:</strong> The interface must be the PF0 interface of the target U25N card. The file must be a <code class="docutils literal notranslate"><span class="pre">.bin</span></code> file. Ensure the image path to be flashed is correct.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># The bin/ub file is in the `shell` directory of the release.</span>
+./u25n_update upgrade &lt;path_to_bin_file&gt; &lt;PF0_interface&gt; 
 </pre></div>
 </div>
-<p>Eg:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#From Release_dir/utils:</span>
-./u25n_update upgrade ../shell/BOOT.bin u25eth0 
-<span class="c1">#The name of the bin file may change to represent month and day like U25N_Shell_Dec13.bin</span>
+<p>For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># From Release_dir/utils:</span>
+./u25n_update upgrade ../shell/&lt;boot file name&gt;.bin u25eth0
 </pre></div>
 </div>
 <p>Post successful image flash you will the following prompt:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>STATUS: SUCCESSFUL
 </pre></div>
 </div>
-<p>Step 4 : Reset the U25N hardware to boot from the updated deployment image.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update reset &lt;U25N_eth0&gt;
+</li>
+<li><p>Step 4 : Reset the U25N hardware to boot from the updated deployment image.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update reset &lt;PF0_interface&gt;
 </pre></div>
 </div>
-<p>Eg:</p>
+<p>For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update reset u25eth0
 </pre></div>
 </div>
@@ -637,13 +655,13 @@ devlink dev eswitch show pci/0000:&lt;pci_id&gt; <span class="c1">#pci_id is the
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>STATUS: SUCCESSFUL <span class="c1"># The above command takes a few seconds to complete to ensure proper reset sequence is validated. </span>
 </pre></div>
 </div>
-<p>Step 5 : To retrieve U25N Deployment image version details, use the following commands:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update get-version &lt;U25N_eth0&gt;
+</li>
+<li><p>Step 5 : To retrieve U25N Deployment image version details, use the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update get-version &lt;PF0_interface&gt;
 </pre></div>
 </div>
-<p>Eg:</p>
+<p>For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update get-version u25eth0
-<span class="c1">#Sample Output:</span>
 <span class="o">[</span>u25n_update<span class="o">]</span> - Image Upgrade/Erase Utility V3.1
 
 Reading version from the hardware
@@ -659,127 +677,111 @@ Timestamp : <span class="m">08</span>-12-2021 <span class="m">16</span>:30:45
 STATUS: SUCCESSFUL
 </pre></div>
 </div>
-<p>The following prompt will be shown, post a successful retrieval</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>STATUS: SUCCESSFUL
-</pre></div>
-</div>
-</div>
-<div class="section" id="loading-partial-bitstream-into-deployment-shell">
+</li>
+</ul>
+</section>
+<section id="loading-partial-bitstream-into-deployment-shell">
 <h3>3.3.3.1 Loading Partial Bitstream into Deployment Shell<a class="headerlink" href="#loading-partial-bitstream-into-deployment-shell" title="Permalink to this heading">¶</a></h3>
-<p><strong><em>Note</em>:</strong> The U25N must be flashed with the Deployment image before running the following commands. Refer to the [<a class="reference external" href="ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a>](./ug1534-installation.html#deployment-image-flashing) to flash the deployment image to the U25N shell.</p>
+<p><strong><em>Note</em>:</strong> The U25N must be flashed with the Deployment image before running the following commands. Refer to the <a class="reference external" href="./ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a> to flash the deployment image to the U25N shell.</p>
 <p><strong><em>Note</em>:</strong> In case partial Bitstream already exists in the U25N card and/or if a warm reboot has already been done, ensure a fpga reset is performed using u25n_update application before following the steps mentioned below. Use the following command to reset the FPGA.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update reset &lt;U25N_eth0&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update reset &lt;PF0_interface&gt;
 </pre></div>
 </div>
-<p>Eg:</p>
+<p>For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update reset u25eth0
 </pre></div>
 </div>
 <p>Use the PF0 interface of U25N card to initiate the FPGA reset.</p>
-<p>Step 1. In case U25N driver version is 5.3.3.1008, this step can be ignored. Driver version of the U25N can be validated using the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25_eth0 <span class="p">|</span> grep version
+<ul>
+<li><p>Step 1. In case U25N driver version is <a class="reference external" href="./ug1534-installation.html#basic-requirements-and-component-versions-supported">latest</a>, this step can be ignored. Driver version of the U25N can be validated using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i &lt;PF0_interface&gt; <span class="p">|</span> grep version
 </pre></div>
 </div>
 <p><strong><em>Note</em>:</strong> To install the latest sfc driver, refer to <a class="reference external" href="./ug1534-installation.html#basic-requirements-and-component-versions-supported">U25N Driver</a>.</p>
 <p><strong><em>Note</em>:</strong> Before flashing the image, make sure the U25N Smart NIC is in legacy mode, with  OVS software application running, and all OVS databases are removed.</p>
-<p>Step 2. The U25N Smart NIC should be in legacy mode. Use the following command to verify this:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>devlink dev eswitch show pci/0000:&lt;pci_id&gt;
-</pre></div>
-</div>
-<p>Sample output of the above command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pci/0000:&lt;pci_id&gt;: mode legacy
-</pre></div>
-</div>
-<p>If the U25N hardware is not in legacy mode, change it to legacy mode using the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>devlink dev eswitch <span class="nb">set</span> pci/0000:&lt;PCIe device bus id&gt; mode legacy
-</pre></div>
-</div>
+</li>
+<li><p>Step 2. The U25N Smart NIC should be in legacy mode. Please refer to step 2 of <a class="reference external" href="./ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a> for how to verify and change the NIC mode.</p></li>
+<li><p>Step 3. Image flashing happens through the U25N PF0 network interface using the u25n_update utility.</p>
+<ul>
+<li><p>The image is flashed using the following CLI command:</p>
 <p><strong><em>Note</em>:</strong> The interface used in the above command should be the PF0 interface of the target U25N SmartNIC. The file must be a <code class="docutils literal notranslate"><span class="pre">.bit</span></code> file. Ensure the path to the image to be flashed is correct.</p>
-<p>Step 3. Image flashing happens through the U25N PF0 network interface using the u25n_update utility.</p>
-<ol class="simple">
-<li><p>The image is flashed using the following CLI command:</p></li>
-</ol>
-<p><strong><em>Note</em>:</strong> The interface used in the above command should be the PF0 interface of the target U25N SmartNIC. The file must be a <code class="docutils literal notranslate"><span class="pre">.bit</span></code> file. Ensure the path to the image to be flashed is correct.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update upgrade &lt;path_to_bit_file_with_extension&gt; &lt;PF0_interface&gt;
-<span class="c1"># the path to bit files is Release_dir/bits </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update upgrade &lt;path_to_bit_file&gt; &lt;PF0_interface&gt;
+<span class="c1"># the path to bit files is bits directory of release package. </span>
 </pre></div>
 </div>
-<p>E.g:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update upgrade ../bits/ovs_*.bit u25eth0
+<p>For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update upgrade ../bits/ovs_&lt;version&gt;.bit u25eth0
 </pre></div>
 </div>
-<ol>
+</li>
 <li><p>After the image is flashed successfully, the following message is displayed:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>STATUS: Successful
 </pre></div>
 </div>
 </li>
-<li><p>The u25n_update utility can be used to retrieve the bitstream version. Version retrieval happens at the U25N PF0 network interface using the u25n_update utility. Use the following command to retrieve the image version:</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update get-version &lt;U25N_eth0&gt;
+<li><p>The u25n_update utility can be used to retrieve the bitstream version. Version retrieval happens at the U25N PF0 network interface using the u25n_update utility. Use the following command to retrieve the image version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update get-version &lt;PF0_interface&gt;
 </pre></div>
 </div>
-<p>E.g:</p>
+<p>For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update get-version u25eth0
 </pre></div>
 </div>
-<p>Bitstream version: 0xA00D10D1</p>
 <p>Post a successful image retrieval, the following message is displayed:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>STATUS: SUCCESSFUL
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Bitstream version: 0xA00D10D1
+STATUS: SUCCESSFUL
 </pre></div>
 </div>
-</div>
-<div class="section" id="steps-to-change-mpsoc-linux-kernel-image-for-advanced-users">
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="steps-to-change-mpsoc-linux-kernel-image-for-advanced-users">
 <h3>3.4 Steps to change MPSoC Linux kernel image (For advanced users)<a class="headerlink" href="#steps-to-change-mpsoc-linux-kernel-image-for-advanced-users" title="Permalink to this heading">¶</a></h3>
 <p>Follow this Section only when the file system needs to be updated for the existing Deployment image.</p>
-<p>Deployment image must be flashed to the U25N shell before following the below mentioned steps. Refer to [<a class="reference external" href="ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a>](./ug1534-installation.html#deployment-image-flashing) to flash the Deployment image.</p>
+<p>Deployment image must be flashed to the U25N shell before following the below mentioned steps. Refer to <a class="reference external" href="./ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a> to flash the Deployment image.</p>
 <p><strong><em>Note</em>:</strong> Before flashing the image to the shell ensure the card is in legacy mode with no OVS software application  running and all OVS databases have been removed.</p>
-<p>Step 1 : If the U25N driver version is 5.3.3.1008.3, this step can be ignored. Driver version of the U25N can be validated by using the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25_eth0 <span class="p">|</span> grep version
+<ul>
+<li><p>Step 1 : If the U25N driver version is 5.3.3.1008.3, this step can be ignored. Driver version of the U25N can be validated by using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i &lt;PF0_interface&gt; <span class="p">|</span> grep version
 </pre></div>
 </div>
-<p><strong><em>Note</em>:</strong> To install the latest sfc driver, refer  Section 3.2.</p>
-<p>Step 2 : U25N Cards should be in legacy mode. Use the following command to validate:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>devlink dev eswitch show pci/0000:&lt;pci_id&gt;
-</pre></div>
-</div>
-<p>Sample output of above command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pci/0000:&lt;pci_id&gt;: mode legacy
-</pre></div>
-</div>
-<p>In case U25N hardware is not in legacy mode, change it to legacy mode using the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>devlink dev eswitch <span class="nb">set</span> pci/0000:&lt;PCIe device bus id&gt; mode legacy
-</pre></div>
-</div>
-<p>Step 3 : Image flashing is performed through the U25N PF0 network interface using the u25n_update utility.</p>
+<p><strong><em>Note</em>:</strong> To install the latest sfc driver, refer <a class="reference external" href="./ug1534-installation.html#u25n-driver">U25N Driver</a> section.</p>
+</li>
+<li><p>Step 2 : U25N Cards should be in legacy mode. Please refer to step 2 of <a class="reference external" href="./ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a> for how to verify and change the NIC mode.</p></li>
+<li><p>Step 3 : Image flashing is performed through the U25N PF0 network interface using the u25n_update utility.</p>
 <p>Image is flashed using a CLI command</p>
 <p><strong><em>Note</em>:</strong> The interface should be the PF0 interface of the target U25N card. The file must be a <code class="docutils literal notranslate"><span class="pre">.ub</span></code> file. Make sure the path to the image to be flashed is given correctly.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update upgrade &lt;path_to_bin_or_ub_file_with_extension&gt; &lt;PF0_interface&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update upgrade &lt;path_to_bin_or_ub_file&gt; &lt;PF0_interface&gt;
 </pre></div>
 </div>
-<p>Eg:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update upgrade image.ub &lt;u25eth0&gt;
+<p>For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update upgrade image.ub u25eth0
 </pre></div>
 </div>
 <p>Post successful image flash, the following message will be displayed:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>STATUS: SUCCESSFUL
 </pre></div>
 </div>
-<p>Step 4 : Reset the U25N hardware to boot with the new kernel image using the following command:</p>
+</li>
+<li><p>Step 4 : Reset the U25N hardware to boot with the new kernel image using the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update reset &lt;PF0_interface&gt;
 </pre></div>
 </div>
-<p>Eg:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update reset &lt;u25eth0&gt;
+<p>For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update reset u25eth0
 </pre></div>
 </div>
 <p>After successful image flash, the following message will be displayed:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>STATUS: SUCCESSFUL
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="reverting-the-u25n-smartnic-to-golden-image">
+</li>
+</ul>
+</section>
+</section>
+<section id="reverting-the-u25n-smartnic-to-golden-image">
 <h2>3.5 Reverting the U25N SmartNIC to Golden Image<a class="headerlink" href="#reverting-the-u25n-smartnic-to-golden-image" title="Permalink to this heading">¶</a></h2>
 <p>Reverting to the factory (or golden) image is recommended in the following cases:</p>
 <ul class="simple">
@@ -788,40 +790,36 @@ STATUS: SUCCESSFUL
 <li><p>To recover from the state when the deployment image has become unresponsive even after performing multiple resets using the u25n_update utility.</p></li>
 </ul>
 <p><strong><em>Note</em>:</strong> After the factory reset is performed, the U25N loaded with the golden image (A known good image). It has the essential provision to upgrade the deployment image.</p>
-<p>Step 1. In case the U25N driver version is 5.3.3.1008, this step can be ignored. Driver version of the U25N interface can be validated using the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i U25_eth0 <span class="p">|</span> grep version
+<ul>
+<li><p>Step 1. In case the U25N driver version is <a class="reference external" href="./ug1534-installation.html#basic-requirements-and-component-versions-supported">latest</a>, this step can be ignored. Driver version of the U25N interface can be validated using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -i &lt;PF0_interface&gt; <span class="p">|</span> grep version
 </pre></div>
 </div>
 <p><strong><em>Note</em>:</strong> To install the latest sfc driver, refer to the <a class="reference external" href="./ug1534-installation.html#u25n-driver">U25N Driver</a>.</p>
 <p><strong><em>Note</em>:</strong> Before flashing the image, make sure the SmartNIC is in legacy mode, no OVS software application is running, and OVS databases are removed.</p>
-<p>Step 2. The U25N SmartNIC should be in legacy mode. Use the following command to verify:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>devlink dev eswitch show pci/0000:&lt;pci_id&gt;
-</pre></div>
-</div>
-<p>Sample output of the above command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pci/0000:&lt;pci_id&gt;: mode legacy
-</pre></div>
-</div>
-<p>If the U25N hardware is not in the legacy mode, change it to legacy mode using the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>devlink dev eswitch <span class="nb">set</span> pci/0000:&lt;PCIe device bus id&gt; mode legacy
-</pre></div>
-</div>
-<p>Step 3. Perform a factory reset via PF0 network interface of U25N</p>
-<ol class="simple">
-<li><p>Factory reset is performed using the following CLI command:</p></li>
-</ol>
+</li>
+<li><p>Step 2. The U25N SmartNIC should be in legacy mode. Please refer to step 2 of <a class="reference external" href="./ug1534-installation.html#deployment-image-flashing">Deployment Image Flashing</a> for how to verify and change the NIC mode.</p></li>
+<li><p>Step 3. Perform a factory reset via PF0 network interface of U25N</p>
+<ul>
+<li><p>Factory reset is performed using the following CLI command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update factory-reset &lt;PF0_interface&gt;
 </pre></div>
 </div>
-<p>E.g: <code class="docutils literal notranslate"><span class="pre">./u25n_update</span> <span class="pre">factory-reset</span> <span class="pre">&lt;u25eth0&gt;</span></code></p>
-<ol class="simple">
-<li><p>After a successful factory reset, the following message is displayed:</p></li>
-</ol>
+<p>For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./u25n_update factory-reset u25eth0
+</pre></div>
+</div>
+</li>
+<li><p>After a successful factory reset, the following message is displayed:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>STATUS: SUCCESSFUL
 </pre></div>
 </div>
-</div>
-</div>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
 
 
            </div>
@@ -852,7 +850,7 @@ STATUS: SUCCESSFUL
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on July 9, 2022.
+        Last updated on Oct 17, 2022.
       </span>
 
     </p>

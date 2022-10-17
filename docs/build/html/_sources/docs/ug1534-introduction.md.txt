@@ -14,7 +14,6 @@ The FPGA enables in-line hardware acceleration by offloading the host CPU's netw
 
 ![Alveo U25N SmartNIC card](media/nzf1587493420199_LowRes.png)
 
-
 *Figure 2:* **U25N Architecture**
 
 ![X25546-091321](media/jqc1631057326904_LowRes.png)

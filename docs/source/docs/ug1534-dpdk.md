@@ -16,44 +16,33 @@ DPDK compilation steps
 
 4. Post successful compilation, allocate hugepage and bind the PCI device to run testpmd:
 
-```bash
-   a. `mkdir /mnt/huge`
-
-   b. `mount -t hugetlbfs nodev /mnt/huge`
-```
-
-      You can use VFIO or UIO [uio_pci_generic or igb_uio]. Refer to the following link to install the Linux drivers for DPDK: [https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html](https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html).
-
-      Added below the example commands with igb_uio driver. For the igb_uio driver, the path for dpdk-kmod can be found at [http://git.dpdk.org/dpdk-kmods](http://git.dpdk.org/dpdk-kmods). After downloading, go to the following path and compile:
-
-      ```
-      cd <dpdk-kmod>/src
+   a. Mount hugepages
+      ```bash
+      mkdir /mnt/huge
+      mount -t hugetlbfs nodev /mnt/huge
       ```
 
-   c. 
-   ```
-   `modprobe uio`
-   ```
-   d. 
-   ```
-   `insmod /<dpdk-kmod>/src/igb_uio.ko`
-   ```
-   e. Ensure that the VF interface is down and unbound from sfc before binding it to the Linux driver:
+   b. Load VFIO or UIO
+       Refer to the following link to install the Linux drivers for DPDK: [https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html](https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html).
 
+       Added below the example commands with igb_uio driver. For the igb_uio driver, the path for dpdk-kmod can be found at [http://git.dpdk.org/dpdk-kmods](http://git.dpdk.org/dpdk-kmods). After downloading, go to the following path and compile:
+
+      ```bash
+      insmod /<dpdk-kmod>/src/igb_uio.ko
       ```
+
+   c. Ensure that the VF interface is down and unbound from sfc before binding it to the Linux driver:
+      ```bash
       ifconfig <U25eth0_VF> down
       . /usertools/dpdk-devbind.py -u <pci_id> [inside dpdk directory]
       ```
 
    f. Run the following command:
-
-      ```
+      ```bash
       . /usertools/dpdk-devbind.py -b igb_uio <pci_id> [inside dpdk directory]
       ```
-
-      For example:
-
-      ```
+       For example:
+      ```bash
       ./usertools/dpdk-devbind.py -b igb_uio af:00.0
       ```
 
@@ -65,19 +54,19 @@ DPDK compilation steps
 
    Use the following command to get the numa node for a specific PCI device.
 
-   ```
+   ```bash
    cat /sys/bus/pci/devices/0000\:<pci device id>/numa_node
    ```
 
    The cores for the specific numa node could be found using the following command:
 
-   ```
+   ```bash
    lscpu | grep NUMA
    ```
 
    For example, `lscpu | grep NUMA`.
 
-   ```
+   ```bash
    NUMA node(s): 2
    NUMA node0 CPU(s): 0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30
    NUMA node1 CPU(s): 1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31
