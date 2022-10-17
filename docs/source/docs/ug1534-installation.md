@@ -84,6 +84,7 @@ If you are using Red Hat Enterprise Linux server:
 The server should have sfupdate, sfkey, sfctool and sfboot utilities installed now.
 
 ### 3.2.2 U25N Driver Installation
+***Note*:** Please stop Open vSwitch if it is running before U25N driver installation
 - If you are using an Ubuntu server
   - Install the dkms package with the following command if not available:
     ```bash
