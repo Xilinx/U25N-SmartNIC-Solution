@@ -27,7 +27,9 @@
 
   ***Note*:** To install the latest firmware, refer to the Updating U25N Firmware section.
 
-- OVS version: 2.12 and above. For more information about OVS and its installation, refer to [https://docs.openvswitch.org/en/latest/intro/install/general](https://docs.openvswitch.org/en/latest/intro/install/general).
+- OVS version: 2.12 or above. For more information about OVS and its installation, refer to [https://docs.openvswitch.org/en/latest/intro/install/general](https://docs.openvswitch.org/en/latest/intro/install/general).
+   
+   ***Note*:** To support Connection Tracking feature, OVS version 2.13.5 or above is required.
 
 ## 3.2 U25N Driver
 
