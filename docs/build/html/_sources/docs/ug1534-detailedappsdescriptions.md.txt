@@ -1575,7 +1575,7 @@ running iperf3 or pktgen on a particular interface.
 
 ***Note*:** Refer to [DPDK on U25N](./ug1534-supportedservices.html#dpdk-on-u25n) to run dpdk-testpmd.
 
-## IPsec
+## 4.3 IPsec
 
 ### 4.3.1 Supported XFRM Parameters
 
