@@ -85,5 +85,6 @@ Statistics data will be updated periodically from U25N hardware. Counts would be
 ## 2.7 Debug
 
 A set of debug command is provided which collects
+
 - debug logs from PS and send them to host CPU. 
 - dump the default rules and offloaded rules of OVS.

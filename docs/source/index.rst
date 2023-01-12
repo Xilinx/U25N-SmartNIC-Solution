@@ -7,16 +7,18 @@ U25N
 
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 1
    :caption: U25N
    :hidden:
 
+   Introduction <./docs/ug1534-introduction.md>
    Supported Services <./docs/ug1534-supportedservices.md>
    Installation <./docs/ug1534-installation.md>
    Detailed Applications Descriptions <./docs/ug1534-detailedappsdescriptions.md>
-   ./docs/ug1534-dpdk.md
-   ./docs/ug1534-shellprogramming.md
-   ./docs/ug1534-vminstall.md
+   DPDK compilation steps <./docs/ug1534-dpdk.md>
+   APPENDIX A U25N Shell Programming <./docs/ug1534-shellprogramming.md>
+   APPENDIX B VM Installation <./docs/ug1534-vminstall.md>
+   APPENDIX C OpenStack Installation <./docs/ug1534-openstackinstallation.md>
 
 
 
@@ -44,5 +46,5 @@ This user guide describes installation, configuration, and operation of the Alve
    :caption: Download Guide
    :hidden:
 
-   PDF <https://pages.gitenterprise.xilinx.com/techdocs/u25n-smartnic/docs/build/pdf/ug1534-u25n-smartnic-user-guide.pdf>
+   PDF <https://github.com/Xilinx/U25N-SmartNIC-Solution/blob/gh-pages/docs/build/pdf/ug1534-u25n-smartnic-user-guide.pdf>
 

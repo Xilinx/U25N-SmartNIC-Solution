@@ -3,11 +3,11 @@
 ## 3.1 Basic Requirements and Component Versions Supported
 
 - OS requirement: 
-  - Ubuntu 18.04 or 20.04
+  - Ubuntu 18.04, 20.04 or 22.04.
 
       ***Note*:** We recommend using the LTS version of Ubuntu.
   
-  - Red Hat Enterprise Linux 8.3 or 8.4
+  - Red Hat Enterprise Linux 8.3 or 8.4 (tested legacy mode only)
 
 - Kernel requirements:
 

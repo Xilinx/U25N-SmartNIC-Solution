@@ -24,14 +24,14 @@ sys.path.insert(0, os.path.abspath('docs'))
 # -- Project information -----------------------------------------------------
 
 project = 'U25N'
-copyright = '2022, Xilinx, Inc.'
-author = 'Xilinx, Inc.'
+copyright = '2023, AMD, Inc.'
+author = 'AMD, Inc.'
 
 # The short X.Y version
-version = '1.5'
+version = '1.6'
 # The full version, including alpha/beta/rc tags
-release = '1.5'
-html_last_updated_fmt = 'Nov 17, 2022'
+release = '1.6'
+html_last_updated_fmt = 'Jan 12, 2023'
 
 # -- General configuration ---------------------------------------------------
 
@@ -66,7 +66,7 @@ autosectionlabel_prefix_document = True
 
 
 # Configuration for rst2pdf
-pdf_documents = [('index', u'ug1534-u25n-smartnic-user-guide', u'UG1534 U25N SmartNIC User Guide', u'Xilinx, Inc.'),]
+pdf_documents = [('index', u'ug1534-u25n-smartnic-user-guide', u'UG1534 U25N SmartNIC User Guide', u'AMD, Inc.'),]
   # index - master document
   # rst2pdf - name of the file that will be created
   # Sample rst2pdf doc - title of the pdf
@@ -182,7 +182,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'ENTER YOUR LIBRARY ID HERE. FOR EXAMPLE: xfopencv.tex', 'ENTER YOUR LIBRARY PROJECT NAME HERE',
-     'Xilinx', 'manual'),
+     'AMD', 'manual'),
 ]
 
 
@@ -203,7 +203,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'ENTER YOUR LIBRARY ID HERE. FOR EXAMPLE: xfopencv', 'ENTER YOUR LIBRARY PROJECT NAME HERE',
-     author, 'Xilinx', 'One line description of project.',
+     author, 'AMD', 'One line description of project.',
      'Miscellaneous'),
 ]
 
