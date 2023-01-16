@@ -405,7 +405,7 @@ Before configuring OpenStack Nova and Neutron configuration files, Virtual Funct
         $ systemctl status libvirtd
         
         # Create VM image and set root password as "root"
-        $ virt-buillder ubuntu-20.04 --install "linux-modules-extra-`uname -r`" --format qcow2 --output ubuntu.qcow2 --root-password password:root
+        $ virt-builder ubuntu-20.04 --install "linux-modules-extra-`uname -r`" --format qcow2 --output ubuntu.qcow2 --root-password password:root
     ```
 
 - Add Cloud VM image to OpenStack
