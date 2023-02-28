@@ -3,19 +3,19 @@
 ## 3.1 Basic Requirements and Component Versions Supported
 
 - OS requirement: 
-  - Ubuntu 18.04, 20.04 or 22.04.
+> - Ubuntu 18.04, 20.04 or 22.04.
 
-      ***Note*:** We recommend using the LTS version of Ubuntu.
+      ***Note*:** LTS version of Ubuntu is recommended.
   
-  - Red Hat Enterprise Linux 8.3 or 8.4 (tested legacy mode only)
+> - Red Hat Enterprise Linux 8.3 or 8.4 (tested legacy mode only)
 
 - Kernel requirements:
 
-  - OVS Functionality ≥ 4.15.
+>  - OVS Functionality ≥ 4.15.
 
-  - Stateless Firewall Functionality ≥ 5.5.
+>  - Stateless Firewall Functionality ≥ 5.5.
 
-  - Conntrack Functionality is tested on Ubuntu 20.04.4 LTS with kernel 5.15.0-46-generic.
+>  - Conntrack Functionality is tested on Ubuntu 20.04.4 LTS with kernel 5.15.0-46-generic.
 
 - PCIe® Gen3 x16 slot.
 
