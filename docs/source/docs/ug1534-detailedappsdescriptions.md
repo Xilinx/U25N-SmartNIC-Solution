@@ -1573,6 +1573,39 @@ running iperf3 or pktgen on a particular interface.
 
 - Step 4. Run `iperf3 -c <ip address>` on a remote device [iperf client].
 
+### 4.2.11 Uninstalling OVS Setup
+
+To uninstall the setup, please follow the instructions below.
+
+- Step 1. power off all running VMs.
+   ```bash
+   killall qemu-system-x86
+   ```
+- Step2. Delete the OVS bridge
+   ```bash
+   ovs-vsctl del-br < Bridge_nam >
+   ```
+- Step3. Delete the bond interface if U25N's interface is the slave interface of this bond interface.
+   ```bash
+   ip link del < bond_name >
+   ```
+- Step4. Make all PF interfaces up
+   ```bash
+   ifconfig < interface_name > up
+   ```
+- Step5. Change mode from switchdev to legacy
+   ```bash
+   devlink dev switch set pci/0000:<pci> mode legacy
+   ```
+- Step6. Remove all VFs using the echo command
+   ```bash
+   echo 0 > /sys/class/net/< interface_name >/device/sriov_numvfs
+   ```
+- Step7. uninstall the driver module
+   ```bash
+   rmmod sfc
+   ```
+
 ***Note*:** Refer to [DPDK on U25N](./ug1534-supportedservices.html#dpdk-on-u25n) to run dpdk-testpmd.
 
 ## 4.3 IPsec
