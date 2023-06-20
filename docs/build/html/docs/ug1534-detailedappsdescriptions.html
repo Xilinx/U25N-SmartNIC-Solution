@@ -232,7 +232,7 @@ function OptanonWrapper() { }
             
             
               <div class="version">
-                1.6
+                1.7
               </div>
             
           
@@ -291,6 +291,7 @@ function OptanonWrapper() { }
 <li class="toctree-l4"><a class="reference internal" href="#ping-test">Ping Test</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#uninstalling-ovs-setup">4.2.11 Uninstalling OVS Setup</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#ipsec">4.3 IPsec</a><ul>
@@ -1732,8 +1733,49 @@ running iperf3 or pktgen on a particular interface.</p>
 <li><p>Step 3. Run <code class="docutils literal notranslate"><span class="pre">iperf3</span> <span class="pre">-s</span></code> on the host device [iperf server].</p></li>
 <li><p>Step 4. Run <code class="docutils literal notranslate"><span class="pre">iperf3</span> <span class="pre">-c</span> <span class="pre">&lt;ip</span> <span class="pre">address&gt;</span></code> on a remote device [iperf client].</p></li>
 </ul>
-<p><strong><em>Note</em>:</strong> Refer to <a class="reference external" href="./ug1534-supportedservices.html#dpdk-on-u25n">DPDK on U25N</a> to run dpdk-testpmd.</p>
 </section>
+</section>
+<section id="uninstalling-ovs-setup">
+<h3>4.2.11 Uninstalling OVS Setup<a class="headerlink" href="#uninstalling-ovs-setup" title="Permalink to this heading">¶</a></h3>
+<p>To uninstall the setup, please follow the instructions below.</p>
+<ul>
+<li><p>Step 1. power off all running VMs.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>killall qemu-system-x86
+</pre></div>
+</div>
+</li>
+<li><p>Step2. Delete the OVS bridge</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ovs-vsctl del-br &lt; Bridge_nam &gt;
+</pre></div>
+</div>
+</li>
+<li><p>Step3. Delete the bond interface if U25N’s interface is the slave interface of this bond interface.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip link del &lt; bond_name &gt;
+</pre></div>
+</div>
+</li>
+<li><p>Step4. Make all PF interfaces up</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig &lt; interface_name &gt; up
+</pre></div>
+</div>
+</li>
+<li><p>Step5. Change mode from switchdev to legacy</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>devlink dev switch <span class="nb">set</span> pci/0000:&lt;pci&gt; mode legacy
+</pre></div>
+</div>
+</li>
+<li><p>Step6. Remove all VFs using the echo command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="m">0</span> &gt; /sys/class/net/&lt; interface_name &gt;/device/sriov_numvfs
+</pre></div>
+</div>
+</li>
+<li><p>Step7. uninstall the driver module</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rmmod sfc
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong><em>Note</em>:</strong> Refer to <a class="reference external" href="./ug1534-supportedservices.html#dpdk-on-u25n">DPDK on U25N</a> to run dpdk-testpmd.</p>
 </section>
 </section>
 <section id="ipsec">
@@ -2434,7 +2476,7 @@ ovs-appctl vlog/set netlink_socket:ANY:OFF
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on Jan 12, 2023.
+        Last updated on June 21, 2023.
       </span>
 
     </p>
