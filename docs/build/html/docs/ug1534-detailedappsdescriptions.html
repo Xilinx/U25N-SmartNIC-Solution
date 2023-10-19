@@ -271,7 +271,7 @@ function OptanonWrapper() { }
 <li class="toctree-l2"><a class="reference internal" href="#ovs">4.2 OVS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#installing-ovs">4.2.1 Installing OVS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#classification-fields-matches">4.2.2 Classification Fields (Matches)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#number-of-flow-supported">4.2.3 Number of Flow Supported</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#number-of-flow-supported-in-datapath-tables">4.2.3 Number of Flow Supported in Datapath Tables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#port-to-port">4.2.4 Port to Port</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#port-to-vm-or-vm-to-port">4.2.5 Port to VM or VM to Port</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#vm-to-vm">4.2.6 VM to VM</a></li>
@@ -333,20 +333,21 @@ function OptanonWrapper() { }
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#mirroring">4.6 Mirroring :</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#local-mirroring">4.6.1 Local Mirroring</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#add-local-ingress-mirroring-rule">4.6.1.1 Add Local Ingress Mirroring Rule:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#delete-local-ingress-mirroring-rule">4.6.1.2 Delete Local Ingress Mirroring Rule:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#add-local-egress-mirroring-rule">4.6.1.3 Add Local Egress Mirroring Rule:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#delete-local-egress-mirroring-rule">4.6.1.4 Delete Local Egress Mirroring Rule:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mirroring">4.6 Mirroring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sfboot-configuration">4.6.1 Sfboot Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-mirroring">4.6.2 Local Mirroring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#add-local-ingress-mirroring-rule">4.6.2.1 Add Local Ingress Mirroring Rule:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-local-ingress-mirroring-rule">4.6.2.2 Delete Local Ingress Mirroring Rule:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-local-egress-mirroring-rule">4.6.2.3 Add Local Egress Mirroring Rule:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-local-egress-mirroring-rule">4.6.2.4 Delete Local Egress Mirroring Rule:</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#remote-mirroring">4.6.2 Remote Mirroring</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#setup-vxlan-tunnel-between-local-and-remote-servers">4.6.2.1 Setup VxLAN tunnel between local and remote servers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#add-remote-ingress-mirroring-rule">4.6.2.2 Add Remote Ingress Mirroring Rule:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#delete-remote-ingress-mirroring-rule">4.6.2.3 Delete Remote Ingress Mirroring Rule:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#add-remote-egress-mirroring-rule">4.6.2.4 Add Remote Egress Mirroring Rule:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#delete-remote-egress-mirroring-rule">4.6.2.5 Delete Remote Egress Mirroring Rule:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#remote-mirroring">4.6.3 Remote Mirroring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setup-vxlan-tunnel-between-local-and-remote-servers">4.6.3.1 Setup VxLAN tunnel between local and remote servers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-remote-ingress-mirroring-rule">4.6.3.2 Add Remote Ingress Mirroring Rule:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-remote-ingress-mirroring-rule">4.6.3.3 Delete Remote Ingress Mirroring Rule:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-remote-egress-mirroring-rule">4.6.3.4 Add Remote Egress Mirroring Rule:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-remote-egress-mirroring-rule">4.6.3.5 Delete Remote Egress Mirroring Rule:</a></li>
 </ul>
 </li>
 </ul>
@@ -490,7 +491,7 @@ make install
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ovs-vswitchd --version
 </pre></div>
 </div>
-<p><strong><em>Note</em>:</strong> Version 2.12 and 2.14 have been tested.</p>
+<p><strong><em>Note</em>:</strong> Version 2.17.1 has been tested.</p>
 </li>
 </ol>
 <p>Maximum flows supported and tested: 8k</p>
@@ -498,61 +499,53 @@ make install
 <section id="classification-fields-matches">
 <h3>4.2.2 Classification Fields (Matches)<a class="headerlink" href="#classification-fields-matches" title="Permalink to this heading">¶</a></h3>
 <p>Supported Keys and Actions</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Keys
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Keys:
 
 1. ipv4/ipv6 src_ip
-
 2. ipv4/ipv6 dst_ip
-
 3. ip_tos
-
 4. ip_proto
-
 5. ovlan Outer
-
 6. ivlan Inner
-
 7. ether_type
-
 8. tcp/udp src_port
-
 9. tcp/udp dst_port
-
 10. src_mac
-
 11. dst_mac
-
 12. vni
-
 13. Ingress port
 
-Actions
+Actions:
 
 1. do_decap
-
 2. do_decr_ip_ttl
-
 3. do_src_mac
-
 4. do_dst_mac
-
 5. do_vlan_pop
-
 6. do_vlan_push
-
 7. do_encap
-
 8. do_deliver
-
 9. mod_vlan_vid
 </pre></div>
 </div>
 </section>
-<section id="number-of-flow-supported">
-<h3>4.2.3 Number of Flow Supported<a class="headerlink" href="#number-of-flow-supported" title="Permalink to this heading">¶</a></h3>
+<section id="number-of-flow-supported-in-datapath-tables">
+<h3>4.2.3 Number of Flow Supported in Datapath Tables<a class="headerlink" href="#number-of-flow-supported-in-datapath-tables" title="Permalink to this heading">¶</a></h3>
 <ol class="simple">
-<li><p>Action Rule table: 7680</p></li>
-<li><p>Connection Tracking table: 1 Million</p></li>
+<li><p>AR table - 7680</p></li>
+<li><p>CT table - 1 Million</p></li>
+<li><p>MAEO - 1K</p></li>
+<li><p>MAEX</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>LACP_LAG_Config_Table - 8</p></li>
+<li><p>LACP_Balance_Table - 512</p></li>
+</ul>
+</div></blockquote>
+<ol class="simple">
+<li><p>Ingress_Mirror_Table - 64</p></li>
+<li><p>Egress_Mirror_Table - 64</p></li>
 </ol>
 </section>
 <section id="port-to-port">
@@ -1848,19 +1841,14 @@ running iperf3 or pktgen on a particular interface.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Key
 
 <span class="m">1</span>. IPv4 <span class="nb">source</span> address
-
 <span class="m">2</span>. IPv4 destination address
-
 <span class="m">3</span>. IP4 protocol Action
 
 Actions
 
 <span class="m">1</span>. Action flag
-
 <span class="m">2</span>. SPI
-
 <span class="m">3</span>. Key
-
 <span class="m">4</span>. IV
 </pre></div>
 </div>
@@ -2283,12 +2271,35 @@ tc filter del dev u25eth0_0 parent <span class="m">1</span>: protocol all prio <
 </section>
 </section>
 <section id="mirroring">
-<h2>4.6 Mirroring :<a class="headerlink" href="#mirroring" title="Permalink to this heading">¶</a></h2>
+<h2>4.6 Mirroring<a class="headerlink" href="#mirroring" title="Permalink to this heading">¶</a></h2>
+<section id="sfboot-configuration">
+<h3>4.6.1 Sfboot Configuration<a class="headerlink" href="#sfboot-configuration" title="Permalink to this heading">¶</a></h3>
+<p>To enable mirrored traffic to be received by the host CPU (either local or remote) through the U25N X2 Network Controller, insecure filters on PF must be enabled.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot -i &lt;PF_interface&gt; insecure‐filters<span class="o">=</span>enabled
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot -i u25eth0 insecure‐filters<span class="o">=</span>enabled
+sfboot -i u25eth1 insecure‐filters<span class="o">=</span>enabled
+</pre></div>
+</div>
+<p><em><strong>Note</strong>:</em> Powercycle is required to update the configuration.</p>
+<p>To revert back to default insecure filter configuration, use the below command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot -i &lt;PF_interface&gt; insecure‐filters<span class="o">=</span>default 
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot -i u25eth0 insecure‐filters<span class="o">=</span>default
+sfboot -i u25eth1 insecure‐filters<span class="o">=</span>default
+</pre></div>
+</div>
+<p><em><strong>Note</strong>:</em> Powercycle is required to update the configuration.</p>
+</section>
 <section id="local-mirroring">
-<h3>4.6.1 Local Mirroring<a class="headerlink" href="#local-mirroring" title="Permalink to this heading">¶</a></h3>
+<h3>4.6.2 Local Mirroring<a class="headerlink" href="#local-mirroring" title="Permalink to this heading">¶</a></h3>
 <p>Local mirroring feature mirrors the traffic to VF interface on local server.</p>
 <section id="add-local-ingress-mirroring-rule">
-<h4>4.6.1.1 Add Local Ingress Mirroring Rule:<a class="headerlink" href="#add-local-ingress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<h4>4.6.2.1 Add Local Ingress Mirroring Rule:<a class="headerlink" href="#add-local-ingress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter add dev &lt;VF_rep_interface_0&gt; parent ffff: matchall skip_sw action mirred ingress mirror dev &lt;VF_rep_interface_2&gt;
 </pre></div>
 </div>
@@ -2299,7 +2310,7 @@ tc filter del dev u25eth0_0 parent <span class="m">1</span>: protocol all prio <
 </div>
 </section>
 <section id="delete-local-ingress-mirroring-rule">
-<h4>4.6.1.2 Delete Local Ingress Mirroring Rule:<a class="headerlink" href="#delete-local-ingress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<h4>4.6.2.2 Delete Local Ingress Mirroring Rule:<a class="headerlink" href="#delete-local-ingress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc -f filter show dev &lt;VF_rep_interface&gt; parent ffff:
 tc filter del dev &lt;VF_rep_interface&gt; parent ffff: handle <span class="m">1</span> prio <span class="m">49152</span> protocol all matchall
 </pre></div>
@@ -2311,7 +2322,7 @@ tc filter del dev u25eth0_0 parent ffff: handle <span class="m">1</span> prio <s
 </div>
 </section>
 <section id="add-local-egress-mirroring-rule">
-<h4>4.6.1.3 Add Local Egress Mirroring Rule:<a class="headerlink" href="#add-local-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<h4>4.6.2.3 Add Local Egress Mirroring Rule:<a class="headerlink" href="#add-local-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc qdisc add dev &lt;VF_rep_interface_0&gt; handle <span class="m">1</span>: root prio
 tc filter add dev &lt;VF_rep_interface_0&gt; parent <span class="m">1</span>: matchall skip_sw action mirred egress mirror dev &lt;VF_rep_interface_2&gt;
 </pre></div>
@@ -2323,7 +2334,7 @@ tc filter add dev u25eth0_0 parent <span class="m">1</span>: matchall skip_sw ac
 </div>
 </section>
 <section id="delete-local-egress-mirroring-rule">
-<h4>4.6.1.4 Delete Local Egress Mirroring Rule:<a class="headerlink" href="#delete-local-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<h4>4.6.2.4 Delete Local Egress Mirroring Rule:<a class="headerlink" href="#delete-local-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc qdisc del dev &lt;VF_rep_interface&gt; 
 tc qdisc del dev &lt;VF_rep_interface&gt; root
 </pre></div>
@@ -2336,9 +2347,9 @@ tc qdisc del dev u25eth0_0 root
 </section>
 </section>
 <section id="remote-mirroring">
-<h3>4.6.2 Remote Mirroring<a class="headerlink" href="#remote-mirroring" title="Permalink to this heading">¶</a></h3>
+<h3>4.6.3 Remote Mirroring<a class="headerlink" href="#remote-mirroring" title="Permalink to this heading">¶</a></h3>
 <section id="setup-vxlan-tunnel-between-local-and-remote-servers">
-<h4>4.6.2.1 Setup VxLAN tunnel between local and remote servers<a class="headerlink" href="#setup-vxlan-tunnel-between-local-and-remote-servers" title="Permalink to this heading">¶</a></h4>
+<h4>4.6.3.1 Setup VxLAN tunnel between local and remote servers<a class="headerlink" href="#setup-vxlan-tunnel-between-local-and-remote-servers" title="Permalink to this heading">¶</a></h4>
 <p>On local server, create VxLAn tunnel to connect to remote server</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip addr add &lt;TUNNEL_LOCAL_IP&gt;/24 dev &lt;VF_interface&gt;
 ip link <span class="nb">set</span> dev &lt;VF_interface&gt; mtu <span class="m">9000</span>
@@ -2356,7 +2367,7 @@ ip link add vxlan0 <span class="nb">type</span> vxlan id <span class="m">100</sp
 </div>
 </section>
 <section id="add-remote-ingress-mirroring-rule">
-<h4>4.6.2.2 Add Remote Ingress Mirroring Rule:<a class="headerlink" href="#add-remote-ingress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<h4>4.6.3.2 Add Remote Ingress Mirroring Rule:<a class="headerlink" href="#add-remote-ingress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter add dev &lt;VF_rep_interface&gt; parent ffff: matchall skip_sw action tunnel_key <span class="nb">set</span> src_ip &lt;TUNNEL_LOCAL_IP&gt; dst_ip &lt;TUNNEL_REMOTE_IP&gt; dst_port <span class="m">4789</span> id <span class="m">100</span> pipe action mirred ingress mirror dev vxlan0
 </pre></div>
 </div>
@@ -2366,7 +2377,7 @@ ip link add vxlan0 <span class="nb">type</span> vxlan id <span class="m">100</sp
 </div>
 </section>
 <section id="delete-remote-ingress-mirroring-rule">
-<h4>4.6.2.3 Delete Remote Ingress Mirroring Rule:<a class="headerlink" href="#delete-remote-ingress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<h4>4.6.3.3 Delete Remote Ingress Mirroring Rule:<a class="headerlink" href="#delete-remote-ingress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev &lt;VF_rep_interface&gt; parent ffff:
 </pre></div>
 </div>
@@ -2376,7 +2387,7 @@ ip link add vxlan0 <span class="nb">type</span> vxlan id <span class="m">100</sp
 </div>
 </section>
 <section id="add-remote-egress-mirroring-rule">
-<h4>4.6.2.4 Add Remote Egress Mirroring Rule:<a class="headerlink" href="#add-remote-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<h4>4.6.3.4 Add Remote Egress Mirroring Rule:<a class="headerlink" href="#add-remote-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc qdisc add dev &lt;VF_rep_interface&gt; handle <span class="m">1</span>: root prio
 tc filter add dev &lt;VF_rep_interface&gt; parent <span class="m">1</span>: matchall skip_sw action tunnel_key <span class="nb">set</span> src_ip &lt;TUNNEL_LOCAL_IP&gt; dst_ip &lt;TUNNEL_REMOTE_IP&gt; dst_port <span class="m">4789</span> id <span class="m">100</span> pipe action mirred egress mirror dev vxlan0
 </pre></div>
@@ -2388,7 +2399,7 @@ tc filter add dev u25eth0_0 parent <span class="m">1</span>: matchall skip_sw ac
 </div>
 </section>
 <section id="delete-remote-egress-mirroring-rule">
-<h4>4.6.2.5 Delete Remote Egress Mirroring Rule:<a class="headerlink" href="#delete-remote-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<h4>4.6.3.5 Delete Remote Egress Mirroring Rule:<a class="headerlink" href="#delete-remote-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev &lt;VF_rep_interface&gt; parent ffff: 
 tc qdisc del dev &lt;&lt;VF_rep_interface&gt;&gt; root
 </pre></div>
@@ -2664,7 +2675,7 @@ ovs-appctl vlog/set netlink_socket:ANY:OFF
 </pre></div>
 </div>
 <p>Check U25N offloaded connection</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>watch -n <span class="m">10</span> <span class="s2">&quot;cat /sys/kernel/debug/sfc/if_&lt;PF_interface&gt;/tracked_conns | grep 0xfff | wc -l&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat /sys/kernel/debug/sfc/if_&lt;PF_interface&gt;/tracked_conns <span class="p">|</span> grep 0xfff <span class="p">|</span> wc -l
 </pre></div>
 </div>
 </li>

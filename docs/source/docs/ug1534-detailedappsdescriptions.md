@@ -58,7 +58,7 @@ Follow the below-mentioned steps to install OVS. For additional infomation of OV
    ovs-vswitchd --version
    ```
 
-   ***Note*:** Version 2.12 and 2.14 have been tested.
+   ***Note*:** Version 2.17.1 has been tested.
 
 Maximum flows supported and tested: 8k
 
@@ -67,59 +67,45 @@ Maximum flows supported and tested: 8k
 Supported Keys and Actions
 
 ```text
-Keys
+Keys:
 
 1. ipv4/ipv6 src_ip
-
 2. ipv4/ipv6 dst_ip
-
 3. ip_tos
-
 4. ip_proto
-
 5. ovlan Outer
-
 6. ivlan Inner
-
 7. ether_type
-
 8. tcp/udp src_port
-
 9. tcp/udp dst_port
-
 10. src_mac
-
 11. dst_mac
-
 12. vni
-
 13. Ingress port
 
-Actions
+Actions:
 
 1. do_decap
-
 2. do_decr_ip_ttl
-
 3. do_src_mac
-
 4. do_dst_mac
-
 5. do_vlan_pop
-
 6. do_vlan_push
-
 7. do_encap
-
 8. do_deliver
-
 9. mod_vlan_vid
 ```
 
-### 4.2.3 Number of Flow Supported
+### 4.2.3 Number of Flow Supported in Datapath Tables
 
-1. Action Rule table: 7680
-2. Connection Tracking table: 1 Million
+1. AR table - 7680
+2. CT table - 1 Million
+3. MAEO - 1K
+4. MAEX
+> - LACP_LAG_Config_Table - 8
+> - LACP_Balance_Table - 512
+5. Ingress_Mirror_Table - 64
+6. Egress_Mirror_Table - 64
 
 ### 4.2.4 Port to Port
 
@@ -1649,19 +1635,14 @@ IPsec tunnels are created between two servers. Because IPsec is in *transport mo
 Key
 
 1. IPv4 source address
-
 2. IPv4 destination address
-
 3. IP4 protocol Action
 
 Actions
 
 1. Action flag
-
 2. SPI
-
 3. Key
-
 4. IV
 ```
 
@@ -2111,11 +2092,36 @@ Rate limiting can be applied on U25N's virtual function in ingress and egress di
    tc filter del dev u25eth0_0 parent 1: protocol all prio 100 matchall action police rate 2000mbit burst 10000 mtu 64kb
    ```
 
-## 4.6 Mirroring :
-### 4.6.1 Local Mirroring
+## 4.6 Mirroring
+### 4.6.1 Sfboot Configuration
+To enable mirrored traffic to be received by the host CPU (either local or remote) through the U25N X2 Network Controller, insecure filters on PF must be enabled.
+```bash
+sfboot -i <PF_interface> insecure‐filters=enabled
+```
+
+Eg: 
+```bash
+sfboot -i u25eth0 insecure‐filters=enabled
+sfboot -i u25eth1 insecure‐filters=enabled
+```
+***Note**:* Powercycle is required to update the configuration.
+
+To revert back to default insecure filter configuration, use the below command.
+```bash
+sfboot -i <PF_interface> insecure‐filters=default 
+```
+
+Eg:
+```bash
+sfboot -i u25eth0 insecure‐filters=default
+sfboot -i u25eth1 insecure‐filters=default
+```
+***Note**:* Powercycle is required to update the configuration.
+
+### 4.6.2 Local Mirroring
 Local mirroring feature mirrors the traffic to VF interface on local server.
 
-#### 4.6.1.1 Add Local Ingress Mirroring Rule:
+#### 4.6.2.1 Add Local Ingress Mirroring Rule:
    ```bash
    tc filter add dev <VF_rep_interface_0> parent ffff: matchall skip_sw action mirred ingress mirror dev <VF_rep_interface_2>
    ```
@@ -2126,7 +2132,7 @@ Local mirroring feature mirrors the traffic to VF interface on local server.
    tc filter add dev u25eth0_0 parent ffff: matchall skip_sw action mirred ingress mirror dev u25eth0_2
    ```
 
-#### 4.6.1.2 Delete Local Ingress Mirroring Rule:
+#### 4.6.2.2 Delete Local Ingress Mirroring Rule:
    ```bash
    tc -f filter show dev <VF_rep_interface> parent ffff:
    tc filter del dev <VF_rep_interface> parent ffff: handle 1 prio 49152 protocol all matchall
@@ -2138,7 +2144,7 @@ Local mirroring feature mirrors the traffic to VF interface on local server.
    tc filter del dev u25eth0_0 parent ffff: handle 1 prio 49152 protocol all matchall
    ```
 
-#### 4.6.1.3 Add Local Egress Mirroring Rule:
+#### 4.6.2.3 Add Local Egress Mirroring Rule:
    ```bash
    tc qdisc add dev <VF_rep_interface_0> handle 1: root prio
    tc filter add dev <VF_rep_interface_0> parent 1: matchall skip_sw action mirred egress mirror dev <VF_rep_interface_2>
@@ -2150,7 +2156,7 @@ Local mirroring feature mirrors the traffic to VF interface on local server.
    tc filter add dev u25eth0_0 parent 1: matchall skip_sw action mirred egress mirror dev u25eth0_2
    ```
 
-#### 4.6.1.4 Delete Local Egress Mirroring Rule:
+#### 4.6.2.4 Delete Local Egress Mirroring Rule:
    ```bash
    tc qdisc del dev <VF_rep_interface> 
    tc qdisc del dev <VF_rep_interface> root
@@ -2162,9 +2168,9 @@ Local mirroring feature mirrors the traffic to VF interface on local server.
    tc qdisc del dev u25eth0_0 root
    ```
 
-### 4.6.2 Remote Mirroring
+### 4.6.3 Remote Mirroring
 
-#### 4.6.2.1 Setup VxLAN tunnel between local and remote servers
+#### 4.6.3.1 Setup VxLAN tunnel between local and remote servers
    On local server, create VxLAn tunnel to connect to remote server
    ```bash
    ip addr add <TUNNEL_LOCAL_IP>/24 dev <VF_interface>
@@ -2183,7 +2189,7 @@ Local mirroring feature mirrors the traffic to VF interface on local server.
    ip link add vxlan0 type vxlan id 100 remote 10.0.0.3 dev u25eth0n0 dstport 4789 ifconfig vxlan0 mtu 8950 up
    ```
 
-#### 4.6.2.2 Add Remote Ingress Mirroring Rule:
+#### 4.6.3.2 Add Remote Ingress Mirroring Rule:
    ```bash
    tc filter add dev <VF_rep_interface> parent ffff: matchall skip_sw action tunnel_key set src_ip <TUNNEL_LOCAL_IP> dst_ip <TUNNEL_REMOTE_IP> dst_port 4789 id 100 pipe action mirred ingress mirror dev vxlan0
    ```
@@ -2193,7 +2199,7 @@ Local mirroring feature mirrors the traffic to VF interface on local server.
    tc filter add dev u25eth0_0 parent ffff: matchall skip_sw action tunnel_key set src_ip 10.0.0.2 dst_ip 10.0.0.3 dst_port 4789 id 100 pipe action mirred ingress mirror dev vxlan0
    ```
 
-#### 4.6.2.3 Delete Remote Ingress Mirroring Rule:
+#### 4.6.3.3 Delete Remote Ingress Mirroring Rule:
    ```bash
    tc filter del dev <VF_rep_interface> parent ffff:
    ```
@@ -2203,7 +2209,7 @@ Local mirroring feature mirrors the traffic to VF interface on local server.
    tc filter del dev u25eth0_0 parent ffff:
    ```
 
-#### 4.6.2.4 Add Remote Egress Mirroring Rule:
+#### 4.6.3.4 Add Remote Egress Mirroring Rule:
    ```bash
    tc qdisc add dev <VF_rep_interface> handle 1: root prio
    tc filter add dev <VF_rep_interface> parent 1: matchall skip_sw action tunnel_key set src_ip <TUNNEL_LOCAL_IP> dst_ip <TUNNEL_REMOTE_IP> dst_port 4789 id 100 pipe action mirred egress mirror dev vxlan0
@@ -2215,7 +2221,7 @@ Local mirroring feature mirrors the traffic to VF interface on local server.
    tc filter add dev u25eth0_0 parent 1: matchall skip_sw action tunnel_key set src_ip 10.0.0.2 dst_ip 10.0.0.3 dst_port 4789 id 100 pipe action mirred egress mirror dev vxlan0
    ```
 
-#### 4.6.2.5 Delete Remote Egress Mirroring Rule:
+#### 4.6.3.5 Delete Remote Egress Mirroring Rule:
    ```bash
    tc filter del dev <VF_rep_interface> parent ffff: 
    tc qdisc del dev <<VF_rep_interface>> root
@@ -2525,5 +2531,5 @@ This section outlines the commands used by different modules to check the statis
 
    Check U25N offloaded connection
    ```bash
-   watch -n 10 "cat /sys/kernel/debug/sfc/if_<PF_interface>/tracked_conns | grep 0xfff | wc -l"
+   cat /sys/kernel/debug/sfc/if_<PF_interface>/tracked_conns | grep 0xfff | wc -l
    ```
