@@ -232,7 +232,7 @@ function OptanonWrapper() { }
             
             
               <div class="version">
-                1.8
+                1.8.1
               </div>
             
           
@@ -2335,12 +2335,12 @@ tc filter add dev u25eth0_0 parent <span class="m">1</span>: matchall skip_sw ac
 </section>
 <section id="delete-local-egress-mirroring-rule">
 <h4>4.6.2.4 Delete Local Egress Mirroring Rule:<a class="headerlink" href="#delete-local-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc qdisc del dev &lt;VF_rep_interface&gt; 
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev &lt;VF_rep_interface&gt; parent <span class="m">1</span>:
 tc qdisc del dev &lt;VF_rep_interface&gt; root
 </pre></div>
 </div>
 <p>Eg:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc qdisc del dev u25eth0_0 
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev u25eth0_0 parent <span class="m">1</span>:
 tc qdisc del dev u25eth0_0 root
 </pre></div>
 </div>
@@ -2351,18 +2351,16 @@ tc qdisc del dev u25eth0_0 root
 <section id="setup-vxlan-tunnel-between-local-and-remote-servers">
 <h4>4.6.3.1 Setup VxLAN tunnel between local and remote servers<a class="headerlink" href="#setup-vxlan-tunnel-between-local-and-remote-servers" title="Permalink to this heading">¶</a></h4>
 <p>On local server, create VxLAn tunnel to connect to remote server</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip addr add &lt;TUNNEL_LOCAL_IP&gt;/24 dev &lt;VF_interface&gt;
-ip link <span class="nb">set</span> dev &lt;VF_interface&gt; mtu <span class="m">9000</span>
-ip link <span class="nb">set</span> dev &lt;VF_interface&gt; up
-ip link add vxlan0 <span class="nb">type</span> vxlan id <span class="m">100</span> remote &lt;TUNNEL_REMOTE_IP&gt; dev &lt;VF_interface&gt; dstport <span class="m">4789</span> ifconfig vxlan0 mtu <span class="m">8950</span> up
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig &lt;VF_interface&gt; <span class="m">30</span>.30.30.2/24 mtu <span class="m">9000</span> up
+ip link add vxlan0 <span class="nb">type</span> vxlan id <span class="m">100</span> remote &lt;TUNNEL_REMOTE_IP&gt; dev &lt;VF_interface&gt; dstport <span class="m">4789</span> 
+ifconfig vxlan0 mtu <span class="m">8950</span> up
 </pre></div>
 </div>
 <p>Eg:
 u25eth0n0 is the VF interface. It connects to remote server through the VxLAN tunnel for mirrored traffic.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip addr add <span class="m">10</span>.0.0.2/24 dev u25eth0n0
-ip link <span class="nb">set</span> dev u25eth0n0 mtu <span class="m">9000</span>
-ip link <span class="nb">set</span> dev u25eth0n0 up
-ip link add vxlan0 <span class="nb">type</span> vxlan id <span class="m">100</span> remote <span class="m">10</span>.0.0.3 dev u25eth0n0 dstport <span class="m">4789</span> ifconfig vxlan0 mtu <span class="m">8950</span> up
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig u25eth0n0 <span class="m">30</span>.30.30.2/24 mtu <span class="m">9000</span> up
+ip link add vxlan0 <span class="nb">type</span> vxlan id <span class="m">100</span> remote <span class="m">10</span>.0.0.3 dev u25eth0n0 dstport <span class="m">4789</span> 
+ifconfig vxlan0 mtu <span class="m">8950</span> up
 </pre></div>
 </div>
 </section>
@@ -2712,7 +2710,7 @@ ovs-appctl vlog/set netlink_socket:ANY:OFF
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on Oct 17, 2023.
+        Last updated on Nov 6, 2023.
       </span>
 
     </p>

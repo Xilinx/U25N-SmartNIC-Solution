@@ -28,10 +28,10 @@ copyright = '2023, AMD, Inc.'
 author = 'AMD, Inc.'
 
 # The short X.Y version
-version = '1.8'
+version = '1.8.1'
 # The full version, including alpha/beta/rc tags
-release = '1.8'
-html_last_updated_fmt = 'Oct 17, 2023'
+release = '1.8.1'
+html_last_updated_fmt = 'Nov 6, 2023'
 
 # -- General configuration ---------------------------------------------------
 

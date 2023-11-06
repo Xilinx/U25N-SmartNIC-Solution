@@ -2158,13 +2158,13 @@ Local mirroring feature mirrors the traffic to VF interface on local server.
 
 #### 4.6.2.4 Delete Local Egress Mirroring Rule:
    ```bash
-   tc qdisc del dev <VF_rep_interface> 
+   tc filter del dev <VF_rep_interface> parent 1:
    tc qdisc del dev <VF_rep_interface> root
    ```
 
    Eg:
    ```bash
-   tc qdisc del dev u25eth0_0 
+   tc filter del dev u25eth0_0 parent 1:
    tc qdisc del dev u25eth0_0 root
    ```
 
@@ -2173,20 +2173,17 @@ Local mirroring feature mirrors the traffic to VF interface on local server.
 #### 4.6.3.1 Setup VxLAN tunnel between local and remote servers
    On local server, create VxLAn tunnel to connect to remote server
    ```bash
-   ip addr add <TUNNEL_LOCAL_IP>/24 dev <VF_interface>
-   ip link set dev <VF_interface> mtu 9000
-   ip link set dev <VF_interface> up
-   ip link add vxlan0 type vxlan id 100 remote <TUNNEL_REMOTE_IP> dev <VF_interface> dstport 4789 ifconfig vxlan0 mtu 8950 up
-
+   ifconfig <VF_interface> 30.30.30.2/24 mtu 9000 up
+   ip link add vxlan0 type vxlan id 100 remote <TUNNEL_REMOTE_IP> dev <VF_interface> dstport 4789 
+   ifconfig vxlan0 mtu 8950 up
    ```
 
    Eg:
    u25eth0n0 is the VF interface. It connects to remote server through the VxLAN tunnel for mirrored traffic.
    ```bash
-   ip addr add 10.0.0.2/24 dev u25eth0n0
-   ip link set dev u25eth0n0 mtu 9000
-   ip link set dev u25eth0n0 up
-   ip link add vxlan0 type vxlan id 100 remote 10.0.0.3 dev u25eth0n0 dstport 4789 ifconfig vxlan0 mtu 8950 up
+   ifconfig u25eth0n0 30.30.30.2/24 mtu 9000 up
+   ip link add vxlan0 type vxlan id 100 remote 10.0.0.3 dev u25eth0n0 dstport 4789 
+   ifconfig vxlan0 mtu 8950 up
    ```
 
 #### 4.6.3.2 Add Remote Ingress Mirroring Rule:
