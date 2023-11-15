@@ -58,7 +58,7 @@ Follow the below-mentioned steps to install OVS. For additional infomation of OV
    ovs-vswitchd --version
    ```
 
-   ***Note*:** Version 2.12 and 2.14 have been tested.
+   ***Note*:** Version 2.17.1 has been tested.
 
 Maximum flows supported and tested: 8k
 
@@ -67,56 +67,47 @@ Maximum flows supported and tested: 8k
 Supported Keys and Actions
 
 ```text
-Keys
+Keys:
 
 1. ipv4/ipv6 src_ip
-
 2. ipv4/ipv6 dst_ip
-
 3. ip_tos
-
 4. ip_proto
-
 5. ovlan Outer
-
 6. ivlan Inner
-
 7. ether_type
-
 8. tcp/udp src_port
-
 9. tcp/udp dst_port
-
 10. src_mac
-
 11. dst_mac
-
 12. vni
-
 13. Ingress port
 
-Actions
+Actions:
 
 1. do_decap
-
 2. do_decr_ip_ttl
-
 3. do_src_mac
-
 4. do_dst_mac
-
 5. do_vlan_pop
-
 6. do_vlan_push
-
 7. do_encap
-
 8. do_deliver
-
 9. mod_vlan_vid
 ```
 
-### 4.2.3 Port to Port
+### 4.2.3 Number of Flow Supported in Datapath Tables
+
+1. AR table - 7680
+2. CT table - 1 Million
+3. MAEO - 1K
+4. MAEX
+> - LACP_LAG_Config_Table - 8
+> - LACP_Balance_Table - 512
+5. Ingress_Mirror_Table - 64
+6. Egress_Mirror_Table - 64
+
+### 4.2.4 Port to Port
 
 In this configuration the U25N PF is added to the OVS bridge as an interface. Packets are sent to an external MAC, and OVS performs the switching based on the packets received.
 
@@ -185,9 +176,15 @@ In this configuration the U25N PF is added to the OVS bridge as an interface. Pa
    devlink dev eswitch set pci/0000:af:00.1 mode switchdev
    ```
 
-- Step 5. Follow the steps mentioned in [OVS Configuration](./ug1534-detailedappsdescriptions.html#ovs-configuration) to create an OVS bridge. After creating the OVS bridge, continue with the next step.
+- Setp 5. Stop network manager
 
-- Step 6. Add external ports to the OVS bridge:
+   ```bash
+   systemctl stop NetworkManager
+   ```
+
+- Step 6. Follow the steps mentioned in [OVS Configuration](./ug1534-detailedappsdescriptions.html#ovs-configuration) to create an OVS bridge. After creating the OVS bridge, continue with the next step.
+
+- Step 7. Add external ports to the OVS bridge:
 
    ```bash
    ovs-vsctl add-port <bridge_name> <PF_interface>
@@ -200,7 +197,7 @@ In this configuration the U25N PF is added to the OVS bridge as an interface. Pa
    ovs-vsctl add-port br0 u25eth1
    ```
 
-- Step 7.  a brief overview of the OVS database contents using the following command:
+- Step 8.  a brief overview of the OVS database contents using the following command:
 
    ```bash
    ovs-vsctl show
@@ -208,7 +205,7 @@ In this configuration the U25N PF is added to the OVS bridge as an interface. Pa
 
 Refer to [Functionality Check](./ug1534-detailedappsdescriptions.html#functionality-check) to check the OVS functionality.
 
-### 4.2.4 Port to VM or VM to Port
+### 4.2.5 Port to VM or VM to Port
 
 ***Note*:** To have this configuration SR-IOV must be enabled in BIOS. For the Port to VM or VM to Port configuration, a tunnel L2GRE or VXLAN could be created with two server setups.
 
@@ -384,7 +381,7 @@ Refer to [Functionality Check](./ug1534-detailedappsdescriptions.html#functional
 
 - Step 15. Refer to [Functionality Check](./ug1534-detailedappsdescriptions.html#functionality-check) to check OVS functionality.
 
-### 4.2.5 VM to VM
+### 4.2.6 VM to VM
 
 ***Note*:** To have this configuration SR-IOV must be enabled in BIOS. 
 
@@ -562,7 +559,7 @@ Refer to [Functionality Check](./ug1534-detailedappsdescriptions.html#functional
 
 - Step 15. Refer to [Functionality Check](./ug1534-detailedappsdescriptions.html#functionality-check) to check OVS functionality.
 
-### 4.2.6 Tunnels (Encapsulation/Decapsulation)
+### 4.2.7 Tunnels (Encapsulation/Decapsulation)
 
 U25N Smart NIC supports offloading of tunnels using encapsulation and decapsulation actions.
 
@@ -576,7 +573,7 @@ Supported tunnels:
 
 - L2GRE
 
-#### L2GRE
+#### 4.2.7.1 L2GRE
 
 - Maximum tunnel support = 1K
 
@@ -726,7 +723,7 @@ ovs-vsctl add-port br0 gre0 -- set interface gre0 type=gre
 options:local_ip=10.16.0.1 options:remote_ip=10.16.0.2
 ```
 
-#### 4.2.6.2 VXLAN
+#### 4.2.7.2 VXLAN
 
 - Maximum tunnel support = 1K
 
@@ -874,7 +871,7 @@ ovs-vsctl add-port br0 vxlan0 -- set interface vxlan0 type=vxlan
 options:local_ip=10.16.0.1 options:remote_ip=10.16.0.2 options:key=123
 ```
 
-#### 4.2.6.3 VM to VM or VM to Port or Port to VM Tunnel
+#### 4.2.7.3 VM to VM or VM to Port or Port to VM Tunnel
 
 - Maximum tunnel support = 1K
 
@@ -1095,9 +1092,9 @@ In step 10, the tunnel local IP and remote IP should be swapped in above server 
     ovs-vsctl add-port br1 vxlan1 -- set interface vxlan type=vxlan options:local_ip=10.16.0.4 options:remote_ip=10.16.0.3 options:key=456
 ```
 
-### 4.2.7 LACP
+### 4.2.8 LACP
 
-#### 4.2.7.1 LAG Creation
+#### 4.2.8.1 LAG Creation
 
 - Step 1. Refer to [Basic Requirements and Component Versions Supported](./ug1534-installation.html#basic-requirements-and-component-versions-supported) for the required OS/software version.
 
@@ -1387,7 +1384,7 @@ In step 10, the tunnel local IP and remote IP should be swapped in above server 
 
 - Step 18: Post successful instantiation refer [Functionality Check](./ug1534-detailedappsdescriptions.html#functionality-check) to validate functionality.
 
-#### 4.2.7.2 LAG Deletion
+#### 4.2.8.2 LAG Deletion
 - Step 1: Delete ovs-bridge
 
    ```bash
@@ -1423,7 +1420,7 @@ In step 10, the tunnel local IP and remote IP should be swapped in above server 
    rmmod sfc
    ```
 
-### 4.2.8 Connection Tracking
+### 4.2.9 Connection Tracking
 
 ***Note*:** Refer to [OVS Conntrack Tutorial](https://docs.openvswitch.org/en/latest/tutorials/ovs-conntrack/) for detail of OVS connection tracking feature.
 
@@ -1439,6 +1436,16 @@ modprobe nft_flow_offload
 Below scenario uses [Port to VM or VM to Port](./ug1534-detailedappsdescriptions.html#port-to-vm-or-vm-to-port) data path as an example. Conntrack feature works in [Port to Port](./ug1534-detailedappsdescriptions.html#port-to-port) and [VM to VM](./ug1534-detailedappsdescriptions.html#vm-to-vm) scenarios too.
 
 Before below steps, please follow the step 1 to 14 in [Port to VM or VM to Port](./ug1534-detailedappsdescriptions.html#port-to-vm-or-vm-to-port) to setup OVS and create PF and VF for the bridge.
+
+Configuring TCP flow table timeout
+```bash
+echo 3600 > /proc/sys/net/netfilter/nf_flowtable_tcp_timeout
+```
+
+Maximum number of conntrack connections
+```bash
+echo 524288 > /proc/sys/net/netfilter/nf_conntrack_max
+```
 
 Then following below steps to configure connection tracking rules to the OVS bridges.
 
@@ -1472,7 +1479,7 @@ Then following below steps to configure connection tracking rules to the OVS bri
    ovs-ofctl add-flow br0 "table=1, priority=0, actions=drop"
    ```
 
-### 4.2.9 OVS Configuration
+### 4.2.10 OVS Configuration
 
 - Step 1. Export the OVS path:
 
@@ -1512,8 +1519,8 @@ Then following below steps to configure connection tracking rules to the OVS bri
 - Step 6. Set the maximum time (in ms) that idle flows remain cached in the datapath:
 
    ```bash
-   # max-idle in ms. 30000000ms = 500min
-   ovs-vsctl set open_vswitch $(ovs-vsctl list open_vswitch | grep _uuid | cut -f2 -d ":" | tr -d ' ') other_config:max-idle=30000000
+   # Maximum time (in ms) that idle flows will remain cached in the datapath
+   ovs-vsctl set open_vswitch $(ovs-vsctl list open_vswitch | grep _uuid | cut -f2 -d ":" | tr -d ' ') other_config:max-idle=6000000
    # Maximum time (in ms) that revalidator threads will wait for kernel statistics before executing flow revalidation
    ovs-vsctl set open_vswitch . other_config:max-revalidator=10000
    # Number of threads for software datapaths to use for handling new flows. The default value is the number of online CPU cores minus the number of revalidators.
@@ -1548,7 +1555,7 @@ Then following below steps to configure connection tracking rules to the OVS bri
 
    ***Note*:** For VM to VM or VM to Port or Port to VM Tunnel alone create two OVS bridges. For example: `ovs-vsctl add-br br0` and `ovs-vsctl add-br br1`.
 
-### 4.2.10 Functionality Check
+### 4.2.11 Functionality Check
 
 After adding the U25N network interfaces to the OVS bridge, the functionality can be verified using ping, iperf, and dpdk network performance tools.
 
@@ -1573,7 +1580,7 @@ running iperf3 or pktgen on a particular interface.
 
 - Step 4. Run `iperf3 -c <ip address>` on a remote device [iperf client].
 
-### 4.2.11 Uninstalling OVS Setup
+### 4.2.12 Uninstalling OVS Setup
 
 To uninstall the setup, please follow the instructions below.
 
@@ -1628,19 +1635,14 @@ IPsec tunnels are created between two servers. Because IPsec is in *transport mo
 Key
 
 1. IPv4 source address
-
 2. IPv4 destination address
-
 3. IP4 protocol Action
 
 Actions
 
 1. Action flag
-
 2. SPI
-
 3. Key
-
 4. IV
 ```
 
@@ -1674,7 +1676,7 @@ apt-get install aptitude opensc libgmp10 libgmp-dev libssl-dev
 
 - Step 2. Use the following commands to validate the version of the strongSwan Debian package. 
 
-   The version can be found using the command `sudo swanctl --version`.
+   The version can be found using the command `swanctl --version`.
    Remove the already installed package before installing the latest one:
 
    ```bash
@@ -1809,7 +1811,7 @@ Then enable IPSec as below.
 - Step 2. Start IPsec:
 
    ```
-   sudo ipsec restart
+   ipsec restart
    ```
 
 #### 4.3.3.4 Server 2: Steps to Run IPsec
@@ -1832,7 +1834,7 @@ Then enable IPSec as below.
 - Step 2. Start IPsec:
 
    ```
-   sudo ipsec restart
+   ipsec restart
    ```
 
 *Figure 13:* **IPsec + OVS End to End setup Diagram**
@@ -1850,13 +1852,13 @@ Run the command `uname -r` to get the kernel version. If the kernel version is v
 - Step 1. Install kernel > 5.5 for nftables offload support
 
    ```
-   sudo apt install linux-image-<version>-generic linux-headers-<version>-generic  linux-modules-extra-<version>-generic
+   apt install linux-image-<version>-generic linux-headers-<version>-generic  linux-modules-extra-<version>-generic
    ```
 
 - Step 2. After the command is executed with no error, do a reboot:
 
    ```
-   sudo reboot
+   reboot
    ```
 
 ### nftables
@@ -2042,11 +2044,196 @@ The prerequisites for the driver installation are as follows:
 
       ***Note*:** Here the handle number for a specific rule could be found using the `nft -a list ruleset` command.
 
-## 4.5 Statistics
+## 4.5 Rate Limiting
+Rate limiting can be applied on U25N's virtual function in ingress and egress directions.
+
+### 4.5.1 Ingress rule:
+#### 4.5.1.1 Add Rate Limit Policy:
+   ```bash
+   tc filter add dev <VF_rep_interface> parent ffff: protocol all prio 90 matchall action police rate <value>mbit burst 10000 mtu 64Kb
+   ```
+
+   Eg: Ingress rate limit of 4 Gbps at u25eth0_0
+   ```bash
+   tc filter add dev u25eth0_0 parent ffff: protocol all prio 90 matchall action police rate 4000mbit burst 10000 mtu 64Kb
+   ```
+#### 4.5.1.2 Delete Rate Limit Policy
+   ```bash
+   tc filter del dev <VF_rep_interface> parent ffff: protocol all prio 90 matchall action police rate <value>mbit burst 10000 mtu 64Kb
+   ```
+
+   Eg: 
+   ```bash
+   tc filter del dev u25eth0_0 parent ffff: protocol all prio 90 matchall action police rate 4000mbit burst 10000 mtu 64Kb
+   ```
+
+### 4.5.2 Egress rule:
+#### 4.5.2.1 Add Rate Limit Policy:
+   ```bash
+   tc qdisc add dev <VF_rep_interface> handle 1: root prio
+   tc filter add dev <VF_rep_interface> parent 1: protocol all prio 100 matchall action police rate <value>mbit burst 10000 mtu 64kb
+   ```
+
+   Eg: Egress rate limit of 2 Gbps at u25eth0_0
+   ```bash
+   tc qdisc add dev u25eth0_0 handle 1: root prio
+   tc filter add dev u25eth0_0 parent 1: protocol all prio 100 matchall action police rate 2000mbit burst 10000 mtu 64kb
+   ```
+
+#### 4.5.2.2 Delete Rate Limit Policy
+   ```bash
+   tc filter del dev <VF_rep_interface> parent 1: protocol all prio 100 matchall action police rate <value>mbit burst 10000 mtu 64kb
+   tc qdisc del dev <VF_rep_interface> handle 1: root prio
+   ```
+
+   Eg:
+   ```bash
+   tc qdisc del dev u25eth0_0 handle 1: root prio
+   tc filter del dev u25eth0_0 parent 1: protocol all prio 100 matchall action police rate 2000mbit burst 10000 mtu 64kb
+   ```
+
+## 4.6 Mirroring
+### 4.6.1 Sfboot Configuration
+To enable mirrored traffic to be received by the host CPU (either local or remote) through the U25N X2 Network Controller, insecure filters on PF must be enabled.
+```bash
+sfboot -i <PF_interface> insecure‐filters=enabled
+```
+
+Eg: 
+```bash
+sfboot -i u25eth0 insecure‐filters=enabled
+sfboot -i u25eth1 insecure‐filters=enabled
+```
+***Note**:* Powercycle is required to update the configuration.
+
+To revert back to default insecure filter configuration, use the below command.
+```bash
+sfboot -i <PF_interface> insecure‐filters=default 
+```
+
+Eg:
+```bash
+sfboot -i u25eth0 insecure‐filters=default
+sfboot -i u25eth1 insecure‐filters=default
+```
+***Note**:* Powercycle is required to update the configuration.
+
+### 4.6.2 Local Mirroring
+Local mirroring feature mirrors the traffic to VF interface on local server.
+
+#### 4.6.2.1 Add Local Ingress Mirroring Rule:
+   ```bash
+   tc filter add dev <VF_rep_interface_0> parent ffff: matchall skip_sw action mirred ingress mirror dev <VF_rep_interface_2>
+   ```
+   ***Note**:* Here <VF_rep_interface_0> is the interface from which traffic will be mirrored and <VF_rep_interface_2> is the interface to which mirrored traffic will be sent.
+
+   Eg:
+   ```bash
+   tc filter add dev u25eth0_0 parent ffff: matchall skip_sw action mirred ingress mirror dev u25eth0_2
+   ```
+
+#### 4.6.2.2 Delete Local Ingress Mirroring Rule:
+   ```bash
+   tc -f filter show dev <VF_rep_interface> parent ffff:
+   tc filter del dev <VF_rep_interface> parent ffff: handle 1 prio 49152 protocol all matchall
+   ```
+
+   Eg:
+   ```bash
+   tc -f filter show dev u25eth0_0 parent ffff:
+   tc filter del dev u25eth0_0 parent ffff: handle 1 prio 49152 protocol all matchall
+   ```
+
+#### 4.6.2.3 Add Local Egress Mirroring Rule:
+   ```bash
+   tc qdisc add dev <VF_rep_interface_0> handle 1: root prio
+   tc filter add dev <VF_rep_interface_0> parent 1: matchall skip_sw action mirred egress mirror dev <VF_rep_interface_2>
+   ```
+
+   Eg:
+   ```bash
+   tc qdisc add dev u25eth0_0 handle 1: root prio
+   tc filter add dev u25eth0_0 parent 1: matchall skip_sw action mirred egress mirror dev u25eth0_2
+   ```
+
+#### 4.6.2.4 Delete Local Egress Mirroring Rule:
+   ```bash
+   tc filter del dev <VF_rep_interface> parent 1:
+   tc qdisc del dev <VF_rep_interface> root
+   ```
+
+   Eg:
+   ```bash
+   tc filter del dev u25eth0_0 parent 1:
+   tc qdisc del dev u25eth0_0 root
+   ```
+
+### 4.6.3 Remote Mirroring
+
+#### 4.6.3.1 Setup VxLAN tunnel between local and remote servers
+   On local server, create VxLAn tunnel to connect to remote server
+   ```bash
+   ifconfig <VF_interface> 30.30.30.2/24 mtu 9000 up
+   ip link add vxlan0 type vxlan id 100 remote <TUNNEL_REMOTE_IP> dev <VF_interface> dstport 4789 
+   ifconfig vxlan0 mtu 8950 up
+   ```
+
+   Eg:
+   u25eth0n0 is the VF interface. It connects to remote server through the VxLAN tunnel for mirrored traffic.
+   ```bash
+   ifconfig u25eth0n0 30.30.30.2/24 mtu 9000 up
+   ip link add vxlan0 type vxlan id 100 remote 10.0.0.3 dev u25eth0n0 dstport 4789 
+   ifconfig vxlan0 mtu 8950 up
+   ```
+
+#### 4.6.3.2 Add Remote Ingress Mirroring Rule:
+   ```bash
+   tc filter add dev <VF_rep_interface> parent ffff: matchall skip_sw action tunnel_key set src_ip <TUNNEL_LOCAL_IP> dst_ip <TUNNEL_REMOTE_IP> dst_port 4789 id 100 pipe action mirred ingress mirror dev vxlan0
+   ```
+
+   Eg:
+   ```bash
+   tc filter add dev u25eth0_0 parent ffff: matchall skip_sw action tunnel_key set src_ip 10.0.0.2 dst_ip 10.0.0.3 dst_port 4789 id 100 pipe action mirred ingress mirror dev vxlan0
+   ```
+
+#### 4.6.3.3 Delete Remote Ingress Mirroring Rule:
+   ```bash
+   tc filter del dev <VF_rep_interface> parent ffff:
+   ```
+
+   Eg:
+   ```bash
+   tc filter del dev u25eth0_0 parent ffff:
+   ```
+
+#### 4.6.3.4 Add Remote Egress Mirroring Rule:
+   ```bash
+   tc qdisc add dev <VF_rep_interface> handle 1: root prio
+   tc filter add dev <VF_rep_interface> parent 1: matchall skip_sw action tunnel_key set src_ip <TUNNEL_LOCAL_IP> dst_ip <TUNNEL_REMOTE_IP> dst_port 4789 id 100 pipe action mirred egress mirror dev vxlan0
+   ```
+
+   Eg:
+   ```bash
+   tc qdisc add dev u25eth0_0 handle 1: root prio
+   tc filter add dev u25eth0_0 parent 1: matchall skip_sw action tunnel_key set src_ip 10.0.0.2 dst_ip 10.0.0.3 dst_port 4789 id 100 pipe action mirred egress mirror dev vxlan0
+   ```
+
+#### 4.6.3.5 Delete Remote Egress Mirroring Rule:
+   ```bash
+   tc filter del dev <VF_rep_interface> parent ffff: 
+   tc qdisc del dev <<VF_rep_interface>> root
+   ```
+   Eg:
+   ```bash
+   tc filter del dev u25eth0_0 parent ffff:
+   tc qdisc del dev u25eth0_0 root
+   ```
+
+## 4.7 Statistics
 
 This section outlines the commands used by different modules to check the statistics and packet counters.
 
-### OVS Commands
+### 4.7.1 OVS Commands
 
 1. To print a brief overview of the database contents:
 
@@ -2079,7 +2266,7 @@ This section outlines the commands used by different modules to check the statis
    tc filter show dev <iface_name> ingress
    ```
 
-### 4.5.2 MAE Rules
+### 4.7.2 MAE Rules
 
 1. Use the following command to display the rules present in the match-action engine (MAE):
 
@@ -2100,17 +2287,17 @@ This section outlines the commands used by different modules to check the statis
    cat /sys/kernel/debug/sfc/<iface/mae_default_rules
    ```
 
-### 4.5.3 IPsec Statistics
+### 4.7.3 IPsec Statistics
 
 1. Get IPsec stats:
 
    ```bash
-   sudo swanctl --stats
+   swanctl --stats
    ```
 
 2.  Use the `ip xfrm show` command to display IPsec offload security association.
 
-## 4.6 Debug Commands
+## 4.8 Debug Commands
 
 ***Note*:** The output of the following commands should be saved for debug purposes.
 
@@ -2226,16 +2413,16 @@ This section outlines the commands used by different modules to check the statis
    To change the offload parameters and other features of the network device
 
    ```bash
-   sudo ethtool -K <interface_name> <feature> <on/off>
+   ethtool -K <interface_name> <feature> <on/off>
    ```
 
    To get information about NIC Statistics
 
    ```bash
-   sudo ethtool -S <interface_name>
+   ethtool -S <interface_name>
    ```
 
-   Example usage: sudo ethtool -S enp59s0f1np1
+   Example usage: ethtool -S enp59s0f1np1
 
       ```bash
       Expected result:
@@ -2266,13 +2453,13 @@ This section outlines the commands used by different modules to check the statis
    ***NOTE*:** ethtool functionalities for sfc driver can also be realised using the sfctool utility also. For example:
 
    ```bash
-   sudo sfctool -S <interface_name>
+   sfctool -S <interface_name>
    ```
 
    Example Usage: 
 
    ```bash
-   sudo sfctool -S u25eth0
+   sfctool -S u25eth0
    ```
 
 - `u25n_update` Application: u25n_update utility can be used to read the U25N shell version.
@@ -2341,5 +2528,5 @@ This section outlines the commands used by different modules to check the statis
 
    Check U25N offloaded connection
    ```bash
-   watch -n 0 "cat /sys/kernel/debug/sfc/if_<PF_interface>/tracked_conns | grep 0xfff | wc -l"
+   cat /sys/kernel/debug/sfc/if_<PF_interface>/tracked_conns | grep 0xfff | wc -l
    ```

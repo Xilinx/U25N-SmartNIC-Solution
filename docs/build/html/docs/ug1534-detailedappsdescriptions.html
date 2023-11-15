@@ -232,7 +232,7 @@ function OptanonWrapper() { }
             
             
               <div class="version">
-                1.7
+                1.8.1
               </div>
             
           
@@ -271,27 +271,28 @@ function OptanonWrapper() { }
 <li class="toctree-l2"><a class="reference internal" href="#ovs">4.2 OVS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#installing-ovs">4.2.1 Installing OVS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#classification-fields-matches">4.2.2 Classification Fields (Matches)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#port-to-port">4.2.3 Port to Port</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#port-to-vm-or-vm-to-port">4.2.4 Port to VM or VM to Port</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#vm-to-vm">4.2.5 VM to VM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tunnels-encapsulation-decapsulation">4.2.6 Tunnels (Encapsulation/Decapsulation)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#l2gre">L2GRE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#vxlan">4.2.6.2 VXLAN</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#vm-to-vm-or-vm-to-port-or-port-to-vm-tunnel">4.2.6.3 VM to VM or VM to Port or Port to VM Tunnel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#number-of-flow-supported-in-datapath-tables">4.2.3 Number of Flow Supported in Datapath Tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#port-to-port">4.2.4 Port to Port</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#port-to-vm-or-vm-to-port">4.2.5 Port to VM or VM to Port</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vm-to-vm">4.2.6 VM to VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tunnels-encapsulation-decapsulation">4.2.7 Tunnels (Encapsulation/Decapsulation)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#l2gre">4.2.7.1 L2GRE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vxlan">4.2.7.2 VXLAN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vm-to-vm-or-vm-to-port-or-port-to-vm-tunnel">4.2.7.3 VM to VM or VM to Port or Port to VM Tunnel</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#lacp">4.2.7 LACP</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#lag-creation">4.2.7.1 LAG Creation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lag-deletion">4.2.7.2 LAG Deletion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lacp">4.2.8 LACP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lag-creation">4.2.8.1 LAG Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lag-deletion">4.2.8.2 LAG Deletion</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#connection-tracking">4.2.8 Connection Tracking</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ovs-configuration">4.2.9 OVS Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#functionality-check">4.2.10 Functionality Check</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#connection-tracking">4.2.9 Connection Tracking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ovs-configuration">4.2.10 OVS Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functionality-check">4.2.11 Functionality Check</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ping-test">Ping Test</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#uninstalling-ovs-setup">4.2.11 Uninstalling OVS Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uninstalling-ovs-setup">4.2.12 Uninstalling OVS Setup</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#ipsec">4.3 IPsec</a><ul>
@@ -319,13 +320,45 @@ function OptanonWrapper() { }
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#statistics">4.5 Statistics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ovs-commands">OVS Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mae-rules">4.5.2 MAE Rules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ipsec-statistics">4.5.3 IPsec Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rate-limiting">4.5 Rate Limiting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ingress-rule">4.5.1 Ingress rule:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#add-rate-limit-policy">4.5.1.1 Add Rate Limit Policy:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-rate-limit-policy">4.5.1.2 Delete Rate Limit Policy</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#debug-commands">4.6 Debug Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#egress-rule">4.5.2 Egress rule:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">4.5.2.1 Add Rate Limit Policy:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">4.5.2.2 Delete Rate Limit Policy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mirroring">4.6 Mirroring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sfboot-configuration">4.6.1 Sfboot Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-mirroring">4.6.2 Local Mirroring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#add-local-ingress-mirroring-rule">4.6.2.1 Add Local Ingress Mirroring Rule:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-local-ingress-mirroring-rule">4.6.2.2 Delete Local Ingress Mirroring Rule:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-local-egress-mirroring-rule">4.6.2.3 Add Local Egress Mirroring Rule:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-local-egress-mirroring-rule">4.6.2.4 Delete Local Egress Mirroring Rule:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#remote-mirroring">4.6.3 Remote Mirroring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setup-vxlan-tunnel-between-local-and-remote-servers">4.6.3.1 Setup VxLAN tunnel between local and remote servers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-remote-ingress-mirroring-rule">4.6.3.2 Add Remote Ingress Mirroring Rule:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-remote-ingress-mirroring-rule">4.6.3.3 Delete Remote Ingress Mirroring Rule:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-remote-egress-mirroring-rule">4.6.3.4 Add Remote Egress Mirroring Rule:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-remote-egress-mirroring-rule">4.6.3.5 Delete Remote Egress Mirroring Rule:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#statistics">4.7 Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ovs-commands">4.7.1 OVS Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mae-rules">4.7.2 MAE Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipsec-statistics">4.7.3 IPsec Statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#debug-commands">4.8 Debug Commands</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ug1534-dpdk.html">DPDK compilation steps</a></li>
@@ -458,7 +491,7 @@ make install
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ovs-vswitchd --version
 </pre></div>
 </div>
-<p><strong><em>Note</em>:</strong> Version 2.12 and 2.14 have been tested.</p>
+<p><strong><em>Note</em>:</strong> Version 2.17.1 has been tested.</p>
 </li>
 </ol>
 <p>Maximum flows supported and tested: 8k</p>
@@ -466,58 +499,57 @@ make install
 <section id="classification-fields-matches">
 <h3>4.2.2 Classification Fields (Matches)<a class="headerlink" href="#classification-fields-matches" title="Permalink to this heading">¶</a></h3>
 <p>Supported Keys and Actions</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Keys
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Keys:
 
 1. ipv4/ipv6 src_ip
-
 2. ipv4/ipv6 dst_ip
-
 3. ip_tos
-
 4. ip_proto
-
 5. ovlan Outer
-
 6. ivlan Inner
-
 7. ether_type
-
 8. tcp/udp src_port
-
 9. tcp/udp dst_port
-
 10. src_mac
-
 11. dst_mac
-
 12. vni
-
 13. Ingress port
 
-Actions
+Actions:
 
 1. do_decap
-
 2. do_decr_ip_ttl
-
 3. do_src_mac
-
 4. do_dst_mac
-
 5. do_vlan_pop
-
 6. do_vlan_push
-
 7. do_encap
-
 8. do_deliver
-
 9. mod_vlan_vid
 </pre></div>
 </div>
 </section>
+<section id="number-of-flow-supported-in-datapath-tables">
+<h3>4.2.3 Number of Flow Supported in Datapath Tables<a class="headerlink" href="#number-of-flow-supported-in-datapath-tables" title="Permalink to this heading">¶</a></h3>
+<ol class="simple">
+<li><p>AR table - 7680</p></li>
+<li><p>CT table - 1 Million</p></li>
+<li><p>MAEO - 1K</p></li>
+<li><p>MAEX</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>LACP_LAG_Config_Table - 8</p></li>
+<li><p>LACP_Balance_Table - 512</p></li>
+</ul>
+</div></blockquote>
+<ol class="simple">
+<li><p>Ingress_Mirror_Table - 64</p></li>
+<li><p>Egress_Mirror_Table - 64</p></li>
+</ol>
+</section>
 <section id="port-to-port">
-<h3>4.2.3 Port to Port<a class="headerlink" href="#port-to-port" title="Permalink to this heading">¶</a></h3>
+<h3>4.2.4 Port to Port<a class="headerlink" href="#port-to-port" title="Permalink to this heading">¶</a></h3>
 <p>In this configuration the U25N PF is added to the OVS bridge as an interface. Packets are sent to an external MAC, and OVS performs the switching based on the packets received.</p>
 <p><em>Figure 7:</em> <strong>Port to Port setup</strong></p>
 <p><img alt="X25550-090721 this seems messed up and missing a portion" src="../_images/cfd1631064119641_LowRes.png" /></p>
@@ -572,8 +604,13 @@ devlink dev eswitch <span class="nb">set</span> pci/0000:af:00.1 mode switchdev
 </pre></div>
 </div>
 </li>
-<li><p>Step 5. Follow the steps mentioned in <a class="reference external" href="./ug1534-detailedappsdescriptions.html#ovs-configuration">OVS Configuration</a> to create an OVS bridge. After creating the OVS bridge, continue with the next step.</p></li>
-<li><p>Step 6. Add external ports to the OVS bridge:</p>
+<li><p>Setp 5. Stop network manager</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl stop NetworkManager
+</pre></div>
+</div>
+</li>
+<li><p>Step 6. Follow the steps mentioned in <a class="reference external" href="./ug1534-detailedappsdescriptions.html#ovs-configuration">OVS Configuration</a> to create an OVS bridge. After creating the OVS bridge, continue with the next step.</p></li>
+<li><p>Step 7. Add external ports to the OVS bridge:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ovs-vsctl add-port &lt;bridge_name&gt; &lt;PF_interface&gt;
 </pre></div>
 </div>
@@ -583,7 +620,7 @@ ovs-vsctl add-port br0 u25eth1
 </pre></div>
 </div>
 </li>
-<li><p>Step 7.  a brief overview of the OVS database contents using the following command:</p>
+<li><p>Step 8.  a brief overview of the OVS database contents using the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ovs-vsctl show
 </pre></div>
 </div>
@@ -592,7 +629,7 @@ ovs-vsctl add-port br0 u25eth1
 <p>Refer to <a class="reference external" href="./ug1534-detailedappsdescriptions.html#functionality-check">Functionality Check</a> to check the OVS functionality.</p>
 </section>
 <section id="port-to-vm-or-vm-to-port">
-<h3>4.2.4 Port to VM or VM to Port<a class="headerlink" href="#port-to-vm-or-vm-to-port" title="Permalink to this heading">¶</a></h3>
+<h3>4.2.5 Port to VM or VM to Port<a class="headerlink" href="#port-to-vm-or-vm-to-port" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> To have this configuration SR-IOV must be enabled in BIOS. For the Port to VM or VM to Port configuration, a tunnel L2GRE or VXLAN could be created with two server setups.</p>
 <p><em>Figure 8:</em> <strong>Port to VM or VM to Port setup</strong></p>
 <p><img alt="seems messed up a little bit X25551-090721" src="../_images/cgm1631064433686_LowRes.png" /></p>
@@ -732,7 +769,7 @@ This VF PCIe ID is used <span class="k">for</span> binding the VF to a VM.
 </ul>
 </section>
 <section id="vm-to-vm">
-<h3>4.2.5 VM to VM<a class="headerlink" href="#vm-to-vm" title="Permalink to this heading">¶</a></h3>
+<h3>4.2.6 VM to VM<a class="headerlink" href="#vm-to-vm" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> To have this configuration SR-IOV must be enabled in BIOS.</p>
 <p><em>Figure 9:</em> <strong>VM to VM setup</strong></p>
 <p><img alt="seems messed up a little bit X25551-090721" src="../_images/cxa1631064658045_LowRes.png" /></p>
@@ -873,7 +910,7 @@ ovs-vsctl add-port &lt;bridge_name&gt; &lt;VF_rep_interface <span class="m">2</s
 </ul>
 </section>
 <section id="tunnels-encapsulation-decapsulation">
-<h3>4.2.6 Tunnels (Encapsulation/Decapsulation)<a class="headerlink" href="#tunnels-encapsulation-decapsulation" title="Permalink to this heading">¶</a></h3>
+<h3>4.2.7 Tunnels (Encapsulation/Decapsulation)<a class="headerlink" href="#tunnels-encapsulation-decapsulation" title="Permalink to this heading">¶</a></h3>
 <p>U25N Smart NIC supports offloading of tunnels using encapsulation and decapsulation actions.</p>
 <ul class="simple">
 <li><p><strong>Encapsulation:</strong> Pushing tunnel header is supported on TX</p></li>
@@ -885,7 +922,7 @@ ovs-vsctl add-port &lt;bridge_name&gt; &lt;VF_rep_interface <span class="m">2</s
 <li><p>L2GRE</p></li>
 </ul>
 <section id="l2gre">
-<h4>L2GRE<a class="headerlink" href="#l2gre" title="Permalink to this heading">¶</a></h4>
+<h4>4.2.7.1 L2GRE<a class="headerlink" href="#l2gre" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>Maximum tunnel support = 1K</p></li>
 <li><p>Maximum supported flows = 8K</p></li>
@@ -1008,7 +1045,7 @@ options:local_ip<span class="o">=</span><span class="m">10</span>.16.0.1 options
 </section>
 </section>
 <section id="vxlan">
-<h4>4.2.6.2 VXLAN<a class="headerlink" href="#vxlan" title="Permalink to this heading">¶</a></h4>
+<h4>4.2.7.2 VXLAN<a class="headerlink" href="#vxlan" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>Maximum tunnel support = 1K</p></li>
 <li><p>Maximum supported flows = 8K</p></li>
@@ -1131,7 +1168,7 @@ options:local_ip<span class="o">=</span><span class="m">10</span>.16.0.1 options
 </section>
 </section>
 <section id="vm-to-vm-or-vm-to-port-or-port-to-vm-tunnel">
-<h4>4.2.6.3 VM to VM or VM to Port or Port to VM Tunnel<a class="headerlink" href="#vm-to-vm-or-vm-to-port-or-port-to-vm-tunnel" title="Permalink to this heading">¶</a></h4>
+<h4>4.2.7.3 VM to VM or VM to Port or Port to VM Tunnel<a class="headerlink" href="#vm-to-vm-or-vm-to-port-or-port-to-vm-tunnel" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>Maximum tunnel support = 1K</p></li>
 <li><p>Maximum supported flows = 8K</p></li>
@@ -1311,9 +1348,9 @@ ifconfig br1 up
 </section>
 </section>
 <section id="lacp">
-<h3>4.2.7 LACP<a class="headerlink" href="#lacp" title="Permalink to this heading">¶</a></h3>
+<h3>4.2.8 LACP<a class="headerlink" href="#lacp" title="Permalink to this heading">¶</a></h3>
 <section id="lag-creation">
-<h4>4.2.7.1 LAG Creation<a class="headerlink" href="#lag-creation" title="Permalink to this heading">¶</a></h4>
+<h4>4.2.8.1 LAG Creation<a class="headerlink" href="#lag-creation" title="Permalink to this heading">¶</a></h4>
 <ul>
 <li><p>Step 1. Refer to <a class="reference external" href="./ug1534-installation.html#basic-requirements-and-component-versions-supported">Basic Requirements and Component Versions Supported</a> for the required OS/software version.</p></li>
 <li><p>Step 2. Check the driver version of U25N interface using the following command:</p>
@@ -1567,7 +1604,7 @@ ovs-vsctl add-port br0 repbond0
 </ul>
 </section>
 <section id="lag-deletion">
-<h4>4.2.7.2 LAG Deletion<a class="headerlink" href="#lag-deletion" title="Permalink to this heading">¶</a></h4>
+<h4>4.2.8.2 LAG Deletion<a class="headerlink" href="#lag-deletion" title="Permalink to this heading">¶</a></h4>
 <ul>
 <li><p>Step 1: Delete ovs-bridge</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ovs-vsctl del-br &lt;bridge_name&gt;
@@ -1602,7 +1639,7 @@ ovs-vsctl add-port br0 repbond0
 </section>
 </section>
 <section id="connection-tracking">
-<h3>4.2.8 Connection Tracking<a class="headerlink" href="#connection-tracking" title="Permalink to this heading">¶</a></h3>
+<h3>4.2.9 Connection Tracking<a class="headerlink" href="#connection-tracking" title="Permalink to this heading">¶</a></h3>
 <p><strong><em>Note</em>:</strong> Refer to <a class="reference external" href="https://docs.openvswitch.org/en/latest/tutorials/ovs-conntrack/">OVS Conntrack Tutorial</a> for detail of OVS connection tracking feature.</p>
 <p>Before using connection tracking feature, please install below kernel modules.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modprobe sch_netem
@@ -1613,6 +1650,14 @@ modprobe nft_flow_offload
 </div>
 <p>Below scenario uses <a class="reference external" href="./ug1534-detailedappsdescriptions.html#port-to-vm-or-vm-to-port">Port to VM or VM to Port</a> data path as an example. Conntrack feature works in <a class="reference external" href="./ug1534-detailedappsdescriptions.html#port-to-port">Port to Port</a> and <a class="reference external" href="./ug1534-detailedappsdescriptions.html#vm-to-vm">VM to VM</a> scenarios too.</p>
 <p>Before below steps, please follow the step 1 to 14 in <a class="reference external" href="./ug1534-detailedappsdescriptions.html#port-to-vm-or-vm-to-port">Port to VM or VM to Port</a> to setup OVS and create PF and VF for the bridge.</p>
+<p>Configuring TCP flow table timeout</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="m">3600</span> &gt; /proc/sys/net/netfilter/nf_flowtable_tcp_timeout
+</pre></div>
+</div>
+<p>Maximum number of conntrack connections</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="m">524288</span> &gt; /proc/sys/net/netfilter/nf_conntrack_max
+</pre></div>
+</div>
 <p>Then following below steps to configure connection tracking rules to the OVS bridges.</p>
 <ul>
 <li><p>Step 1. Clean all existing Openflow rules of the bridges if they have.</p>
@@ -1646,7 +1691,7 @@ ovs-ofctl add-flow br0 <span class="s2">&quot;table=1, priority=0, actions=drop&
 </ul>
 </section>
 <section id="ovs-configuration">
-<h3>4.2.9 OVS Configuration<a class="headerlink" href="#ovs-configuration" title="Permalink to this heading">¶</a></h3>
+<h3>4.2.10 OVS Configuration<a class="headerlink" href="#ovs-configuration" title="Permalink to this heading">¶</a></h3>
 <ul>
 <li><p>Step 1. Export the OVS path:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/local/share/openvswitch/scripts
@@ -1679,8 +1724,8 @@ ovs-appctl vlog/set netlink_socket:ANY:OFF
 </div>
 </li>
 <li><p>Step 6. Set the maximum time (in ms) that idle flows remain cached in the datapath:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># max-idle in ms. 30000000ms = 500min</span>
-ovs-vsctl <span class="nb">set</span> open_vswitch <span class="k">$(</span>ovs-vsctl list open_vswitch <span class="p">|</span> grep _uuid <span class="p">|</span> cut -f2 -d <span class="s2">&quot;:&quot;</span> <span class="p">|</span> tr -d <span class="s1">&#39; &#39;</span><span class="k">)</span> other_config:max-idle<span class="o">=</span><span class="m">30000000</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Maximum time (in ms) that idle flows will remain cached in the datapath</span>
+ovs-vsctl <span class="nb">set</span> open_vswitch <span class="k">$(</span>ovs-vsctl list open_vswitch <span class="p">|</span> grep _uuid <span class="p">|</span> cut -f2 -d <span class="s2">&quot;:&quot;</span> <span class="p">|</span> tr -d <span class="s1">&#39; &#39;</span><span class="k">)</span> other_config:max-idle<span class="o">=</span><span class="m">6000000</span>
 <span class="c1"># Maximum time (in ms) that revalidator threads will wait for kernel statistics before executing flow revalidation</span>
 ovs-vsctl <span class="nb">set</span> open_vswitch . other_config:max-revalidator<span class="o">=</span><span class="m">10000</span>
 <span class="c1"># Number of threads for software datapaths to use for handling new flows. The default value is the number of online CPU cores minus the number of revalidators.</span>
@@ -1713,7 +1758,7 @@ ovs-vsctl <span class="nb">set</span> Open_vSwitch . other_config:n-revalidator-
 </ul>
 </section>
 <section id="functionality-check">
-<h3>4.2.10 Functionality Check<a class="headerlink" href="#functionality-check" title="Permalink to this heading">¶</a></h3>
+<h3>4.2.11 Functionality Check<a class="headerlink" href="#functionality-check" title="Permalink to this heading">¶</a></h3>
 <p>After adding the U25N network interfaces to the OVS bridge, the functionality can be verified using ping, iperf, and dpdk network performance tools.</p>
 <section id="ping-test">
 <h4>Ping Test<a class="headerlink" href="#ping-test" title="Permalink to this heading">¶</a></h4>
@@ -1736,7 +1781,7 @@ running iperf3 or pktgen on a particular interface.</p>
 </section>
 </section>
 <section id="uninstalling-ovs-setup">
-<h3>4.2.11 Uninstalling OVS Setup<a class="headerlink" href="#uninstalling-ovs-setup" title="Permalink to this heading">¶</a></h3>
+<h3>4.2.12 Uninstalling OVS Setup<a class="headerlink" href="#uninstalling-ovs-setup" title="Permalink to this heading">¶</a></h3>
 <p>To uninstall the setup, please follow the instructions below.</p>
 <ul>
 <li><p>Step 1. power off all running VMs.</p>
@@ -1796,19 +1841,14 @@ running iperf3 or pktgen on a particular interface.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Key
 
 <span class="m">1</span>. IPv4 <span class="nb">source</span> address
-
 <span class="m">2</span>. IPv4 destination address
-
 <span class="m">3</span>. IP4 protocol Action
 
 Actions
 
 <span class="m">1</span>. Action flag
-
 <span class="m">2</span>. SPI
-
 <span class="m">3</span>. Key
-
 <span class="m">4</span>. IV
 </pre></div>
 </div>
@@ -1841,7 +1881,7 @@ Actions
 <ul>
 <li><p>Step 1. Refer to <a class="reference external" href="./ug1534-installation.html#basic-requirements-and-component-versions-supported">Basic Requirements and Component Versions Supported</a> for the required OS/software version.</p></li>
 <li><p>Step 2. Use the following commands to validate the version of the strongSwan Debian package.</p>
-<p>The version can be found using the command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">swanctl</span> <span class="pre">--version</span></code>.
+<p>The version can be found using the command <code class="docutils literal notranslate"><span class="pre">swanctl</span> <span class="pre">--version</span></code>.
 Remove the already installed package before installing the latest one:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dpkg -r strongswan_5.8.4-1_amd64
 dpkg -i strongswan_5.8.4-1_amd64.deb
@@ -1967,7 +2007,7 @@ ipsec pki --pub --in private/client1Key.pem --type rsa <span class="p">|</span> 
 </div>
 </li>
 <li><p>Step 2. Start IPsec:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ipsec</span> <span class="n">restart</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipsec</span> <span class="n">restart</span>
 </pre></div>
 </div>
 </li>
@@ -1988,7 +2028,7 @@ ipsec pki --pub --in private/client1Key.pem --type rsa <span class="p">|</span> 
 </div>
 </li>
 <li><p>Step 2. Start IPsec:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ipsec</span> <span class="n">restart</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipsec</span> <span class="n">restart</span>
 </pre></div>
 </div>
 </li>
@@ -2006,12 +2046,12 @@ ipsec pki --pub --in private/client1Key.pem --type rsa <span class="p">|</span> 
 <p>Run the command <code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-r</span></code> to get the kernel version. If the kernel version is v5.5 or higher, skip the following steps:</p>
 <ul>
 <li><p>Step 1. Install kernel &gt; 5.5 for nftables offload support</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">linux</span><span class="o">-</span><span class="n">image</span><span class="o">-&lt;</span><span class="n">version</span><span class="o">&gt;-</span><span class="n">generic</span> <span class="n">linux</span><span class="o">-</span><span class="n">headers</span><span class="o">-&lt;</span><span class="n">version</span><span class="o">&gt;-</span><span class="n">generic</span>  <span class="n">linux</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">extra</span><span class="o">-&lt;</span><span class="n">version</span><span class="o">&gt;-</span><span class="n">generic</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span> <span class="n">install</span> <span class="n">linux</span><span class="o">-</span><span class="n">image</span><span class="o">-&lt;</span><span class="n">version</span><span class="o">&gt;-</span><span class="n">generic</span> <span class="n">linux</span><span class="o">-</span><span class="n">headers</span><span class="o">-&lt;</span><span class="n">version</span><span class="o">&gt;-</span><span class="n">generic</span>  <span class="n">linux</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">extra</span><span class="o">-&lt;</span><span class="n">version</span><span class="o">&gt;-</span><span class="n">generic</span>
 </pre></div>
 </div>
 </li>
 <li><p>Step 2. After the command is executed with no error, do a reboot:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">reboot</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reboot</span>
 </pre></div>
 </div>
 </li>
@@ -2176,11 +2216,205 @@ Actions
 </section>
 </section>
 </section>
+<section id="rate-limiting">
+<h2>4.5 Rate Limiting<a class="headerlink" href="#rate-limiting" title="Permalink to this heading">¶</a></h2>
+<p>Rate limiting can be applied on U25N’s virtual function in ingress and egress directions.</p>
+<section id="ingress-rule">
+<h3>4.5.1 Ingress rule:<a class="headerlink" href="#ingress-rule" title="Permalink to this heading">¶</a></h3>
+<section id="add-rate-limit-policy">
+<h4>4.5.1.1 Add Rate Limit Policy:<a class="headerlink" href="#add-rate-limit-policy" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter add dev &lt;VF_rep_interface&gt; parent ffff: protocol all prio <span class="m">90</span> matchall action police rate &lt;value&gt;mbit burst <span class="m">10000</span> mtu 64Kb
+</pre></div>
+</div>
+<p>Eg: Ingress rate limit of 4 Gbps at u25eth0_0</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter add dev u25eth0_0 parent ffff: protocol all prio <span class="m">90</span> matchall action police rate 4000mbit burst <span class="m">10000</span> mtu 64Kb
+</pre></div>
+</div>
+</section>
+<section id="delete-rate-limit-policy">
+<h4>4.5.1.2 Delete Rate Limit Policy<a class="headerlink" href="#delete-rate-limit-policy" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev &lt;VF_rep_interface&gt; parent ffff: protocol all prio <span class="m">90</span> matchall action police rate &lt;value&gt;mbit burst <span class="m">10000</span> mtu 64Kb
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev u25eth0_0 parent ffff: protocol all prio <span class="m">90</span> matchall action police rate 4000mbit burst <span class="m">10000</span> mtu 64Kb
+</pre></div>
+</div>
+</section>
+</section>
+<section id="egress-rule">
+<h3>4.5.2 Egress rule:<a class="headerlink" href="#egress-rule" title="Permalink to this heading">¶</a></h3>
+<section id="id3">
+<h4>4.5.2.1 Add Rate Limit Policy:<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc qdisc add dev &lt;VF_rep_interface&gt; handle <span class="m">1</span>: root prio
+tc filter add dev &lt;VF_rep_interface&gt; parent <span class="m">1</span>: protocol all prio <span class="m">100</span> matchall action police rate &lt;value&gt;mbit burst <span class="m">10000</span> mtu 64kb
+</pre></div>
+</div>
+<p>Eg: Egress rate limit of 2 Gbps at u25eth0_0</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc qdisc add dev u25eth0_0 handle <span class="m">1</span>: root prio
+tc filter add dev u25eth0_0 parent <span class="m">1</span>: protocol all prio <span class="m">100</span> matchall action police rate 2000mbit burst <span class="m">10000</span> mtu 64kb
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h4>4.5.2.2 Delete Rate Limit Policy<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev &lt;VF_rep_interface&gt; parent <span class="m">1</span>: protocol all prio <span class="m">100</span> matchall action police rate &lt;value&gt;mbit burst <span class="m">10000</span> mtu 64kb
+tc qdisc del dev &lt;VF_rep_interface&gt; handle <span class="m">1</span>: root prio
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc qdisc del dev u25eth0_0 handle <span class="m">1</span>: root prio
+tc filter del dev u25eth0_0 parent <span class="m">1</span>: protocol all prio <span class="m">100</span> matchall action police rate 2000mbit burst <span class="m">10000</span> mtu 64kb
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="mirroring">
+<h2>4.6 Mirroring<a class="headerlink" href="#mirroring" title="Permalink to this heading">¶</a></h2>
+<section id="sfboot-configuration">
+<h3>4.6.1 Sfboot Configuration<a class="headerlink" href="#sfboot-configuration" title="Permalink to this heading">¶</a></h3>
+<p>To enable mirrored traffic to be received by the host CPU (either local or remote) through the U25N X2 Network Controller, insecure filters on PF must be enabled.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot -i &lt;PF_interface&gt; insecure‐filters<span class="o">=</span>enabled
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot -i u25eth0 insecure‐filters<span class="o">=</span>enabled
+sfboot -i u25eth1 insecure‐filters<span class="o">=</span>enabled
+</pre></div>
+</div>
+<p><em><strong>Note</strong>:</em> Powercycle is required to update the configuration.</p>
+<p>To revert back to default insecure filter configuration, use the below command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot -i &lt;PF_interface&gt; insecure‐filters<span class="o">=</span>default 
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfboot -i u25eth0 insecure‐filters<span class="o">=</span>default
+sfboot -i u25eth1 insecure‐filters<span class="o">=</span>default
+</pre></div>
+</div>
+<p><em><strong>Note</strong>:</em> Powercycle is required to update the configuration.</p>
+</section>
+<section id="local-mirroring">
+<h3>4.6.2 Local Mirroring<a class="headerlink" href="#local-mirroring" title="Permalink to this heading">¶</a></h3>
+<p>Local mirroring feature mirrors the traffic to VF interface on local server.</p>
+<section id="add-local-ingress-mirroring-rule">
+<h4>4.6.2.1 Add Local Ingress Mirroring Rule:<a class="headerlink" href="#add-local-ingress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter add dev &lt;VF_rep_interface_0&gt; parent ffff: matchall skip_sw action mirred ingress mirror dev &lt;VF_rep_interface_2&gt;
+</pre></div>
+</div>
+<p><em><strong>Note</strong>:</em> Here &lt;VF_rep_interface_0&gt; is the interface from which traffic will be mirrored and &lt;VF_rep_interface_2&gt; is the interface to which mirrored traffic will be sent.</p>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter add dev u25eth0_0 parent ffff: matchall skip_sw action mirred ingress mirror dev u25eth0_2
+</pre></div>
+</div>
+</section>
+<section id="delete-local-ingress-mirroring-rule">
+<h4>4.6.2.2 Delete Local Ingress Mirroring Rule:<a class="headerlink" href="#delete-local-ingress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc -f filter show dev &lt;VF_rep_interface&gt; parent ffff:
+tc filter del dev &lt;VF_rep_interface&gt; parent ffff: handle <span class="m">1</span> prio <span class="m">49152</span> protocol all matchall
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc -f filter show dev u25eth0_0 parent ffff:
+tc filter del dev u25eth0_0 parent ffff: handle <span class="m">1</span> prio <span class="m">49152</span> protocol all matchall
+</pre></div>
+</div>
+</section>
+<section id="add-local-egress-mirroring-rule">
+<h4>4.6.2.3 Add Local Egress Mirroring Rule:<a class="headerlink" href="#add-local-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc qdisc add dev &lt;VF_rep_interface_0&gt; handle <span class="m">1</span>: root prio
+tc filter add dev &lt;VF_rep_interface_0&gt; parent <span class="m">1</span>: matchall skip_sw action mirred egress mirror dev &lt;VF_rep_interface_2&gt;
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc qdisc add dev u25eth0_0 handle <span class="m">1</span>: root prio
+tc filter add dev u25eth0_0 parent <span class="m">1</span>: matchall skip_sw action mirred egress mirror dev u25eth0_2
+</pre></div>
+</div>
+</section>
+<section id="delete-local-egress-mirroring-rule">
+<h4>4.6.2.4 Delete Local Egress Mirroring Rule:<a class="headerlink" href="#delete-local-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev &lt;VF_rep_interface&gt; parent <span class="m">1</span>:
+tc qdisc del dev &lt;VF_rep_interface&gt; root
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev u25eth0_0 parent <span class="m">1</span>:
+tc qdisc del dev u25eth0_0 root
+</pre></div>
+</div>
+</section>
+</section>
+<section id="remote-mirroring">
+<h3>4.6.3 Remote Mirroring<a class="headerlink" href="#remote-mirroring" title="Permalink to this heading">¶</a></h3>
+<section id="setup-vxlan-tunnel-between-local-and-remote-servers">
+<h4>4.6.3.1 Setup VxLAN tunnel between local and remote servers<a class="headerlink" href="#setup-vxlan-tunnel-between-local-and-remote-servers" title="Permalink to this heading">¶</a></h4>
+<p>On local server, create VxLAn tunnel to connect to remote server</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig &lt;VF_interface&gt; <span class="m">30</span>.30.30.2/24 mtu <span class="m">9000</span> up
+ip link add vxlan0 <span class="nb">type</span> vxlan id <span class="m">100</span> remote &lt;TUNNEL_REMOTE_IP&gt; dev &lt;VF_interface&gt; dstport <span class="m">4789</span> 
+ifconfig vxlan0 mtu <span class="m">8950</span> up
+</pre></div>
+</div>
+<p>Eg:
+u25eth0n0 is the VF interface. It connects to remote server through the VxLAN tunnel for mirrored traffic.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ifconfig u25eth0n0 <span class="m">30</span>.30.30.2/24 mtu <span class="m">9000</span> up
+ip link add vxlan0 <span class="nb">type</span> vxlan id <span class="m">100</span> remote <span class="m">10</span>.0.0.3 dev u25eth0n0 dstport <span class="m">4789</span> 
+ifconfig vxlan0 mtu <span class="m">8950</span> up
+</pre></div>
+</div>
+</section>
+<section id="add-remote-ingress-mirroring-rule">
+<h4>4.6.3.2 Add Remote Ingress Mirroring Rule:<a class="headerlink" href="#add-remote-ingress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter add dev &lt;VF_rep_interface&gt; parent ffff: matchall skip_sw action tunnel_key <span class="nb">set</span> src_ip &lt;TUNNEL_LOCAL_IP&gt; dst_ip &lt;TUNNEL_REMOTE_IP&gt; dst_port <span class="m">4789</span> id <span class="m">100</span> pipe action mirred ingress mirror dev vxlan0
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter add dev u25eth0_0 parent ffff: matchall skip_sw action tunnel_key <span class="nb">set</span> src_ip <span class="m">10</span>.0.0.2 dst_ip <span class="m">10</span>.0.0.3 dst_port <span class="m">4789</span> id <span class="m">100</span> pipe action mirred ingress mirror dev vxlan0
+</pre></div>
+</div>
+</section>
+<section id="delete-remote-ingress-mirroring-rule">
+<h4>4.6.3.3 Delete Remote Ingress Mirroring Rule:<a class="headerlink" href="#delete-remote-ingress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev &lt;VF_rep_interface&gt; parent ffff:
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev u25eth0_0 parent ffff:
+</pre></div>
+</div>
+</section>
+<section id="add-remote-egress-mirroring-rule">
+<h4>4.6.3.4 Add Remote Egress Mirroring Rule:<a class="headerlink" href="#add-remote-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc qdisc add dev &lt;VF_rep_interface&gt; handle <span class="m">1</span>: root prio
+tc filter add dev &lt;VF_rep_interface&gt; parent <span class="m">1</span>: matchall skip_sw action tunnel_key <span class="nb">set</span> src_ip &lt;TUNNEL_LOCAL_IP&gt; dst_ip &lt;TUNNEL_REMOTE_IP&gt; dst_port <span class="m">4789</span> id <span class="m">100</span> pipe action mirred egress mirror dev vxlan0
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc qdisc add dev u25eth0_0 handle <span class="m">1</span>: root prio
+tc filter add dev u25eth0_0 parent <span class="m">1</span>: matchall skip_sw action tunnel_key <span class="nb">set</span> src_ip <span class="m">10</span>.0.0.2 dst_ip <span class="m">10</span>.0.0.3 dst_port <span class="m">4789</span> id <span class="m">100</span> pipe action mirred egress mirror dev vxlan0
+</pre></div>
+</div>
+</section>
+<section id="delete-remote-egress-mirroring-rule">
+<h4>4.6.3.5 Delete Remote Egress Mirroring Rule:<a class="headerlink" href="#delete-remote-egress-mirroring-rule" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev &lt;VF_rep_interface&gt; parent ffff: 
+tc qdisc del dev &lt;&lt;VF_rep_interface&gt;&gt; root
+</pre></div>
+</div>
+<p>Eg:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tc filter del dev u25eth0_0 parent ffff:
+tc qdisc del dev u25eth0_0 root
+</pre></div>
+</div>
+</section>
+</section>
+</section>
 <section id="statistics">
-<h2>4.5 Statistics<a class="headerlink" href="#statistics" title="Permalink to this heading">¶</a></h2>
+<h2>4.7 Statistics<a class="headerlink" href="#statistics" title="Permalink to this heading">¶</a></h2>
 <p>This section outlines the commands used by different modules to check the statistics and packet counters.</p>
 <section id="ovs-commands">
-<h3>OVS Commands<a class="headerlink" href="#ovs-commands" title="Permalink to this heading">¶</a></h3>
+<h3>4.7.1 OVS Commands<a class="headerlink" href="#ovs-commands" title="Permalink to this heading">¶</a></h3>
 <ol>
 <li><p>To print a brief overview of the database contents:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ovs-vsctl show
@@ -2211,7 +2445,7 @@ ovs-appctl dpctl/dump-flows
 </ol>
 </section>
 <section id="mae-rules">
-<h3>4.5.2 MAE Rules<a class="headerlink" href="#mae-rules" title="Permalink to this heading">¶</a></h3>
+<h3>4.7.2 MAE Rules<a class="headerlink" href="#mae-rules" title="Permalink to this heading">¶</a></h3>
 <ol>
 <li><p>Use the following command to display the rules present in the match-action engine (MAE):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat /sys/kernel/debug/sfc/&lt;if_iface&gt;/mae_rules
@@ -2231,10 +2465,10 @@ ovs-appctl dpctl/dump-flows
 </ol>
 </section>
 <section id="ipsec-statistics">
-<h3>4.5.3 IPsec Statistics<a class="headerlink" href="#ipsec-statistics" title="Permalink to this heading">¶</a></h3>
+<h3>4.7.3 IPsec Statistics<a class="headerlink" href="#ipsec-statistics" title="Permalink to this heading">¶</a></h3>
 <ol>
 <li><p>Get IPsec stats:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo swanctl --stats
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>swanctl --stats
 </pre></div>
 </div>
 </li>
@@ -2243,7 +2477,7 @@ ovs-appctl dpctl/dump-flows
 </section>
 </section>
 <section id="debug-commands">
-<h2>4.6 Debug Commands<a class="headerlink" href="#debug-commands" title="Permalink to this heading">¶</a></h2>
+<h2>4.8 Debug Commands<a class="headerlink" href="#debug-commands" title="Permalink to this heading">¶</a></h2>
 <p><strong><em>Note</em>:</strong> The output of the following commands should be saved for debug purposes.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">lsmod</span></code> - It displays which kernel modules are currently loaded. Whether the sfc driver is inserted or not can be verified by the below command.</p>
@@ -2341,14 +2575,14 @@ large-receive-offload: off
 </pre></div>
 </div>
 <p>To change the offload parameters and other features of the network device</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo ethtool -K &lt;interface_name&gt; &lt;feature&gt; &lt;on/off&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -K &lt;interface_name&gt; &lt;feature&gt; &lt;on/off&gt;
 </pre></div>
 </div>
 <p>To get information about NIC Statistics</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo ethtool -S &lt;interface_name&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool -S &lt;interface_name&gt;
 </pre></div>
 </div>
-<p>Example usage: sudo ethtool -S enp59s0f1np1</p>
+<p>Example usage: ethtool -S enp59s0f1np1</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```bash
 Expected result:
 NIC statistics:
@@ -2377,11 +2611,11 @@ NIC statistics:
 </pre></div>
 </div>
 <p><strong><em>NOTE</em>:</strong> ethtool functionalities for sfc driver can also be realised using the sfctool utility also. For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo sfctool -S &lt;interface_name&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfctool -S &lt;interface_name&gt;
 </pre></div>
 </div>
 <p>Example Usage:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo sfctool -S u25eth0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfctool -S u25eth0
 </pre></div>
 </div>
 </li>
@@ -2439,7 +2673,7 @@ ovs-appctl vlog/set netlink_socket:ANY:OFF
 </pre></div>
 </div>
 <p>Check U25N offloaded connection</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>watch -n <span class="m">0</span> <span class="s2">&quot;cat /sys/kernel/debug/sfc/if_&lt;PF_interface&gt;/tracked_conns | grep 0xfff | wc -l&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat /sys/kernel/debug/sfc/if_&lt;PF_interface&gt;/tracked_conns <span class="p">|</span> grep 0xfff <span class="p">|</span> wc -l
 </pre></div>
 </div>
 </li>
@@ -2476,7 +2710,7 @@ ovs-appctl vlog/set netlink_socket:ANY:OFF
   <div role="contentinfo" class="copyright">
     <p class="footerinfo">
       <span class="lastupdated">
-        Last updated on June 21, 2023.
+        Last updated on Nov 6, 2023.
       </span>
 
     </p>
